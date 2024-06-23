@@ -82,6 +82,8 @@ export function login(email, password, navigate) {
 				throw new Error(response.data.message);
 			}
 
+			console.log("COOKIES............ ", )
+
 			toast.success("Login Successfull");
 			dispatch(setToken(response.data.data.accessToken));
             const avatar = response.data?.data?.user?.avatar

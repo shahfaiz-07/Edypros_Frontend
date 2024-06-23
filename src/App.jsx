@@ -10,6 +10,7 @@ import Login from "./pages/Login";
 import UpdatePassword from "./components/common/UpdatePassword";
 import { Toaster } from "react-hot-toast";
 import VerifyEmail from "./pages/VerifyEmail";
+import AboutUs from "./pages/AboutUs";
 function App() {
 	return (
 		<>
@@ -54,6 +55,14 @@ function App() {
 						element={
 							<PublicRoute>
 								<VerifyEmail />
+							</PublicRoute>
+						}
+					/>
+					<Route
+						path="/about"
+						element={
+							<PublicRoute>
+								<AboutUs/>
 							</PublicRoute>
 						}
 					/>

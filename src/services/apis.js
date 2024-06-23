@@ -7,6 +7,11 @@ export const endpoints = {
     RESETPASSWORD_API: "/api/v1/users/reset-password",
 };
 
+// CONTACT-US API
+export const contactusEndpoint = {
+    CONTACT_US_API: "/api/v1/users/contact-us",
+};
+
 export const categories = {
     CATEGORIES_API: "/api/v1/category"
 }
