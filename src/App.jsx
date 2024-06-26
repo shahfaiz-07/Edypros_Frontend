@@ -11,6 +11,16 @@ import UpdatePassword from "./components/common/UpdatePassword";
 import { Toaster } from "react-hot-toast";
 import VerifyEmail from "./pages/VerifyEmail";
 import AboutUs from "./pages/AboutUs";
+import ProtectedRoute from "./components/Auth/ProtectedRoute";
+import Dashboard from "./pages/Dashboard";
+import MyProfile from "./components/Dashboard/MyProfile";
+import Settings from "./pages/Settings";
+import Contact from "./pages/Contact";
+import RegisteredCourses from "./pages/RegisteredCourses";
+import StudentProtected from "./components/Auth/StudentProtected";
+import Wishlist from "./pages/Wishlist";
+import AddCourse from "./pages/AddCourse";
+import InstructorProtected from './components/Auth/InstructorProtected';
 function App() {
 	return (
 		<>
@@ -58,14 +68,36 @@ function App() {
 							</PublicRoute>
 						}
 					/>
+					<Route path="/about" element={<AboutUs />} />
+					<Route path="/contact" element={<Contact />} />
 					<Route
-						path="/about"
 						element={
-							<PublicRoute>
-								<AboutUs/>
-							</PublicRoute>
+							<ProtectedRoute>
+								<Dashboard />
+							</ProtectedRoute>
 						}
-					/>
+					>
+						<Route path="dashboard/my-profile" element={<MyProfile />} />
+						<Route path="dashboard/settings" element={<Settings />} />
+						<Route path="dashboard/registered-courses" 
+						element={
+							<StudentProtected>
+								<RegisteredCourses/>
+							</StudentProtected>
+						}/>
+						<Route path="dashboard/wishlist" 
+						element={
+							<StudentProtected>
+								<Wishlist/>
+							</StudentProtected>
+						}/>
+						<Route path="dashboard/add-course" 
+						element={
+							<InstructorProtected>
+								<AddCourse/>
+							</InstructorProtected>
+						}/>
+					</Route>
 					<Route path="/" element={<Home />} />
 				</Routes>
 				{/* <Footer /> */}

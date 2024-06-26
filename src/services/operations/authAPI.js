@@ -35,6 +35,7 @@ export function registerUser(
 	firstName,
 	lastName,
 	accountType,
+	contactNumber,
 	otp,
 	navigate
 ) {
@@ -48,6 +49,7 @@ export function registerUser(
 				firstName,
 				lastName,
 				accountType,
+				contactNumber,
 				otp,
 			});
 
@@ -61,7 +63,7 @@ export function registerUser(
 			navigate("/login");
 		} catch (error) {
 			toast.error("Error while creating account");
-			console.log("REGISTER USER ERROR ................");
+			console.log("REGISTER USER ERROR ................", error);
 		}
 		dispatch(setLoading(false));
 	};
@@ -82,16 +84,18 @@ export function login(email, password, navigate) {
 				throw new Error(response.data.message);
 			}
 
-			console.log("COOKIES............ ", )
+			console.log("COOKIES............ ");
 
 			toast.success("Login Successfull");
 			dispatch(setToken(response.data.data.accessToken));
-            const avatar = response.data?.data?.user?.avatar
 
-			dispatch(setUser({ ...response.data.data.user, image: avatar }));
+			dispatch(setUser({ ...response.data.data.user }));
 			localStorage.setItem("user", JSON.stringify(response.data.data.user));
-			localStorage.setItem("token", JSON.stringify(response.data.data.accessToken));
-			navigate("/dashboard");
+			localStorage.setItem(
+				"token",
+				JSON.stringify(response.data.data.accessToken)
+			);
+			navigate("/dashboard/my-profile");
 		} catch (error) {
 			console.log("LOGIN API ERROR ..........", error);
 			toast.error("Login Error");
@@ -100,15 +104,30 @@ export function login(email, password, navigate) {
 	};
 }
 
-export function logout(navigate) {
-	return (dispatch) => {
-		dispatch(setToken(null));
-		dispatch(setUser(null));
-		// dispatch(resetCart())
-		localStorage.removeItem("token");
-		localStorage.removeItem("user");
-		toast.success("Logged Out");
-		navigate("/");
+export function logout(token, navigate) {
+	return async (dispatch) => {
+		const toastId = toast.loading("Logging Out...");
+		try {
+			console.log("LOGOUT TOKEN.........	", token);
+			const response = await apiConnector("POST", endpoints.LOGOUT_API, null, {
+				Authorisation: `Bearer ${token}`,
+			});
+			if (!response.data.success) {
+				throw new Error(response.data.message);
+			}
+			console.log("LOGOUT API RESPONSE ...........", response);
+			dispatch(setToken(null));
+			dispatch(setUser(null));
+			// dispatch(resetCart())
+			localStorage.removeItem("token");
+			localStorage.removeItem("user");
+			toast.success("Logged Out");
+			navigate("/");
+		} catch (error) {
+			console.log("LOGOUT API ERROR ..........", error);
+			toast.error("Error while logout");
+		}
+		toast.dismiss(toastId);
 	};
 }
 

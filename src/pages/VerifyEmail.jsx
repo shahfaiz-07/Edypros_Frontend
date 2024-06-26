@@ -20,10 +20,19 @@ const VerifyEmail = () => {
 			email,
 			password,
 			confirmPassword,
+			contactNumber,
 			accountType
 		} = signupData;
 
-		dispatch(registerUser(email, password, confirmPassword, firstName, lastName, accountType, otp, navigate))
+		dispatch(registerUser(email,
+			password,
+			confirmPassword,
+			firstName,
+			lastName,
+			accountType,
+			contactNumber,
+			otp,
+			navigate))
 	};
 
 	useEffect(() => {

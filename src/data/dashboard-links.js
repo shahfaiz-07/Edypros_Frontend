@@ -1,51 +1,51 @@
-import { ACCOUNT_TYPE } from "../utils/constants";
+import { ACCOUNT_TYPE } from "../constants";
 export const sidebarLinks = [
   {
     id: 1,
     name: "My Profile",
     path: "/dashboard/my-profile",
-    icon: "VscAccount",
+    icon: "ri-user-line",
   },
   {
     id: 2,
     name: "Dashboard",
     path: "/dashboard/instructor",
     type: ACCOUNT_TYPE.INSTRUCTOR,
-    icon: "VscDashboard",
+    icon: "ri-dashboard-horizontal-fill",
   },
   {
     id: 3,
     name: "My Courses",
     path: "/dashboard/my-courses",
     type: ACCOUNT_TYPE.INSTRUCTOR,
-    icon: "VscVm",
+    icon: "ri-book-2-line",
   },
   {
     id: 4,
     name: "Add Course",
     path: "/dashboard/add-course",
     type: ACCOUNT_TYPE.INSTRUCTOR,
-    icon: "VscAdd",
+    icon: "ri-git-repository-commits-line",
   },
   {
     id: 5,
     name: "Enrolled Courses",
-    path: "/dashboard/enrolled-courses",
+    path: "/dashboard/registered-courses",
     type: ACCOUNT_TYPE.STUDENT,
-    icon: "VscMortarBoard",
+    icon: "ri-book-marked-line",
   },
   {
     id: 6,
-    id: 7,
-    name: "Cart",
-    path: "/dashboard/cart",
+    name: "Wishlist",
+    path: "/dashboard/wishlist",
     type: ACCOUNT_TYPE.STUDENT,
-    icon: "VscBookmark",
+    icon: "ri-bookmark-line",
   },
   {
+    id: 7,
     name: "Admin Panel",
     path: "/dashboard/admin-panel",
     type: ACCOUNT_TYPE.ADMIN,
-    icon: "VscHistory",
+    icon: "ri-admin-line",
   },
 ];

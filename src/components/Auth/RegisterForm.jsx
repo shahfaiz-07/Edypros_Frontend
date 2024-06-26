@@ -65,7 +65,7 @@ const RegisterForm = () => {
       email: "",
       password: "",
       confirmPassword: "",
-      contactNumber
+      contactNumber: ""
     })
     setAccountType(ACCOUNT_TYPE.STUDENT)
 

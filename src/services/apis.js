@@ -1,17 +1,39 @@
 // AUTH ENDPOINTS
 export const endpoints = {
-    SENDOTP_API: "/api/v1/users/send-otp",
-    REGISTER_API: "/api/v1/users/register",
-    LOGIN_API: "/api/v1/users/login",
-    RESETPASSTOKEN_API: "/api/v1/users/reset-password-token",
-    RESETPASSWORD_API: "/api/v1/users/reset-password",
+	SENDOTP_API: "/api/v1/users/send-otp",
+	REGISTER_API: "/api/v1/users/register",
+	LOGIN_API: "/api/v1/users/login",
+	RESETPASSTOKEN_API: "/api/v1/users/reset-password-token",
+	RESETPASSWORD_API: "/api/v1/users/reset-password",
+	LOGOUT_API: "/api/v1/users/logout",
 };
 
 // CONTACT-US API
 export const contactusEndpoint = {
-    CONTACT_US_API: "/api/v1/users/contact-us",
+	CONTACT_US_API: "/api/v1/users/contact-us",
 };
 
 export const categories = {
-    CATEGORIES_API: "/api/v1/category"
+	GET_CATEGORIES_API: "/api/v1/category",
+};
+
+// SETTINGS PAGE API
+export const settingsEndpoints = {
+	UPDATE_DISPLAY_PICTURE_API: "/api/v1/users/change-avatar",
+	UPDATE_PROFILE_API: "/api/v1/profile/update-profile",
+	CHANGE_PASSWORD_API: "/api/v1/users/change-password",
+	DELETE_PROFILE_API: "/api/v1/users/delete",
+	UPGRADE_TO_INSTRUCTOR_API: "/api/v1/profile/upgrade-account",
+};
+
+export const profileEndpoints = {
+	GET_USER_DETAILS_API: "/profile/getUserDetails",
+	GET_USER_REGISTERED_COURSES_API: "/api/v1/users/registered-courses",
+	GET_ALL_INSTRUCTOR_DASHBOARD_DETAILS_API:
+		"/profile/getInstructorDashboardDetails",
+	USER_WISHLIST: "/api/v1/profile/wishlist",
+};
+
+export const courseEndpoints = {
+	CREATE_COURSE_API: "/api/v1/courses/"
 }
