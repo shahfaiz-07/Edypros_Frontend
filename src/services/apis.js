@@ -35,5 +35,16 @@ export const profileEndpoints = {
 };
 
 export const courseEndpoints = {
-	CREATE_COURSE_API: "/api/v1/courses/"
+	CREATE_COURSE_API: "/api/v1/courses"
+}
+
+export const sectionEndpoints = {
+	SECTION_API: "/api/v1/section"
+}
+
+export const videoEndpoints = {
+	CREATE_VIDEO_API : "/api/v1/video/upload",
+	UPDATE_VIDEO_API : "/api/v1/video/update",
+	UPDATE_VIDEO_URL_API : "/api/v1/video/update-url",
+	DELETE_VIDEO_API : "/api/v1/video/delete"
 }

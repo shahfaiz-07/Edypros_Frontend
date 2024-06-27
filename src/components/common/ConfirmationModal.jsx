@@ -1,5 +1,4 @@
 import React from 'react'
-import Button from '../buttons/Button'
 import ActionButton from '../buttons/ActionButton'
 
 const ConfirmationModal = ({modalData, setConfirmationModal}) => {

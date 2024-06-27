@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import PreRequisites from './PreRequisites'
 import { useForm } from 'react-hook-form';
-import { setStep } from '../../../features/courses/courseSlice'
+import { setCourse, setStep } from '../../../features/courses/courseSlice'
 import Spinner from './../../common/Spinner';
 import TagInput from './TagInput'
 import Thumbnail from './Thumbnail'
@@ -86,7 +86,10 @@ const CourseInformationForm = () => {
             formData.append("thumbnail", data.courseThumbnail);
             // console.log("FORM DATA :", formData)
             const response = await createCourse(formData, token)
-
+            if(response) {
+                dispatch(setStep(2));
+                dispatch(setCourse(response));
+            }
             console.log("PAGE 1 RESPONSE :", response)
         }
     }

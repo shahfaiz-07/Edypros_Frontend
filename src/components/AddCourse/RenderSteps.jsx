@@ -2,7 +2,7 @@ import React from "react";
 // import { FaCheck } from 'react-icons/fa';
 import { useSelector } from "react-redux";
 import CourseInformationForm from "./CourseInformation/CourseInformationForm";
-// import CourseBuilderForm from './CourseBuilder/CourseBuilderForm';
+import CourseBuilderForm from "./CourseBuilder/CourseBuilderForm";
 // import CourseInformationForm from './CourseInformation/CourseInformationForm';
 // import PublishCourse from '../PublishCourse/PublishCourse';
 
@@ -36,7 +36,7 @@ const RenderSteps = () => {
 											step === item.id
 												? "bg-yellow-900 border-yellow-50 text-yellow-50"
 												: "border-richblack-700 bg-richblack-800 text-richblack-300"
-										}`}
+										} ${step > item.id ? "bg-yellow-50" : ""}`}
 									>
 										{step > item.id ? (
 											<i className="ri-check-line"></i>
@@ -76,8 +76,8 @@ const RenderSteps = () => {
 			</div>
 
 	    {step === 1 && <CourseInformationForm />}
-        {/* {step === 2 && <CourseBuilderForm/>}
-        {step===3 && <PublishCourse/>}  */}
+        {step === 2 && <CourseBuilderForm/>}
+        {/* {step===3 && <PublishCourse/>}  */}
 		</>
 	);
 };
