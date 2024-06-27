@@ -100,9 +100,14 @@ const CourseBuilderForm = () => {
           onClick={() => {
             if(course.sections.length === 0) {
               toast.error("Add atleast 1 section")
+              return null
             }
-            if(course.sections.some(section => section.video.length === 0)) {
+            if(course.sections.some(section => section?.videos?.length === 0)) {
               toast.error("Add atleast 1 video in each section")
+              return null
+            }
+            else {
+              return dispatch(setStep(3))
             }
           }}
           className="flex items-center bg-yellow-50 cursor-pointer gap-x-2 rounded-md py-2 px-5 font-semibold text-richblack-900 undefined"

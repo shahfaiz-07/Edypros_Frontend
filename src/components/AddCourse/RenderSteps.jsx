@@ -3,6 +3,7 @@ import React from "react";
 import { useSelector } from "react-redux";
 import CourseInformationForm from "./CourseInformation/CourseInformationForm";
 import CourseBuilderForm from "./CourseBuilder/CourseBuilderForm";
+import PublishCourse from "./PublishCourse";
 // import CourseInformationForm from './CourseInformation/CourseInformationForm';
 // import PublishCourse from '../PublishCourse/PublishCourse';
 
@@ -77,7 +78,7 @@ const RenderSteps = () => {
 
 	    {step === 1 && <CourseInformationForm />}
         {step === 2 && <CourseBuilderForm/>}
-        {/* {step===3 && <PublishCourse/>}  */}
+        {step===3 && <PublishCourse/>} 
 		</>
 	);
 };

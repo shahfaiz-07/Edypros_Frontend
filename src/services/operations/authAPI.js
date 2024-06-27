@@ -108,14 +108,14 @@ export function logout(token, navigate) {
 	return async (dispatch) => {
 		const toastId = toast.loading("Logging Out...");
 		try {
-			console.log("LOGOUT TOKEN.........	", token);
-			const response = await apiConnector("POST", endpoints.LOGOUT_API, null, {
-				Authorisation: `Bearer ${token}`,
-			});
-			if (!response.data.success) {
-				throw new Error(response.data.message);
-			}
-			console.log("LOGOUT API RESPONSE ...........", response);
+			// console.log("LOGOUT TOKEN.........	", token);
+			// const response = await apiConnector("POST", endpoints.LOGOUT_API, null, {
+			// 	Authorisation: `Bearer ${token}`,
+			// });
+			// if (!response.data.success) {
+			// 	throw new Error(response.data.message);
+			// }
+			// console.log("LOGOUT API RESPONSE ...........", response);
 			dispatch(setToken(null));
 			dispatch(setUser(null));
 			// dispatch(resetCart())

@@ -35,7 +35,9 @@ export const profileEndpoints = {
 };
 
 export const courseEndpoints = {
-	CREATE_COURSE_API: "/api/v1/courses"
+	CREATE_COURSE_API: "/api/v1/courses",
+	CHANGE_COURSE_STATUS_API: "/api/v1/courses/status",
+	GET_INSTRUCTOR_COURSES_API: "/api/v1/courses/instructor/my-courses"
 }
 
 export const sectionEndpoints = {

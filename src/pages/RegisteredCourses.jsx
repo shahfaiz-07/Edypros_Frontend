@@ -6,7 +6,8 @@ import ProgressBar from "@ramonak/react-progress-bar";
 
 const RegisteredCourses = () => {
     const dispatch = useDispatch();
-    const {token, loading} = useSelector(state => state.profile);
+    const {loading} = useSelector(state => state.profile);
+    const {token} = useSelector(state => state.auth)
 
     const [registeredCourses, setRegisteredCourses] = useState([])
 

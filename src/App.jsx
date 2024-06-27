@@ -21,6 +21,7 @@ import StudentProtected from "./components/Auth/StudentProtected";
 import Wishlist from "./pages/Wishlist";
 import AddCourse from "./pages/AddCourse";
 import InstructorProtected from './components/Auth/InstructorProtected';
+import MyCourses from "./pages/MyCourses";
 function App() {
 	return (
 		<>
@@ -95,6 +96,12 @@ function App() {
 						element={
 							<InstructorProtected>
 								<AddCourse/>
+							</InstructorProtected>
+						}/>
+						<Route path="dashboard/my-courses" 
+						element={
+							<InstructorProtected>
+								<MyCourses/>
 							</InstructorProtected>
 						}/>
 					</Route>

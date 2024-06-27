@@ -68,14 +68,11 @@ const NestedView = ({ handleEditSectionName }) => {
 						<div className="px-6 pb-4">
 							{section.videos.map((video) => (
 								<div
-									onClick={(e) => {
-										if (e.currentTarget != e.target) return;
-										setViewVideo(video);
-									}}
+									
 									key={video._id}
 									className="flex cursor-pointer items-center justify-between gap-x-3 border-b-2 border-b-richblack-600 py-2 z-0"
 								>
-									<div className="flex items-center gap-x-3">
+									<div className="flex items-center gap-x-3" onClick={() => setViewVideo(video)}>
 										<i className="ri-menu-2-line text-[25px] text-richblack-50"></i>
 										<p className="font-semibold text-richblack-50">
 											{video.title}

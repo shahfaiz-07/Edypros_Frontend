@@ -2,6 +2,7 @@ import toast from "react-hot-toast"
 import { apiConnector } from "../apiConnector"
 import { courseEndpoints, sectionEndpoints, videoEndpoints } from "../apis"
 import { setCourse } from "../../features/courses/courseSlice";
+import { setLoading } from "../../features/auth/profileSlice";
 
 export const createCourse = async (formData, token) => {
     let result = null;
@@ -161,4 +162,47 @@ export const deleteVideo = async(dispatch, videoId, token) => {
         toast.error("Error while deleting lecture !!")
     }
     toast.dismiss(toastId);
+}
+
+export const changeCourseStatus = async(dispatch, formData, token, navigate) => {
+    const toastId = toast.loading("Updating...")
+    try {
+        const response = await apiConnector("PATCH", `${courseEndpoints.CHANGE_COURSE_STATUS_API}`, formData, {Authorization : `Bearer ${token}`})
+
+        console.log("COURSE STATUS UPDATE API RESPONSE.......", response);
+
+        if (!response?.data?.success) {
+            throw new Error("Could Not Update Lecture");
+        }
+    
+        dispatch(setCourse(response.data.data))
+        toast.success("Course status updated Successfully")
+        navigate("/dashboard/my-courses")
+    } catch (error) {
+        console.log("CHANGE COURSE STATUS API ERROR..........", error);
+        toast.error("Error while updating course status !!")
+    }
+    toast.dismiss(toastId)
+}
+
+export const getInstructorCourses = async(dispatch, token) => {
+    dispatch(setLoading(true))
+    let result = []
+    try {
+        const response = await apiConnector("GET", courseEndpoints.GET_INSTRUCTOR_COURSES_API, null, {Authorization: `Bearer : ${token}`})
+
+        console.log("GET INSTRUCTOR COURSES API RESPONSE.......", response);
+
+        if (!response?.data?.success) {
+            throw new Error("Could Not Get Instructor Courses");
+        }
+
+        result = response.data?.data;
+        toast.success("My Courses fetched successfully !!")
+    } catch (error) {
+        console.log("GET INSTRUCTOR COURSES API ERROR..........", error);
+        toast.error("Error while fetching My Courses !!")
+    }
+    dispatch(setLoading(false))
+    return result;
 }
