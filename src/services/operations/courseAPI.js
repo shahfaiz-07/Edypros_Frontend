@@ -1,7 +1,7 @@
 import toast from "react-hot-toast"
 import { apiConnector } from "../apiConnector"
 import { courseEndpoints, sectionEndpoints, videoEndpoints } from "../apis"
-import { setCourse } from "../../features/courses/courseSlice";
+import { setCourse, setStep } from "../../features/courses/courseSlice";
 import { setLoading } from "../../features/auth/profileSlice";
 
 export const createCourse = async (formData, token) => {
@@ -189,7 +189,7 @@ export const getInstructorCourses = async(dispatch, token) => {
     dispatch(setLoading(true))
     let result = []
     try {
-        const response = await apiConnector("GET", courseEndpoints.GET_INSTRUCTOR_COURSES_API, null, {Authorization: `Bearer : ${token}`})
+        const response = await apiConnector("GET", courseEndpoints.GET_INSTRUCTOR_COURSES_API, null, {Authorization: `Bearer ${token}`})
 
         console.log("GET INSTRUCTOR COURSES API RESPONSE.......", response);
 
@@ -205,4 +205,64 @@ export const getInstructorCourses = async(dispatch, token) => {
     }
     dispatch(setLoading(false))
     return result;
+}
+
+export const deleteCourse = async (courseId ,token) => {
+    const toastId = toast.loading("Deleting...")
+    try {
+       const response = await apiConnector("DELETE", `${courseEndpoints.GET_UPDATE_DELETE_COURSE_API}/${courseId}`, null, {Authorization : `Bearer ${token}`});
+       
+       console.log("COURSE DELETE API RESPONSE.......", response);
+
+        if (!response?.data?.success) {
+            throw new Error("Could Not Get Instructor Courses");
+        }
+
+        toast.success("Course deleted successfully !!")
+        location.reload()
+    } catch (error) {
+        console.log("COURSE DELETE API ERROR..........", error);
+        toast.error("Error while deleting course !!")
+    }
+    toast.dismiss(toastId)
+}
+
+export const getEditableCourseData = async (dispatch, courseId, token) => {
+    dispatch(setLoading(true));
+    try {
+        const response = await apiConnector("GET", `${courseEndpoints.GET_UPDATE_DELETE_COURSE_API}/${courseId}`, null, {Authorization : `Bearer ${token}`})
+
+        console.log("GET COURSE API RESPONSE.......", response);
+
+        if (!response?.data?.success) {
+            throw new Error("Cannot fetch editable course data");
+        }
+        dispatch(setCourse(response.data.data))
+        toast.success("Course data fetch successfully !!")
+    } catch (error) {
+        console.log("GET COURSE API ERROR..........", error);
+        toast.error("Error while fetching course data !!")
+    }
+    dispatch(setLoading(false));
+}
+
+export const updateCourseData = async (dispatch, formData, courseId, token) => {
+    dispatch(setLoading(true))
+    try {
+        const response = await apiConnector("PATCH", `${courseEndpoints.GET_UPDATE_DELETE_COURSE_API}/${courseId}`, formData, {authorization : `Bearer ${token}`});
+
+        console.log("UPDATE COURSE API RESPONSE.......", response);
+
+        if (!response?.data?.success) {
+            throw new Error("Cannot update course data");
+        }
+
+        dispatch(setCourse(response?.data?.data))
+        
+        toast.success("Changes Saved Successfully !!")
+    } catch (error) {
+        console.log("COURSE UPDATE API ERROR ........", error);
+        toast.error("Error updating course data !!")
+    }
+    dispatch(setLoading(false))
 }

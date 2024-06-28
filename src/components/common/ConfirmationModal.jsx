@@ -11,7 +11,7 @@ const ConfirmationModal = ({modalData, setConfirmationModal}) => {
             <p className='mt-3 mb-5 leading-6 text-richblack-200'>
                 {modalData.text2}
             </p>
-            <div className='flex items-center gap-x-4'>
+            <div className='flex items-center justify-between gap-x-4 w-full'>
                 <div onClick={()=>setConfirmationModal(null)}>
                 <ActionButton
                     action={modalData?.btn1Handler}

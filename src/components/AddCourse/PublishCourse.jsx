@@ -18,7 +18,8 @@ const PublishCourse = () => {
 	} = useForm();
 
 	useEffect(() => {
-		setValue("public", course?.status || false);
+		setValue("public", course?.status === COURSE_STATUS.PUBLISHED);
+
 	}, []);
 
 	const handlePublish = async () => {

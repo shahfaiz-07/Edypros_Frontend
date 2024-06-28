@@ -1,8 +1,12 @@
 import React, { useEffect, useState } from 'react'
+import { useSelector } from 'react-redux'
 
 const TagInput = ({name, label, placeholder, register, errors, setValue}) => {
     const [tags, setTags] = useState([])
     const [currentTag, setCurrentTag] = useState("")
+    const {course, editCourse} = useSelector(state => state.course)
+
+
 
     const addTag = () => {
         if(currentTag) {
@@ -21,6 +25,11 @@ const TagInput = ({name, label, placeholder, register, errors, setValue}) => {
 		register(name, {
 			required: true
 		})
+        if(editCourse) {
+            setTags(course?.tags)
+            setValue(name, course?.tags);
+            console.log(course?.tags)
+        }
 	}, [])
 
     useEffect(() => {
@@ -45,7 +54,7 @@ const TagInput = ({name, label, placeholder, register, errors, setValue}) => {
 			/>
             <div className='flex flex-wrap gap-1'>
             {
-                tags.map( (tag, index) => (
+                tags?.map( (tag, index) => (
                     <div key={index} className='bg-yellow-400 rounded-full text-xs py-1 px-2 text-richblack-5'><span className='' index={index}>{tag}</span> <span className='text-yellow-600 hover:text-white cursor-pointer' onClick={()=>removeTag(index)}><i className="ri-close-line"></i></span></div>
                 ))
             }

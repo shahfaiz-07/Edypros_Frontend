@@ -22,6 +22,7 @@ import Wishlist from "./pages/Wishlist";
 import AddCourse from "./pages/AddCourse";
 import InstructorProtected from './components/Auth/InstructorProtected';
 import MyCourses from "./pages/MyCourses";
+import EditCourse from "./pages/EditCourse";
 function App() {
 	return (
 		<>
@@ -102,6 +103,12 @@ function App() {
 						element={
 							<InstructorProtected>
 								<MyCourses/>
+							</InstructorProtected>
+						}/>
+						<Route path="dashboard/edit-course/:courseId" 
+						element={
+							<InstructorProtected>
+								<EditCourse/>
 							</InstructorProtected>
 						}/>
 					</Route>

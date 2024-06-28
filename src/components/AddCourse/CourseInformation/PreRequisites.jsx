@@ -1,8 +1,10 @@
 import React, { useEffect, useState } from "react";
+import { useSelector } from "react-redux";
 
 const PreRequisites = ({name, label, register, errors, setValue}) => {
 	const [preRequisites, setPreRequisites] = useState([]);
 	const [currentPreRequisite, setCurrentPreRequisite] = useState("");
+	const {course, editCourse} = useSelector(state => state.course)
 
 	const addPreRequisite = (e) => {
         e.preventDefault()
@@ -21,6 +23,10 @@ const PreRequisites = ({name, label, register, errors, setValue}) => {
 		register(name, {
 			required: true
 		})
+		if(editCourse) {
+			setPreRequisites(course?.preRequisites);
+			setValue(name, course?.preRequisites);
+		}
 	}, [])
 
 	useEffect(() => {
