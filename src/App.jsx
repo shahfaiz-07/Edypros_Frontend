@@ -20,15 +20,28 @@ import RegisteredCourses from "./pages/RegisteredCourses";
 import StudentProtected from "./components/Auth/StudentProtected";
 import Wishlist from "./pages/Wishlist";
 import AddCourse from "./pages/AddCourse";
-import InstructorProtected from './components/Auth/InstructorProtected';
+import InstructorProtected from "./components/Auth/InstructorProtected";
 import MyCourses from "./pages/MyCourses";
 import EditCourse from "./pages/EditCourse";
+import Catalog from "./pages/Catalog";
+import Error from "./pages/Error";
+import CoursePreview from "./pages/CoursePreview";
 function App() {
 	return (
 		<>
 			<div className="w-screen min-h-screen bg-richblack-900 flex flex-col font-inter">
 				<Navbar />
-				<Toaster position="top-center" reverseOrder={false} />
+				<Toaster
+					position="top-center"
+					reverseOrder={false}
+					toastOptions={{
+						style: {
+							borderRadius: "9999px",
+							background: "#333",
+							color: "#fff",
+						},
+					}}
+				/>
 				<Routes>
 					<Route
 						path="forgot-password"
@@ -81,38 +94,51 @@ function App() {
 					>
 						<Route path="dashboard/my-profile" element={<MyProfile />} />
 						<Route path="dashboard/settings" element={<Settings />} />
-						<Route path="dashboard/registered-courses" 
-						element={
-							<StudentProtected>
-								<RegisteredCourses/>
-							</StudentProtected>
-						}/>
-						<Route path="dashboard/wishlist" 
-						element={
-							<StudentProtected>
-								<Wishlist/>
-							</StudentProtected>
-						}/>
-						<Route path="dashboard/add-course" 
-						element={
-							<InstructorProtected>
-								<AddCourse/>
-							</InstructorProtected>
-						}/>
-						<Route path="dashboard/my-courses" 
-						element={
-							<InstructorProtected>
-								<MyCourses/>
-							</InstructorProtected>
-						}/>
-						<Route path="dashboard/edit-course/:courseId" 
-						element={
-							<InstructorProtected>
-								<EditCourse/>
-							</InstructorProtected>
-						}/>
+						<Route
+							path="dashboard/registered-courses"
+							element={
+								<StudentProtected>
+									<RegisteredCourses />
+								</StudentProtected>
+							}
+						/>
+						<Route
+							path="dashboard/wishlist"
+							element={
+								<StudentProtected>
+									<Wishlist />
+								</StudentProtected>
+							}
+						/>
+						<Route
+							path="dashboard/add-course"
+							element={
+								<InstructorProtected>
+									<AddCourse />
+								</InstructorProtected>
+							}
+						/>
+						<Route
+							path="dashboard/my-courses"
+							element={
+								<InstructorProtected>
+									<MyCourses />
+								</InstructorProtected>
+							}
+						/>
+						<Route
+							path="dashboard/edit-course/:courseId"
+							element={
+								<InstructorProtected>
+									<EditCourse />
+								</InstructorProtected>
+							}
+						/>
 					</Route>
 					<Route path="/" element={<Home />} />
+					<Route path="*" element={<Error />} />
+					<Route path="/catalog/:categoryId" element={<Catalog />} />
+					<Route path="/course/:courseId" element={<CoursePreview />} />
 				</Routes>
 				{/* <Footer /> */}
 			</div>

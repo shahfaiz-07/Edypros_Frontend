@@ -133,7 +133,6 @@ const RegisterForm = () => {
             Contact Number
           </p>
           <input
-            required
             type="tel"
             name="contactNumber"
             value={formData.contactNumber}

@@ -72,11 +72,16 @@ const Settings = () => {
 	  }))
 	}
 
-	const handlePassword = (e) => {
+	const handlePassword = async (e) => {
 	  e.preventDefault()
 	  const {newPassword, confirmNewPassword } = password;
 	  if (newPassword === confirmNewPassword) {
-	    updatePassword(token,password);
+	    await updatePassword(token,password);
+		setPassword({
+			oldPassword: "",
+	  newPassword: "",
+	  confirmNewPassword: "",
+		})
 	  } else {
 	    alert("Password does not match")
 	  }

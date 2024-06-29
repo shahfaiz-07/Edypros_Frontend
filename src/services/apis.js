@@ -15,6 +15,7 @@ export const contactusEndpoint = {
 
 export const categories = {
 	GET_CATEGORIES_API: "/api/v1/category",
+	GET_CATEGORY_PAGE_API: "/api/v1/category"
 };
 
 // SETTINGS PAGE API
@@ -38,7 +39,8 @@ export const courseEndpoints = {
 	CREATE_COURSE_API: "/api/v1/courses",
 	CHANGE_COURSE_STATUS_API: "/api/v1/courses/status",
 	GET_INSTRUCTOR_COURSES_API: "/api/v1/courses/instructor/my-courses",
-	GET_UPDATE_DELETE_COURSE_API: "/api/v1/courses/c"
+	GET_UPDATE_DELETE_COURSE_API: "/api/v1/courses/c",
+	GET_COURSE_PREVIEW_API: "/api/v1/courses/preview"
 }
 
 export const sectionEndpoints = {
@@ -50,4 +52,14 @@ export const videoEndpoints = {
 	UPDATE_VIDEO_API : "/api/v1/video/update",
 	UPDATE_VIDEO_URL_API : "/api/v1/video/update-url",
 	DELETE_VIDEO_API : "/api/v1/video/delete"
+}
+
+export const paymentEndpoints = {
+	CAPTURE_PAYMENT_API : "/api/v1/payments/capture-payment",
+	VERIFY_SIGNATURE_API : "/api/v1/payments/verify-signature",
+	SEND_PAYMENT_SUCCESSFULL_EMAIL_API: "/api/v1/payments/send-confirmation-email"
+}
+
+export const studentEndpoints = {
+	SEND_COURSE_ENROLLMENT_EMAIL_API: ""
 }

@@ -30,7 +30,7 @@ const Navbar = () => {
 		fetchSublinks();
 	}, []);
 	return (
-		<div className="border-b border-b-richblack-700">
+		<div className="border-b border-b-richblack-600 bg-[#161D29]">
 			<div className="w-11/12 p-2 flex max-w-maxContent items-center justify-around">
 				<Link to="/">
 					<img src={logo} alt="" width={140} />
@@ -44,11 +44,12 @@ const Navbar = () => {
 										<p>{link.title}</p> <i className="ri-arrow-down-s-line"></i>
 									</div>
 									<div className="invisible absolute z-10 bg-white group-hover:visible rounded py-2 w-40 flex flex-col text-sm">
+										<div className="w-10 h-10 bg-white -z-10 absolute left-1/2 -translate-x-1/2 rotate-45 -translate-y-2"></div>
 										{subLinks.length ? (
 											subLinks.map((link, index) => {
 												return (
 													<Link
-														to={link.title.toLowerCase().replace(" ", "-")}
+														to={`/catalog/${link._id}`}
 														key={index}
 														className="hover:bg-richblack-25 px-4 py-2"
 													>
@@ -96,10 +97,11 @@ const Navbar = () => {
 									alt=""
 									className="aspect-square w-7 object-cover rounded-full cursor-pointer"
 								/>
-								<div className="invisible group-hover:visible py-2 absolute z-10 bg-richblack-800 rounded border border-richblack-5">
+								<div className="invisible group-hover:visible py-2 absolute z-10 bg-richblack-700 rounded -translate-x-1/2 left-[14px] translate-y-2">
+									<div className="absolute -z-10 w-10 h-10 rotate-45 -translate-y-2 bg-richblack-700 left-1/2 -translate-x-1/2"></div>
 									<Link
 										to="/dashboard/my-profile"
-										className="px-4 py-2 flex gap-3 hover:bg-richblack-700"
+										className="px-4 py-2 flex gap-3 hover:bg-richblack-600"
 									>
 										<i className="ri-dashboard-horizontal-fill"></i> Dashboard
 									</Link>
@@ -114,7 +116,7 @@ const Navbar = () => {
 												btn2Handler: () => setConfirmationModal(null),
 											})
 										}
-										className="px-4 py-2 flex gap-3 hover:bg-richblack-700 cursor-pointer"
+										className="px-4 py-2 flex gap-3 hover:bg-richblack-600 cursor-pointer"
 									>
 										<i className="ri-logout-box-line"></i> Logout
 									</div>

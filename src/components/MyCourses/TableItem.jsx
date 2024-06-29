@@ -56,10 +56,8 @@ const TableItem = ({ course }) => {
 				</p>
 			</div>
 			<div className="grid place-content-center text-richblack-50 text-lg w-[10%]">
-				<div className="flex gap-x-2"
-                onClick={() => handleEditCourse(course._id)}
-                >
-                <i className="ri-pencil-line cursor-pointer"></i> <i className="ri-delete-bin-6-line cursor-pointer"
+				<div className="flex gap-x-2">
+                <i className="ri-pencil-line cursor-pointer" onClick={() => handleEditCourse(course._id)}></i> <i className="ri-delete-bin-6-line cursor-pointer"
                 onClick={() => setConfirmationModal({
                     text1: "Are You Sure ?",
                     text2: "Your course data and it's related content will be deleted permanently.",

@@ -266,3 +266,26 @@ export const updateCourseData = async (dispatch, formData, courseId, token) => {
     }
     dispatch(setLoading(false))
 }
+
+export const getCoursePreview = async(dispatch, courseId) => {
+    dispatch(setLoading(true))
+    const toastId = toast.loading("Loading...")
+    let result = []
+    try {
+        const response = await apiConnector("GET", `${courseEndpoints.GET_COURSE_PREVIEW_API}/${courseId}`);
+
+        console.log("COURSE PREVIEW API RESPONSE.......", response);
+
+        if (!response?.data?.success) {
+            throw new Error("Cannot update course data");
+        }
+        result = response?.data?.data
+        toast.success("Course Preview Fetched")
+    } catch (error) {
+        console.log("COURSE PREVIEW API ERROR........", error)
+        toast.error("Error while fetching course preview")
+    }
+    toast.dismiss(toastId)
+    dispatch(setLoading(false))
+    return result
+}

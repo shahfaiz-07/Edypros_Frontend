@@ -2,8 +2,8 @@ import React from 'react'
 
 const Error = () => {
   return (
-    <div className='flex justify-center items-center text-red-500 font-bold text-5xl'>
-      ERROR - 404 NOT FOUND
+    <div className='grid place-content-center text-red-500 font-bold text-5xl h-full text-pink-300 font-inter flex-grow'>
+      ERROR 404 - PAGE NOT FOUND
     </div>
   )
 }
