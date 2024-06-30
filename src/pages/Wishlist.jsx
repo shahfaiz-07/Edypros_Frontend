@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { getWishlistData } from "../services/operations/profileAPI";
+import { getWishlistData, removeFromWishlist } from "../services/operations/profileAPI";
 import Spinner from "../components/common/Spinner";
 import WishlistItem from "./../components/Wishlist/WishlistItem";
 import WishlistTotal from './../components/Wishlist/WishlistTotal';
@@ -11,12 +11,17 @@ const Wishlist = () => {
 	const dispatch = useDispatch();
 	const fetchWishlist = async () => {
 		const response = await getWishlistData(dispatch, token);
-		console.log(response);
+		// console.log(response);
 		setWishlist(response);
 	};
 	useEffect(() => {
 		fetchWishlist();
 	}, []);
+
+	const handleRemoveFromWishlist = async (courseId) => {
+		await removeFromWishlist(token, courseId)
+		await fetchWishlist()
+	}
 	return loading ? (
 		<Spinner />
 	) : wishlist.length === 0 ? (
@@ -32,14 +37,14 @@ const Wishlist = () => {
 	) : (
 		<div className="min-h-[calc(100vh-3.5rem)] w-11/12 mx-auto font-inter py-5">
       <p className="text-sm text-richblack-400 border-b border-richblack-600 pb-2">{wishlist.length} courses in wishlist</p>
-			<div className="flex justify-between">
+			<div className="flex gap-x-3 justify-between">
 				<div className="flex flex-col w-[70%]">
 					{wishlist.map((course) => (
-						<WishlistItem key={course._id} wishlistData={course} />
+						<WishlistItem key={course._id} wishlistData={course} handleRemoveFromWishlist={handleRemoveFromWishlist}/>
 					))}
 				</div>
-        <div className="w-[25%] py-5">
-            <WishlistTotal wishlist={wishlist} totalPrice={5000}/>
+        <div className="w-[30%] py-5">
+            <WishlistTotal wishlist={wishlist}/>
         </div>
 			</div>
 

@@ -28,7 +28,7 @@ export const settingsEndpoints = {
 };
 
 export const profileEndpoints = {
-	GET_USER_DETAILS_API: "/profile/getUserDetails",
+	GET_USER_DETAILS_API: "/api/v1/users/current-user",
 	GET_USER_REGISTERED_COURSES_API: "/api/v1/users/registered-courses",
 	GET_ALL_INSTRUCTOR_DASHBOARD_DETAILS_API:
 		"/profile/getInstructorDashboardDetails",

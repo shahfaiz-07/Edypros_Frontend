@@ -202,3 +202,57 @@ export async function getWishlistData(dispatch, token) {
 	dispatch(setLoading(false));
 	return wishlist;
 }
+
+export const addToWishlist = async (token, courseId, setInWishlist) => {
+	const toastId = toast.loading("Adding...");
+	try {
+		const response = await apiConnector("PATCH", profileEndpoints.USER_WISHLIST, {courseId}, {Authorization : `Bearer ${token}`})
+		
+		console.log("ADD TO WISHLIST API RESPONSE", response)
+		if(!response.data.success) {
+			throw new Error("Add to wishlist error")
+		}
+		setInWishlist(true);
+		toast.success("Item Added To Wishlist")
+	} catch (error) {
+		console.log("ADD TO WISHLIST API ERROR ......", error);
+		toast.error("Cannot Add Item to Wishlist")	
+	}
+	toast.dismiss(toastId)
+}
+
+export const removeFromWishlist = async (token, courseId, setInWishlist) => {
+	const toastId = toast.loading("Removing...")
+	try {
+		const response = await apiConnector("DELETE", profileEndpoints.USER_WISHLIST, {courseId}, {Authorization : `Bearer ${token}`})
+		
+		console.log("DELETE FROM WISHLIST API RESPONSE", response)
+		if(!response.data.success) {
+			throw new Error("Delete from wishlist error")
+		}
+		toast.success("Item Remove From Wishlist")
+		if(setInWishlist)
+			setInWishlist(false)
+	} catch (error) {
+		console.log("REMOVE FROM WISHLIST API ERROR ......", error);
+		toast.error("Cannot Remove Item From Wishlist")	
+	}
+	toast.dismiss(toastId)
+}
+
+export const getCurrentUser = async (dispatch, token) => {
+	try {
+		const response = await apiConnector("GET", profileEndpoints.GET_USER_DETAILS_API, null, {Authorization : `Bearer ${token}`});
+
+		console.log("GET USER API RESPONSE ...........", response);
+
+		if(!response?.data?.success) {
+			throw new Error("Cannot fetch user details !!");
+		}
+
+		dispatch(setUser(response.data.data))
+	} catch (error) {
+		console.log("GET USER DETAILS API ERROR ......... ", error);
+		toast.error("Cannot Fetch User Data!!")
+	}
+}

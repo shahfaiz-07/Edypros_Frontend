@@ -23,7 +23,7 @@ const CoursePreview = () => {
 	    console.log("Course Id", courseId)
 	    fetchCoursePreview()
 	}, [courseId])
-	return !courseDetails ? (
+	return (!courseDetails || loading) ? (
 		<Spinner/>
 	) : (
 		<div className="font-inter">

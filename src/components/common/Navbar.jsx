@@ -89,7 +89,9 @@ const Navbar = () => {
 								<i className="ri-search-line"></i>
 							</div>
 							<div>
-								<i className="ri-shopping-cart-line"></i>
+								<Link to={"/dashboard/wishlist"}>
+								<i className="ri-bookmark-line"></i>
+								</Link>
 							</div>
 							<div className="group relative">
 								<img
