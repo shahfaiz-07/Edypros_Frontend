@@ -11,6 +11,7 @@ import { COURSE_STATUS } from "../../../constants";
 import {
 	createCourse,
 	updateCourseData,
+	updateCourseThumbnail,
 } from "../../../services/operations/courseAPI";
 import toast from "react-hot-toast";
 
@@ -103,6 +104,9 @@ const CourseInformationForm = () => {
 				}
 				if (currentValues.courseThumbnail !== course.thumbnail) {
                     //thumbnail update logic
+					const formData = new FormData();
+					formData.append("thumbnail", data.courseThumbnail)
+					await updateCourseThumbnail(dispatch, formData, course._id, token)
 				}
 				toast.success("Changes were made !!");
                 dispatch(setStep(2))

@@ -104,6 +104,12 @@ const BuyNowCard = ({ course }) => {
 				</button>
 				</>
 			)}
+			<div className="text-yellow-50 text-center">
+				<span onClick={ () => {
+				window.navigator.clipboard.writeText(window.location.href)
+				toast.success("Link copied to clipboard")
+			}} className="cursor-pointer"><i className="ri-share-fill"></i> Share</span>
+			</div>
 			<div className="">
 				<h3 className="text-richblack-25 font-semibold text-lg">
 					Pre Requisites of this Course :

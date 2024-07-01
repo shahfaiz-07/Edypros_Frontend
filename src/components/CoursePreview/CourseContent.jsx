@@ -19,7 +19,7 @@ const CourseContent = ({course}) => {
         {
             course.sections.map( (section) => (
                 <details key={section._id} className='border border-richblack-600 border-t-0'>
-                    <summary className='text-richblack-5 bg-richblack-800 flex items-center justify-between px-6 py-4 text-lg'>
+                    <summary className='text-richblack-5 bg-richblack-800 flex items-center justify-between px-6 py-4 text-lg cursor-pointer'>
                         <div className='flex gap-x-3 items-center'>
                         <i className="ri-arrow-down-s-fill text-lg"></i> 
                         <h4>{section.name}</h4>

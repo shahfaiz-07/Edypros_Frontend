@@ -1,9 +1,11 @@
 import React, { useEffect } from "react";
 import { useNavigate } from "react-router";
 import ReactStars from "react-stars";
+import { calculateAverageCourseRating } from "../../utils/calculateAverageRating";
 
 const WishlistItem = ({ wishlistData, handleRemoveFromWishlist }) => {
 	const navigate = useNavigate();
+	const averageRating = calculateAverageCourseRating(wishlistData)
 	return (
 		<div className="flex justify-between gap-x-3 px-3 py-5 border-b border-richblack-500 hover:bg-richblack-800 hover:bg-opacity-50">
 			<img
@@ -36,10 +38,10 @@ const WishlistItem = ({ wishlistData, handleRemoveFromWishlist }) => {
 						{wishlistData.category.title}
 					</div>
 					<div className="text-[#ffd700] text-sm flex gap-x-2">
-						<span>3.5</span>{" "}
+						<span>{averageRating}</span>{" "}
 						<ReactStars
 							count={5}
-							value={3.5}
+							value={averageRating}
 							size={14}
 							edit={false}
 							color2={"#ffd700"}

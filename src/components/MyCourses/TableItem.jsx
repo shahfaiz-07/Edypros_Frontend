@@ -5,6 +5,7 @@ import ConfirmationModal from './../common/ConfirmationModal';
 import { useSelector } from "react-redux";
 import { useNavigate } from "react-router";
 import { deleteCourse } from "../../services/operations/courseAPI";
+import { formatDuration, totalCourseDuration } from './../../utils/totalDuration';
 const TableItem = ({ course }) => {
     const {token} = useSelector(state => state.auth)
     const [confirmationModal, setConfirmationModal] = useState(null);
@@ -27,7 +28,7 @@ const TableItem = ({ course }) => {
 				/>
 				<div className="flex flex-col justify-between">
 					<p className="text-richblack-5 font-semibold">{course.name}:</p>
-					<p className="text-richblack-400 text-sm">{course.description}</p>
+					<p className="text-richblack-400 text-sm">{course.description.slice(0,70)} {course.description.length > 70 && "..."}</p>
 					<p className="text-richblack-5 text-xs">
 						Created : {moment(course.createdAt).format("MMMM Do YYYY | h:mm a")}
 					</p>
@@ -48,7 +49,7 @@ const TableItem = ({ course }) => {
 				</div>
 			</div>
 			<div className="grid place-content-center text-richblack-5 text-sm w-[10%]">
-				1h 20m
+				{formatDuration(totalCourseDuration(course))}
 			</div>
 			<div className="grid place-content-center text-richblack-5 text-sm w-[10%]">
 				<p>

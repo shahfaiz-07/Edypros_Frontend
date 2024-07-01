@@ -40,7 +40,8 @@ export const courseEndpoints = {
 	CHANGE_COURSE_STATUS_API: "/api/v1/courses/status",
 	GET_INSTRUCTOR_COURSES_API: "/api/v1/courses/instructor/my-courses",
 	GET_UPDATE_DELETE_COURSE_API: "/api/v1/courses/c",
-	GET_COURSE_PREVIEW_API: "/api/v1/courses/preview"
+	GET_COURSE_PREVIEW_API: "/api/v1/courses/preview",
+	UPDATE_COURSE_THUMBNAIL_API: "/api/v1/courses/thumbnail"
 }
 
 export const sectionEndpoints = {

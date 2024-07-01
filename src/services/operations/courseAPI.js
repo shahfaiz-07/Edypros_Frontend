@@ -267,6 +267,27 @@ export const updateCourseData = async (dispatch, formData, courseId, token) => {
     dispatch(setLoading(false))
 }
 
+export const updateCourseThumbnail = async (dispatch, formData, courseId, token) => {
+    dispatch(setLoading(true))
+    try {
+        const response = await apiConnector("PATCH", `${courseEndpoints.UPDATE_COURSE_THUMBNAIL_API}/${courseId}`, formData, {authorization : `Bearer ${token}`});
+
+        console.log("UPDATE COURSE THUMBNAIL API RESPONSE.......", response);
+
+        if (!response?.data?.success) {
+            throw new Error("Cannot update course thumbnail");
+        }
+
+        dispatch(setCourse(response?.data?.data))
+        
+        toast.success("Thumbnail Changed Successfully !!")
+    } catch (error) {
+        console.log("THUMBNAIL UPDATE API ERROR ........", error);
+        toast.error("Error updating course thumbnail !!")
+    }
+    dispatch(setLoading(false))
+}
+
 export const getCoursePreview = async(dispatch, courseId) => {
     dispatch(setLoading(true))
     const toastId = toast.loading("Loading...")

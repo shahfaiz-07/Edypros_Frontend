@@ -1,9 +1,11 @@
 import React from 'react'
 import ReactStars from 'react-stars'
 import { useNavigate } from 'react-router';
+import { calculateAverageCourseRating } from '../../utils/calculateAverageRating';
 
 const SwiperCourseItem = ({course}) => {
     const navigate = useNavigate()
+	const averageRating = calculateAverageCourseRating(course)
   return (
     <div className="flex-shrink-0 flex flex-col gap-y-[6px] bg-richblack-700 bg-opacity-60 pb-3 rounded-md cursor-pointer"
 		onClick={() => navigate(`/course/${course._id}`)}
@@ -23,10 +25,10 @@ const SwiperCourseItem = ({course}) => {
 			<p className="text-ellipsis text-nowrap overflow-hidden">{course.description}</p> 
 			</p>
 			<div className="text-[#ffd700] text-sm flex items-center gap-x-2 px-3">
-				<span>3.5</span>{" "}
+				<span>{averageRating}</span>{" "}
 				<ReactStars
 					count={5}
-					value={3.5}
+					value={averageRating}
 					size={14}
 					edit={false}
 					color2={"#ffd700"}

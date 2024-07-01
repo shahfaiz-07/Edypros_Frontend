@@ -8,6 +8,7 @@ import moment from "moment";
 import CourseContent from "../components/CoursePreview/CourseContent";
 import BuyNowCard from './../components/CoursePreview/BuyNowCard';
 import { getCurrentUser } from "../services/operations/profileAPI";
+import { calculateAverageCourseRating } from "../utils/calculateAverageRating";
 
 const CoursePreview = () => {
 	const { loading, user } = useSelector((state) => state.profile);
@@ -33,7 +34,7 @@ const CoursePreview = () => {
 			};
 			refreshUserDetails();
 		}
-		console.log(user)
+		// console.log(user)
 	}, [])
 	return (!courseDetails || loading) ? (
 		<Spinner/>
@@ -47,10 +48,10 @@ const CoursePreview = () => {
 						</h1>
 						<p className="text-richblack-400">{courseDetails?.description}</p>
 						<div className="flex items-center gap-x-2">
-							<span className="text-yellow-50">3.5</span>{" "}
+							<span className="text-yellow-50">{calculateAverageCourseRating(courseDetails)}</span>{" "}
 							<ReactStars
 								count={5}
-								value={3.5}
+								value={calculateAverageCourseRating(courseDetails)}
 								size={14}
 								edit={false}
 								color2={"#ffd700"}
@@ -71,8 +72,8 @@ const CoursePreview = () => {
                     {/* course Details Section */}
                     <div className="md:w-[70%]">
                         <div className="border border-richblack-500 rounded py-2 px-4 md:px-6 md:p-4 space-y-2">
-                            <h3 className="text-2xl text-richblack-5 font-semibold">What you'll learn</h3>
-                            <p className="text-richblack-400">{courseDetails?.learnings}</p>
+                            <h3 className="text-3xl text-richblack-5 font-semibold">What you'll learn</h3>
+                            <p className="text-richblack-400 text-lg">{courseDetails?.learnings}</p>
                         </div>
                         <CourseContent course={courseDetails}/>
                         {/* Instructor */}

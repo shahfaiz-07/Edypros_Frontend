@@ -4,8 +4,6 @@ import { useSelector } from "react-redux";
 import CourseInformationForm from "./CourseInformation/CourseInformationForm";
 import CourseBuilderForm from "./CourseBuilder/CourseBuilderForm";
 import PublishCourse from "./PublishCourse";
-// import CourseInformationForm from './CourseInformation/CourseInformationForm';
-// import PublishCourse from '../PublishCourse/PublishCourse';
 
 const RenderSteps = () => {
 	const { step } = useSelector((state) => state.course);

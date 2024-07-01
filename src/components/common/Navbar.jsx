@@ -6,10 +6,11 @@ import { useDispatch, useSelector } from "react-redux";
 import { logout } from "../../services/operations/authAPI";
 import ConfirmationModal from "./ConfirmationModal";
 import { getAllCategorys } from "../../services/operations/categoriesAPI";
+import { ACCOUNT_TYPE } from "../../constants";
 const Navbar = () => {
 	const { token } = useSelector((state) => state.auth);
 	const { user } = useSelector((state) => state.profile);
-	const { totalItems } = useSelector( state => state.wishlist)
+	const { totalItems } = useSelector((state) => state.wishlist);
 	// const { totalItems } = useSelector((state) => state.cart);
 	const navigate = useNavigate();
 	const dispatch = useDispatch();
@@ -18,7 +19,7 @@ const Navbar = () => {
 	const [confirmationModal, setConfirmationModal] = useState(null);
 	const fetchSublinks = async () => {
 		try {
-			const result = await getAllCategorys()
+			const result = await getAllCategorys();
 			// console.log(result.data.data);
 			setSubLinks(result);
 		} catch (error) {
@@ -83,12 +84,16 @@ const Navbar = () => {
 							<div>
 								<i className="ri-search-line text-lg"></i>
 							</div>
-							<div className="relative">
-								<p className="w-3 left-1/2 bg-yellow-50 aspect-square text-[8px] grid place-content-center text-black rounded-full font-extrabold absolute">{totalItems}</p>
-								<Link to={"/dashboard/wishlist"}>
-								<i className="ri-bookmark-line text-lg"></i>
-								</Link>
-							</div>
+							{user.accountType === ACCOUNT_TYPE.STUDENT && (
+								<div className="relative">
+									<p className="w-3 left-1/2 bg-yellow-50 aspect-square text-[8px] grid place-content-center text-black rounded-full font-extrabold absolute">
+										{totalItems}
+									</p>
+									<Link to={"/dashboard/wishlist"}>
+										<i className="ri-bookmark-line text-lg"></i>
+									</Link>
+								</div>
+							)}
 							<div className="group relative">
 								<img
 									src={user?.avatar}
@@ -153,7 +158,12 @@ const Navbar = () => {
 					)}
 				</div>
 			</div>
-			{confirmationModal && <ConfirmationModal modalData={confirmationModal} setConfirmationModal={setConfirmationModal}/>}
+			{confirmationModal && (
+				<ConfirmationModal
+					modalData={confirmationModal}
+					setConfirmationModal={setConfirmationModal}
+				/>
+			)}
 		</div>
 	);
 };

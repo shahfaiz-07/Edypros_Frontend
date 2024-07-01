@@ -49,15 +49,17 @@ const RegisteredCourses = () => {
                 registeredCourses.map( (course) => (
                     <div key={course._id} className='px-3 py-4 flex border-b border-richblack-500'>
                         <div className='w-[55%] flex gap-3'>
-                        <img src={course.thumbnail} alt="" className='aspect-[5/3] h-28 object-cover rounded' />
+                        <img src={course.thumbnail} alt="" className='aspect-[5/3] h-32 object-cover rounded' />
                         <div className='flex flex-col h-full justify-between'>
                             <div>
 
                             <h2 className='text-white text-ellipsis'>{course.name}</h2>
                             <h4 className='text-xs text-richblack-400'>By Prof. {course.instructor.firstName} {course.instructor.lastName}</h4>
                             </div>
+                            <div className='space-y-2'>
                             <p className='py-1 px-2 bg-richblack-700 rounded-full text-xs w-fit font-semibold hover:underline cursor-pointer' style={{color: `#${course.category.color}`}} onClick={() => navigate(`/catalog/${course.category._id}`)}>{course.category.title}</p>
-                            <p className='text-[#838894] text-sm text-ellipsis'>{course.description}</p>
+                            <p className='text-[#838894] text-sm text-ellipsis'>{course.description.slice(0, 70)} {course.description.length > 70 && "..."}</p>
+                            </div>
                         </div>
                         </div>
                         <div className='flex flex-col justify-center text-white text-xs w-[15%] text-center font-bold'>
