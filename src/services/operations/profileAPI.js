@@ -4,6 +4,7 @@ import { apiConnector } from "../apiConnector";
 import { setLoading, setUser } from "../../features/auth/profileSlice";
 import { logout } from "./authAPI";
 import { setToken } from "../../features/auth/authSlice";
+import { setTotalItems } from "../../features/wishlist/wishlistSlice";
 
 export async function updateAvatar(token, avatar) {
 	const toastId = toast.loading("Uploading...");
@@ -194,6 +195,7 @@ export async function getWishlistData(dispatch, token) {
 			throw new Error(response.data.message);
 		}
 		wishlist = response.data.data.wishlist;
+		dispatch(setTotalItems(wishlist.length))
 		// toast.success("Registered courses fetch successfully!!")
 	} catch (error) {
 		console.log("GET REGISTERED COURSES API ERROR.............", error)
@@ -203,7 +205,7 @@ export async function getWishlistData(dispatch, token) {
 	return wishlist;
 }
 
-export const addToWishlist = async (token, courseId, setInWishlist) => {
+export const addToWishlist = async (totalItems, dispatch, token, courseId, setInWishlist) => {
 	const toastId = toast.loading("Adding...");
 	try {
 		const response = await apiConnector("PATCH", profileEndpoints.USER_WISHLIST, {courseId}, {Authorization : `Bearer ${token}`})
@@ -213,6 +215,7 @@ export const addToWishlist = async (token, courseId, setInWishlist) => {
 			throw new Error("Add to wishlist error")
 		}
 		setInWishlist(true);
+		dispatch(setTotalItems(totalItems + 1))
 		toast.success("Item Added To Wishlist")
 	} catch (error) {
 		console.log("ADD TO WISHLIST API ERROR ......", error);
@@ -221,7 +224,7 @@ export const addToWishlist = async (token, courseId, setInWishlist) => {
 	toast.dismiss(toastId)
 }
 
-export const removeFromWishlist = async (token, courseId, setInWishlist) => {
+export const removeFromWishlist = async (totalItems, dispatch, token, courseId, setInWishlist) => {
 	const toastId = toast.loading("Removing...")
 	try {
 		const response = await apiConnector("DELETE", profileEndpoints.USER_WISHLIST, {courseId}, {Authorization : `Bearer ${token}`})
@@ -231,8 +234,10 @@ export const removeFromWishlist = async (token, courseId, setInWishlist) => {
 			throw new Error("Delete from wishlist error")
 		}
 		toast.success("Item Remove From Wishlist")
+		
 		if(setInWishlist)
 			setInWishlist(false)
+		dispatch(setTotalItems(totalItems - 1))
 	} catch (error) {
 		console.log("REMOVE FROM WISHLIST API ERROR ......", error);
 		toast.error("Cannot Remove Item From Wishlist")	
@@ -251,6 +256,7 @@ export const getCurrentUser = async (dispatch, token) => {
 		}
 
 		dispatch(setUser(response.data.data))
+		dispatch(setTotalItems(response.data.data.wishlist.length))
 	} catch (error) {
 		console.log("GET USER DETAILS API ERROR ......... ", error);
 		toast.error("Cannot Fetch User Data!!")

@@ -10,6 +10,7 @@ import { setUser } from "../../features/auth/profileSlice";
 const BuyNowCard = ({ course }) => {
 	const { token } = useSelector((state) => state.auth);
 	const { user } = useSelector((state) => state.profile);
+	const { totalItems } = useSelector( state => state.wishlist);
 	const dispatch = useDispatch();
 	const navigate = useNavigate();
 	const [inWishlist, setInWishlist] = useState(false);
@@ -25,20 +26,14 @@ const BuyNowCard = ({ course }) => {
 			});
 		} else {
 			if(!inWishlist) {
-				await addToWishlist(token, course._id, setInWishlist)
+				await addToWishlist(totalItems, dispatch, token, course._id, setInWishlist)
 			} else {
-				await removeFromWishlist(token, course._id, setInWishlist)
+				await removeFromWishlist(totalItems, dispatch, token, course._id, setInWishlist)
 			}
 		}
 	};
 
 	useEffect(() => {
-		if (token) {
-			const refreshUserDetails = async () => {
-				await getCurrentUser(dispatch, token);
-			};
-			refreshUserDetails();
-		}
 		if (user?.wishlist.includes(course._id)) {
 			setInWishlist(true);
 		}

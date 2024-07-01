@@ -4,6 +4,7 @@ import { getRegisteredCourses } from '../services/operations/profileAPI';
 import Spinner from '../components/common/Spinner';
 import ProgressBar from "@ramonak/react-progress-bar";
 import { useNavigate } from 'react-router';
+import { formatDuration, totalCourseDuration } from './../utils/totalDuration';
 
 const RegisteredCourses = () => {
     const dispatch = useDispatch();
@@ -59,8 +60,8 @@ const RegisteredCourses = () => {
                             <p className='text-[#838894] text-sm text-ellipsis'>{course.description}</p>
                         </div>
                         </div>
-                        <div className='flex flex-col justify-center text-white text-xs w-[15%] text-center'>
-                            2hr 30mins
+                        <div className='flex flex-col justify-center text-white text-xs w-[15%] text-center font-bold'>
+                        {formatDuration(totalCourseDuration(course))}
                         </div>
                         <div className='flex flex-col justify-center w-[20%]'>
                             <p className='text-white text-xs my-1'>Progress 65%</p>

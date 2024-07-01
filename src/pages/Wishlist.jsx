@@ -7,11 +7,11 @@ import WishlistTotal from './../components/Wishlist/WishlistTotal';
 
 const Wishlist = () => {
 	const { token, loading } = useSelector((state) => state.profile);
+	const {totalItems} = useSelector(state => state.wishlist)
 	const [wishlist, setWishlist] = useState([]);
 	const dispatch = useDispatch();
 	const fetchWishlist = async () => {
 		const response = await getWishlistData(dispatch, token);
-		// console.log(response);
 		setWishlist(response);
 	};
 	useEffect(() => {
@@ -19,7 +19,7 @@ const Wishlist = () => {
 	}, []);
 
 	const handleRemoveFromWishlist = async (courseId) => {
-		await removeFromWishlist(token, courseId)
+		await removeFromWishlist(totalItems, dispatch, token, courseId)
 		await fetchWishlist()
 	}
 	return loading ? (

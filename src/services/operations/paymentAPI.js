@@ -1,7 +1,6 @@
 import toast from "react-hot-toast";
 import { apiConnector } from "../apiConnector";
 import { paymentEndpoints } from "../apis";
-import rzpLogo from '../../assets/Images/rzp.png'
 import { setPaymentLoading } from "../../features/courses/courseSlice";
 
 function loadScript(src) {
@@ -43,7 +42,7 @@ export const buyCourses = async (courses, token, userDetails, navigate, dispatch
             order_id: orderResponse.data.data.id,
             name: "Edypros",
             description: "Thanks for purchasing this course" ,
-            image: rzpLogo,
+            image: "https://res.cloudinary.com/cloudjerry07/image/upload/v1719820625/Edypros/logos/svknyeivcopnfmb1l8n8.png",
             prefill: {
                 name: `${userDetails.firstName} ${userDetails.lastName}`,
                 email: userDetails.email

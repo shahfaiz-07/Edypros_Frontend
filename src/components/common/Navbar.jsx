@@ -9,7 +9,7 @@ import { getAllCategorys } from "../../services/operations/categoriesAPI";
 const Navbar = () => {
 	const { token } = useSelector((state) => state.auth);
 	const { user } = useSelector((state) => state.profile);
-
+	const { totalItems } = useSelector( state => state.wishlist)
 	// const { totalItems } = useSelector((state) => state.cart);
 	const navigate = useNavigate();
 	const dispatch = useDispatch();
@@ -79,18 +79,14 @@ const Navbar = () => {
 				</ul>
 				<div>
 					{token ? (
-						// <div>
-						// 	<button onClick={() => dispatch(logout(navigate))} className="px-4 py-2 border rounded-md bg-yellow-50">
-						// 		Logout
-						// 	</button>
-						// </div>
 						<div className="flex gap-5 items-center h-full text-white">
 							<div>
-								<i className="ri-search-line"></i>
+								<i className="ri-search-line text-lg"></i>
 							</div>
-							<div>
+							<div className="relative">
+								<p className="w-3 left-1/2 bg-yellow-50 aspect-square text-[8px] grid place-content-center text-black rounded-full font-extrabold absolute">{totalItems}</p>
 								<Link to={"/dashboard/wishlist"}>
-								<i className="ri-bookmark-line"></i>
+								<i className="ri-bookmark-line text-lg"></i>
 								</Link>
 							</div>
 							<div className="group relative">

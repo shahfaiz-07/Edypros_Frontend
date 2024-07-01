@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react'
 import { buyCourses } from '../../services/operations/paymentAPI';
 import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router';
+import { setTotalItems } from '../../features/wishlist/wishlistSlice';
 
 const WishlistTotal = ({wishlist}) => {
   const {token} = useSelector( state => state.auth)
@@ -24,6 +25,7 @@ const WishlistTotal = ({wishlist}) => {
     }
 
     await buyCourses(courses, token, user, navigate, dispatch);
+    dispatch(setTotalItems(0))
   }
   return (
     <div className='p-4 flex flex-col gap-y-1 w-full rounded-md bg-richblack-800 border border-richblack-600'>

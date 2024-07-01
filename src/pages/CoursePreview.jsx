@@ -7,9 +7,11 @@ import ReactStars from "react-stars";
 import moment from "moment";
 import CourseContent from "../components/CoursePreview/CourseContent";
 import BuyNowCard from './../components/CoursePreview/BuyNowCard';
+import { getCurrentUser } from "../services/operations/profileAPI";
 
 const CoursePreview = () => {
-	const { loading } = useSelector((state) => state.profile);
+	const { loading, user } = useSelector((state) => state.profile);
+	const { token } = useSelector( state => state.auth)
 	const dispatch = useDispatch();
 	const { courseId } = useParams();
 	const [courseDetails, setCourseDetails] = useState(null);
@@ -23,6 +25,16 @@ const CoursePreview = () => {
 	    console.log("Course Id", courseId)
 	    fetchCoursePreview()
 	}, [courseId])
+
+	useEffect( () => {
+		if (token) {
+			const refreshUserDetails = async () => {
+				await getCurrentUser(dispatch, token);
+			};
+			refreshUserDetails();
+		}
+		console.log(user)
+	}, [])
 	return (!courseDetails || loading) ? (
 		<Spinner/>
 	) : (

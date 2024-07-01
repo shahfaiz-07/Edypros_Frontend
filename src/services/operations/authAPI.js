@@ -1,5 +1,6 @@
 import { setLoading, setToken } from "../../features/auth/authSlice";
 import { setUser } from "../../features/auth/profileSlice";
+import { setTotalItems } from "../../features/wishlist/wishlistSlice";
 import { apiConnector } from "../apiConnector";
 import { endpoints } from "../apis";
 import { toast } from "react-hot-toast";
@@ -90,6 +91,7 @@ export function login(email, password, navigate) {
 			dispatch(setToken(response.data.data.accessToken));
 
 			dispatch(setUser({ ...response.data.data.user }));
+			dispatch(setTotalItems(response.data.data.user.wishlist.length))
 			localStorage.setItem("user", JSON.stringify(response.data.data.user));
 			localStorage.setItem(
 				"token",
