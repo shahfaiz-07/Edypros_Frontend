@@ -165,15 +165,15 @@ export async function getRegisteredCourses(dispatch, token) {
 			{ Authorization: `Bearer ${token}` }
 		);
 
-		console.log("GET REGISTERED COURSES API RESPONSE .............", response.data.data.registeredCourses);
+		console.log("GET REGISTERED COURSES API RESPONSE .............", response);
 		if (!response.data.success) {
 			throw new Error(response.data.message);
 		}
-		courses = response.data.data.registeredCourses;
-		// toast.success("Registered courses fetch successfully!!")
+		courses = response.data.data;
+		toast.success("Registered courses fetch successfully!!")
 	} catch (error) {
 		console.log("GET REGISTERED COURSES API ERROR.............", error)
-		// toast.error("Failed to fetch registered courses!!")
+		toast.error("Failed to fetch registered courses!!")
 	}
 	dispatch(setLoading(false));
 	return courses;

@@ -62,5 +62,13 @@ export const paymentEndpoints = {
 }
 
 export const studentEndpoints = {
-	SEND_COURSE_ENROLLMENT_EMAIL_API: ""
+	GET_VIEW_COURSE_DETAILS_API : "/api/v1/courses/view-course"
+}
+
+export const ratingAndReviewEndpoints = {
+	POST_COURSE_REVIEW_API : "/api/v1/ratings-and-reviews"
+}
+
+export const courseProgressEndpoints = {
+	SET_MARK_AS_COMPLETE : "/api/v1/course-progress"
 }

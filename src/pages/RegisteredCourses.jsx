@@ -5,6 +5,8 @@ import Spinner from '../components/common/Spinner';
 import ProgressBar from "@ramonak/react-progress-bar";
 import { useNavigate } from 'react-router';
 import { formatDuration, totalCourseDuration } from './../utils/totalDuration';
+import { totalCourseLectures } from './../utils/totalCourseLectures';
+import { resetViewCourse } from '../features/registeredCourses/viewCourseSlice';
 
 const RegisteredCourses = () => {
     const dispatch = useDispatch();
@@ -12,16 +14,16 @@ const RegisteredCourses = () => {
     const {loading} = useSelector(state => state.profile);
     const {token} = useSelector(state => state.auth)
 
-    const [registeredCourses, setRegisteredCourses] = useState(null)
+    const [registeredCourses, setRegisteredCourses] = useState(null);
 
     const fetchRegisteredCourses = async () => {
          const response = await getRegisteredCourses(dispatch, token);
-         setRegisteredCourses(response);
+         setRegisteredCourses(response)
     }
 
     useEffect(()=> {
         fetchRegisteredCourses();
-
+        dispatch(resetViewCourse())
         console.log("Registered Courses Array :",registeredCourses)
     }, [])
   return (
@@ -47,27 +49,28 @@ const RegisteredCourses = () => {
                 </div>
             {
                 registeredCourses.map( (course) => (
-                    <div key={course._id} className='px-3 py-4 flex border-b border-richblack-500'>
+                    <div key={course._id} className='px-3 py-4 flex border-b border-richblack-500 hover:bg-richblack-700 hover:bg-opacity-40'>
                         <div className='w-[55%] flex gap-3'>
-                        <img src={course.thumbnail} alt="" className='aspect-[5/3] h-32 object-cover rounded' />
+                        <img src={course.courseId.thumbnail} alt="" className='aspect-[5/3] h-32 object-cover rounded' />
                         <div className='flex flex-col h-full justify-between'>
                             <div>
 
-                            <h2 className='text-white text-ellipsis'>{course.name}</h2>
-                            <h4 className='text-xs text-richblack-400'>By Prof. {course.instructor.firstName} {course.instructor.lastName}</h4>
+                            <h2 className='text-white text-ellipsis hover:underline cursor-pointer' onClick={() => navigate(`/view-course/${course.courseId._id}/${course.courseId.sections[0]._id}/${course.courseId.sections[0].videos[0]._id}`)}>{course.courseId.name.slice(0, 30)} {course.courseId.name.length > 30 && "..."}</h2>
+                            <h4 className='text-xs text-richblack-400'>By Prof. {course.courseId.instructor.firstName} {course.courseId.instructor.lastName}</h4>
                             </div>
                             <div className='space-y-2'>
-                            <p className='py-1 px-2 bg-richblack-700 rounded-full text-xs w-fit font-semibold hover:underline cursor-pointer' style={{color: `#${course.category.color}`}} onClick={() => navigate(`/catalog/${course.category._id}`)}>{course.category.title}</p>
-                            <p className='text-[#838894] text-sm text-ellipsis'>{course.description.slice(0, 70)} {course.description.length > 70 && "..."}</p>
+                            <p className='py-1 px-2 bg-richblack-700 rounded-full text-xs w-fit font-semibold hover:underline cursor-pointer' style={{color: `#${course.courseId.category.color}`}} onClick={() => navigate(`/catalog/${course.courseId.category._id}`)}>{course.courseId.category.title}</p>
+                            <p className='text-[#838894] text-xs text-ellipsis'>{course.courseId.description.slice(0, 70)} {course.courseId.description.length > 70 && "..."}</p>
                             </div>
                         </div>
                         </div>
                         <div className='flex flex-col justify-center text-white text-xs w-[15%] text-center font-bold'>
-                        {formatDuration(totalCourseDuration(course))}
+                        {formatDuration(totalCourseDuration(course.courseId))}
                         </div>
                         <div className='flex flex-col justify-center w-[20%]'>
-                            <p className='text-white text-xs my-1'>Progress 65%</p>
-                            <ProgressBar completed={65} height='5px' bgColor='#47A5C5' isLabelVisible={false}/>
+                            {console.log(course.completedVideos.length)}
+                            <p className='text-white text-xs my-1'>Progress {Math.round(course.completedVideos.length/totalCourseLectures(course.courseId)*100)}%</p>
+                            <ProgressBar completed={course.completedVideos.length} maxCompleted={totalCourseLectures(course.courseId)} height='5px' bgColor='#47A5C5' isLabelVisible={false}/>
                         </div>
                         <div className='text-3xl w-[10%] grid place-content-center text-white relative group'>
                         <i className="ri-more-2-fill relative translate-x-1 cursor-pointer"></i>

@@ -26,6 +26,7 @@ import EditCourse from "./pages/EditCourse";
 import Catalog from "./pages/Catalog";
 import Error from "./pages/Error";
 import CoursePreview from "./pages/CoursePreview";
+import ViewCourse from './pages/ViewCourse';
 function App() {
 	return (
 		<>
@@ -135,6 +136,12 @@ function App() {
 							}
 						/>
 					</Route>
+					<Route path="/view-course/:courseId/:sectionId/:videoId"
+					element={
+						<StudentProtected>
+							<ViewCourse />
+						</StudentProtected>
+					}/>
 					<Route path="/" element={<Home />} />
 					<Route path="*" element={<Error />} />
 					<Route path="/catalog/:categoryId" element={<Catalog />} />
