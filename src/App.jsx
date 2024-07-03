@@ -27,6 +27,7 @@ import Catalog from "./pages/Catalog";
 import Error from "./pages/Error";
 import CoursePreview from "./pages/CoursePreview";
 import ViewCourse from './pages/ViewCourse';
+import InstructorDashboard from './pages/InstructorDashboard';
 function App() {
 	return (
 		<>
@@ -103,6 +104,13 @@ function App() {
 								</StudentProtected>
 							}
 						/>
+						<Route
+						path="dashboard/instructor"
+						element= {
+							<InstructorProtected>
+								<InstructorDashboard />
+							</InstructorProtected>
+						}/>
 						<Route
 							path="dashboard/wishlist"
 							element={

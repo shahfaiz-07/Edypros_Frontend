@@ -1,15 +1,25 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import "remixicon/fonts/remixicon.css";
 import Button from "./../components/buttons/Button";
 import banner from "../assets/Images/banner.mp4";
 import CodeSection from "../components/Home/CodeSection";
-import TimelineSection from '../components/Home/TimeLineSection';
-import LearningSection from './../components/Home/LearningSection';
-import BecomeInstructor from './../components/Home/BecomeInstructor';
-import UnlockSection from './../components/Home/UnlockSection';
+import TimelineSection from "../components/Home/TimeLineSection";
+import LearningSection from "./../components/Home/LearningSection";
+import BecomeInstructor from "./../components/Home/BecomeInstructor";
+import UnlockSection from "./../components/Home/UnlockSection";
+import ReviewSlider from "../components/common/ReviewSlider/ReviewSlider";
+import { getTopRatings } from "../services/operations/ratingsAndReviewsAPI";
 
 const Home = () => {
+	const [reviews, setReviews] = useState([]);
+	const fetchCourseTopReviews = async () => {
+		const response = await getTopRatings();
+		setReviews(response);
+	};
+	useEffect(() => {
+		fetchCourseTopReviews();
+	}, []);
 	return (
 		<div>
 			<div className="mt-16 relative mx-auto flex flex-col w-11/12 items-center justify-between">
@@ -92,13 +102,16 @@ const Home = () => {
 			<div className="w-full bg-white mx-auto flex justify-center">
 				<div className="w-11/12 flex flex-col md:flex-row my-10">
 					<div className="w-full md:w-1/2 text-4xl font-semibold">
-						Get the skills you need for a <span className="text-[#20BDFF]">job that is in demand.</span>
+						Get the skills you need for a{" "}
+						<span className="text-[#20BDFF]">job that is in demand.</span>
 					</div>
 					<div className="w-full my-5 md:my-0 md:w-1/2">
-						<p>The modern Edypros is the dictates its own terms. Today, to be a
-						competitive specialist requires more than professional skills.</p>
+						<p>
+							The modern Edypros is the dictates its own terms. Today, to be a
+							competitive specialist requires more than professional skills.
+						</p>
 						<br />
-						<Button text={'Learn More'} bgColor={'bg-yellow-50'}/>
+						<Button text={"Learn More"} bgColor={"bg-yellow-50"} />
 					</div>
 				</div>
 			</div>
@@ -110,7 +123,12 @@ const Home = () => {
 			</div>
 			<div className="bg-richblack-900 w-full">
 				<div className="w-11/12 mx-auto px-10 pb-10">
-				<BecomeInstructor />
+					<BecomeInstructor />
+				</div>
+			</div>
+			<div className="bg-richblack-900 w-full">
+				<div className="w-11/12 mx-auto pb-10">
+					<ReviewSlider reviews={reviews} />
 				</div>
 			</div>
 		</div>

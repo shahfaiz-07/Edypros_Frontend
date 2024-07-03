@@ -5,6 +5,8 @@ import { setCurrentVideo } from "../../features/registeredCourses/viewCourseSlic
 import { Player } from "video-react";
 import ReactPlayer from "react-player/lazy";
 import { markAsComplete } from "../../services/operations/studentAPI";
+import { getCourseRatings } from "../../services/operations/ratingsAndReviewsAPI";
+import ReviewSlider from "../common/ReviewSlider/ReviewSlider";
 
 const VideoSection = () => {
 	const { currentVideo, completedLectures, courseData } = useSelector(
@@ -19,6 +21,12 @@ const VideoSection = () => {
 	const navigate = useNavigate();
 	const location = useLocation();
 	const playerRef = useRef(null);
+	const [reviews, setReviews] = useState([])
+
+	const fetchCourseReviews = async () => {
+		const response = await getCourseRatings(courseId);
+		setReviews(response)
+	}
 
 	const findCurrentIndices = () => {
 		const currentSectionIndex = courseData.sections.findIndex(
@@ -114,6 +122,7 @@ const VideoSection = () => {
 		);
 
 		dispatch(setCurrentVideo(_video[0]));
+		fetchCourseReviews()
 	}, [location.pathname]);
 
 	return (
@@ -174,6 +183,11 @@ const VideoSection = () => {
 			<p className="text-lg px-3  text-richblack-300">
 				{currentVideo?.description}
 			</p>
+			<div className="bg-richblack-900 w-full mx-auto">
+				<div className="w-11/12 mx-auto py-10">
+					<ReviewSlider text={"See what others say"} reviews={reviews} />
+				</div>
+			</div>
 		</div>
 	);
 };

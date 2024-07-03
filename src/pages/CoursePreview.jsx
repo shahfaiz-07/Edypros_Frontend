@@ -9,6 +9,8 @@ import CourseContent from "../components/CoursePreview/CourseContent";
 import BuyNowCard from './../components/CoursePreview/BuyNowCard';
 import { getCurrentUser } from "../services/operations/profileAPI";
 import { calculateAverageCourseRating } from "../utils/calculateAverageRating";
+import { getCourseRatings } from "../services/operations/ratingsAndReviewsAPI";
+import ReviewSlider from "../components/common/ReviewSlider/ReviewSlider";
 
 const CoursePreview = () => {
 	const { loading, user } = useSelector((state) => state.profile);
@@ -16,15 +18,21 @@ const CoursePreview = () => {
 	const dispatch = useDispatch();
 	const { courseId } = useParams();
 	const [courseDetails, setCourseDetails] = useState(null);
+	const [reviews, setReviews] = useState([])
 
 	const fetchCoursePreview = async () => {
 		const result = await getCoursePreview(dispatch, courseId);
 		setCourseDetails(result);
 	};
 
+	const fetchCourseReviews = async () => {
+		const response = await getCourseRatings(courseId);
+		setReviews(response)
+	}
+
 	useEffect(() => {
-	    console.log("Course Id", courseId)
 	    fetchCoursePreview()
+		fetchCourseReviews()
 	}, [courseId])
 
 	useEffect( () => {
@@ -68,7 +76,7 @@ const CoursePreview = () => {
                         </div>
 					</div>
 				</div>
-                <div className="w-11/12 mx-auto max-w-maxContent justify-between flex flex-col md:flex-row p-2 md:gap-x-5">
+                <div className="w-11/12 mx-auto max-w-maxContent justify-between flex flex-col-reverse md:flex-row p-2 md:gap-x-5">
                     {/* course Details Section */}
                     <div className="md:w-[70%]">
                         <div className="border border-richblack-500 rounded py-2 px-4 md:px-6 md:p-4 space-y-2">
@@ -97,6 +105,11 @@ const CoursePreview = () => {
                         <BuyNowCard course={courseDetails}/>
                     </div>
                 </div>
+			</div>
+			<div className="bg-richblack-900 w-full mx-auto">
+				<div className="w-11/12 mx-auto pb-10">
+					<ReviewSlider reviews={reviews} />
+				</div>
 			</div>
 		</div>
 	);

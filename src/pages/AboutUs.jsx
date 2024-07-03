@@ -1,18 +1,28 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import BannerImage1 from "../assets/Images/aboutus1.webp";
 import BannerImage2 from "../assets/Images/aboutus2.webp";
 import BannerImage3 from "../assets/Images/aboutus3.webp";
-import FoundingStory from "../assets/Images/FoundingStory.png"
-import Learning from './../components/About/Learning';
+import FoundingStory from "../assets/Images/FoundingStory.png";
+import Learning from "./../components/About/Learning";
 import ContactForm from "../components/About/ContactForm";
+import ReviewSlider from "../components/common/ReviewSlider/ReviewSlider";
+import { getTopRatings } from "../services/operations/ratingsAndReviewsAPI";
 
 const AboutUs = () => {
-    const stats = [
-        {count: "5K", label: "Active Students"},
-        {count: "10+", label: "Mentors"},
-        {count: "200+", label: "Courses"},
-        {count: "50+", label: "Awards"},
-    ];
+	const stats = [
+		{ count: "5K", label: "Active Students" },
+		{ count: "10+", label: "Mentors" },
+		{ count: "200+", label: "Courses" },
+		{ count: "50+", label: "Awards" },
+	];
+	const [reviews, setReviews] = useState([]);
+	const fetchCourseTopReviews = async () => {
+		const response = await getTopRatings();
+		setReviews(response);
+	};
+	useEffect(() => {
+		fetchCourseTopReviews();
+	}, []);
 	return (
 		<div className="mx-auto text-white">
 			<section className="bg-richblack-700">
@@ -60,7 +70,6 @@ const AboutUs = () => {
 			<section>
 				<div className="mx-auto flex w-11/12 max-w-maxContent flex-col justify-between gap-10 text-richblack-500">
 					<div className="flex flex-col items-center gap-10 lg:flex-row justify-between ">
-
 						<div className="my-10 flex lg:w-[50%] flex-col gap-10">
 							<h1 className="bg-gradient-to-br from-[#833AB4] via-[#FD1D1D] to-[#FCB045] bg-clip-text text-4xl font-semibold text-transparent lg:w-[70%] ">
 								Our Founding Story
@@ -94,7 +103,6 @@ const AboutUs = () => {
 					</div>
 
 					<div className="flex flex-col items-center lg:gap-10 lg:flex-row justify-between">
-
 						<div className="my-10 flex lg:w-[40%] flex-col gap-10">
 							<h1 className="bg-gradient-to-b from-[#FF512F] to-[#F09819] bg-clip-text text-4xl font-semibold text-transparent lg:w-[70%] ">
 								Our Vision
@@ -125,30 +133,29 @@ const AboutUs = () => {
 					</div>
 				</div>
 			</section>
-            <section className='bg-richblack-700'>
-        <div className='flex flex-col gap-10 justify-between w-11/12 max-w-maxContent text-white mx-auto '>
-            <div className='grid grid-cols-2 md:grid-cols-4 text-center '>
-                {
-                    stats.map( (data, index) => {
-                        return (
-                            <div key={index} className="flex flex-col py-10">
-                                <h1 className='text-[30px] font-bold text-richblack-5'>
-                                    {data.count}
-                                </h1>
-                                <h2>
-                                    {data.label}
-                                </h2>
-                            </div>
-                        )
-                    } )
-                }
-            </div>
-        </div>
-    </section>
-    <section className='mx-auto p-2 flex flex-col items-center justify-between gap-5 mb-[140px]'>
-        <Learning />
-        <ContactForm />
-      </section>
+			<section className="bg-richblack-700">
+				<div className="flex flex-col gap-10 justify-between w-11/12 max-w-maxContent text-white mx-auto ">
+					<div className="grid grid-cols-2 md:grid-cols-4 text-center ">
+						{stats.map((data, index) => {
+							return (
+								<div key={index} className="flex flex-col py-10">
+									<h1 className="text-[30px] font-bold text-richblack-5">
+										{data.count}
+									</h1>
+									<h2>{data.label}</h2>
+								</div>
+							);
+						})}
+					</div>
+				</div>
+			</section>
+			<section className="mx-auto p-2 flex flex-col items-center justify-between gap-5">
+				<Learning />
+				<ContactForm />
+			</section>
+			<div className="relative mx-auto my-20 flex w-11/12 max-w-maxContent flex-col items-center justify-between gap-8 bg-richblack-900">
+				<ReviewSlider reviews={reviews} />
+			</div>
 		</div>
 	);
 };

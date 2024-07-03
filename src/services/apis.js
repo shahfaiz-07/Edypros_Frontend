@@ -30,9 +30,8 @@ export const settingsEndpoints = {
 export const profileEndpoints = {
 	GET_USER_DETAILS_API: "/api/v1/users/current-user",
 	GET_USER_REGISTERED_COURSES_API: "/api/v1/users/registered-courses",
-	GET_ALL_INSTRUCTOR_DASHBOARD_DETAILS_API:
-		"/profile/getInstructorDashboardDetails",
 	USER_WISHLIST: "/api/v1/profile/wishlist",
+	INSTRUCTOR_DASHBOARD_API : "/api/v1/profile/instructor-dashboard"
 };
 
 export const courseEndpoints = {
@@ -66,7 +65,9 @@ export const studentEndpoints = {
 }
 
 export const ratingAndReviewEndpoints = {
-	POST_COURSE_REVIEW_API : "/api/v1/ratings-and-reviews"
+	POST_COURSE_REVIEW_API : "/api/v1/ratings-and-reviews",
+	GET_TOP_RATINGS_API : "/api/v1/ratings-and-reviews/top-ratings",
+	GET_COURSE_RATINGS_API: "/api/v1/ratings-and-reviews/c"
 }
 
 export const courseProgressEndpoints = {

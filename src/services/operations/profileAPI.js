@@ -262,3 +262,26 @@ export const getCurrentUser = async (dispatch, token) => {
 		toast.error("Cannot Fetch User Data!!")
 	}
 }
+
+export const getInstructorDashboardData = async (dispatch, token) => {
+	dispatch(setLoading(true))
+	let result = []
+	try {
+		const response = await apiConnector("GET", profileEndpoints.INSTRUCTOR_DASHBOARD_API, null, { Authorization : `Bearer ${token}`});
+
+		console.log("INSTRUCTOR DASHBOARD API RESPONSE ...........", response)
+
+		if(!response?.data?.success) {
+			throw new Error("Error fetching dashboard data !!");
+		}
+
+		result = response?.data?.data;
+		toast.success("Data fetched successfully!!")
+		
+	} catch (error) {
+		console.log("INSTRUCTOR DASHBOARD API ERROR .............", error)
+		toast.error(error.message)
+	}
+	dispatch(setLoading(false))
+	return result;
+}
