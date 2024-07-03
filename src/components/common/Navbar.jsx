@@ -81,9 +81,6 @@ const Navbar = () => {
 				<div>
 					{token ? (
 						<div className="flex gap-5 items-center h-full text-white">
-							<div>
-								<i className="ri-search-line text-lg"></i>
-							</div>
 							{user.accountType === ACCOUNT_TYPE.STUDENT && (
 								<div className="relative">
 									<p className="w-3 left-1/2 bg-yellow-50 aspect-square text-[8px] grid place-content-center text-black rounded-full font-extrabold absolute">

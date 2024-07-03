@@ -24,7 +24,7 @@ const TableItem = ({ course }) => {
 				<img
 					src={course.thumbnail}
 					alt="Course Thumbnail"
-					className="rounded-md h-28 aspect-video object-cover"
+					className="rounded-md h-32 aspect-video object-cover"
 				/>
 				<div className="flex flex-col justify-between">
 					<p className="text-richblack-5 font-semibold">{course.name}:</p>
@@ -32,6 +32,9 @@ const TableItem = ({ course }) => {
 					<p className="text-richblack-5 text-xs">
 						Created : {moment(course.createdAt).format("MMMM Do YYYY | h:mm a")}
 					</p>
+					<div className="flex gap-x-2 mt-1">
+					
+					<p className="w-fit text-xs py-1 px-2 rounded-full bg-richblack-700 font-semibold" style={{color: `#${course.category.color}`}}>{course.category.title}</p>
 					<p
 						className={`w-fit text-xs py-1 px-2 rounded-full bg-richblack-700 space-x-1 ${
 							course.status === COURSE_STATUS.PUBLISHED
@@ -46,6 +49,7 @@ const TableItem = ({ course }) => {
 						)}{" "}
 						<span>{course.status}</span>
 					</p>
+					</div>
 				</div>
 			</div>
 			<div className="grid place-content-center text-richblack-5 text-sm w-[10%]">

@@ -1,84 +1,95 @@
 import React, { useEffect, useState } from 'react'
 import { getInstructorDashboardData } from '../services/operations/profileAPI';
 import { useDispatch, useSelector } from 'react-redux';
+import Spinner from '../components/common/Spinner';
+import { Link } from 'react-router-dom';
+import CourseItem from '../components/InstructorDashboard/CourseItem';
+import InstructorChart from '../components/InstructorDashboard/InstructorChart';
 
 const InstructorDashboard = () => {
     const [dashboardData, setDashboardData] = useState({
-        "publishedCourses": [
-            {
-                "_id": "667ee99de17dee1fe1a7d333",
-                "name": "Introduction to ML with updated title",
-                "description": "This is the course description of the machine learning course which is very long and should have text ellipsis",
-                "studentsEnrolled": 1,
-                "courseRevenue": 2999,
-                "price": 2999,
-                "category": {
-                    "title": "Machine Learning",
-                    "color": "FFC857"
-                },
-                "ratingAndReviews": []
-            },
-            {
-                "_id": "667eeaf2e17dee1fe1a7d373",
-                "name": "Beatae enim earum ut",
-                "description": "Voluptate deleniti o",
-                "studentsEnrolled": 1,
-                "courseRevenue": 199,
-                "price": 199,
-                "category": {
-                    "title": "Python",
-                    "color": "AF1B3F"
-                },
-                "ratingAndReviews": []
-            },
-            {
-                "_id": "66827898f0defa745d029e1b",
-                "name": "Consequuntur consequ",
-                "description": "Velit molestiae sae",
-                "studentsEnrolled": 1,
-                "courseRevenue": 438,
-                "price": 438,
-                "category": {
-                    "title": "Web Development",
-                    "color": "F95738"
-                },
-                "ratingAndReviews": [
-                    {
-                        "_id": "668517e2f73b536612376edc",
-                        "reviewedBy": "6673d6c4df9a462bb26109a5",
-                        "rating": 5,
-                        "review": "Very good course",
-                        "reviewed": "66827898f0defa745d029e1b",
-                        "createdAt": "2024-07-03T09:20:34.092Z",
-                        "updatedAt": "2024-07-03T09:20:34.092Z",
-                        "__v": 0
-                    }
-                ]
-            }
-        ],
-        "draftCourses": []
+        publishedCourses : [],
+        draftCourses : []
     });
+    const [totalRevenue, setTotalRevenue] = useState(0)
+    const [totalStudents, setTotalStudents] = useState(0)
     const dispatch = useDispatch()
     const { token } = useSelector(state => state.auth)
+    const { loading } = useSelector(state => state.profile)
 
     const fetchInstructorDashboardData = async () => {
         const response = await getInstructorDashboardData(dispatch, token)
         setDashboardData(response)
+        let revenue = 0
+        revenue = response.publishedCourses.reduce( (acc, course) => acc + course.courseRevenue, 0);
+        setTotalRevenue(revenue)
+        const students = response.publishedCourses.reduce( (acc, course) => acc + course.studentsEnrolled, 0 )
+        setTotalStudents(students)
     }
-    // useEffect( () => {
-    //     fetchInstructorDashboardData()
-    //     console.log(dashboardData)
-    // }, [])
+    useEffect( () => {
+        fetchInstructorDashboardData()
+        console.log(dashboardData)
+    }, [])
   return (
-    <div className='text-richblack-5 w-11/12 mx-auto my-5'>
-      <div className='flex'>
+    loading
+    ?
+    <Spinner/>
+    :
+    dashboardData.publishedCourses.length !== 0 || dashboardData.draftCourses.length !== 0
+    ?
+    <div className='w-11/12 mx-auto my-5 font-inter'>
+      <h1 className='text-3xl font-medium text-richblack-5'>Instructor Dashboard</h1>
+      <div className='flex border-4 border-richblack-800'>
         <div className='w-[60%]'>
-            CHART DATA
+            <InstructorChart courses={dashboardData.publishedCourses}/>
         </div>
-        <div className='w-[40%] bg-richblack-800'>
-            <h2 className='text-lg'>Statistics</h2>
+        <div className='w-[40%] bg-richblack-800 flex flex-col gap-y-3 py-4 px-5'>
+            <h2 className='text-xl font-semibold text-richblack-5'>Statistics</h2>
+            <div>
+            <h3 className='text-richblack-300 font-semibold'>Published Courses</h3>
+            <p className='text-richblack-25 text-xl font-bold'>{dashboardData.publishedCourses.length}</p>
+            </div>
+            <div>
+            <h3 className='text-richblack-300 font-semibold'>Drafted Courses</h3>
+            <p className='text-richblack-25 text-xl font-bold'>{dashboardData.draftCourses.length}</p>
+            </div>
+            <div>
+            <h3 className='text-richblack-300 font-semibold'>Total Revenue</h3>
+            <p className='text-richblack-25 text-xl font-bold'>Rs. {totalRevenue}</p>
+            </div>
+            <div>
+            <h3 className='text-richblack-300 font-semibold'>Total Enrolled Students</h3>
+            <p className='text-richblack-25 text-xl font-bold'>{totalStudents}</p>
+            </div>
         </div>
       </div>
+      <div className='bg-richblack-800 py-4 px-5'>
+        <div className='flex justify-between items-center'>
+            <h2 className='font-semibold text-richblack-5 text-lg'>Your Courses</h2>
+            <Link to="/dashboard/my-courses" className='text-yellow-50 font-semibold text-md hover:underline'>
+                View All
+            </Link>
+        </div>
+        <div className='flex justify-between gap-x-2'>
+            {
+                dashboardData.publishedCourses.slice(0, 3).map( course => (
+                    <CourseItem course={course}/>
+                ))
+            }
+        </div>
+      </div>
+    </div>
+    :
+    <div className='min-h-[calc(100vh-3.5rem)] grid place-content-center text-center'>
+        <h1 className="text-white text-3xl font-semibold py-2">
+				No Courses Created Yet
+			</h1>
+			<p className="text-[#AFB2BF] font-semibold">
+				You Have Not Created Any Courses Yet. Create a new Course to start your Instructor Journey Now.
+		</p>
+        <Link to="/dashboard/add-course" className='px-3 py-2 bg-yellow-50 w-fit font-bold rounded mx-auto mt-5'>
+            Add Course <i className="ri-add-circle-line"></i>
+        </Link>
     </div>
   )
 }

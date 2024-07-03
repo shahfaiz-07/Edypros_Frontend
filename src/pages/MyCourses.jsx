@@ -39,8 +39,8 @@ const MyCourses = () => {
 					</p>
 				</div>
 			) : (
-				<div className="flex flex-col border border-richblack-500 rounded mt-10">
-                    <div className="flex gap-x-2 p-3 text-[#AFB2BF] uppercase border-b border-richblack-500">
+				<div className="flex flex-col border-2 border-richblack-600 rounded mt-10">
+                    <div className="flex gap-x-2 p-3 text-richblack-25 uppercase border-b-2 border-richblack-600 font-bold">
                         <p className="w-[70%]">Courses</p>
                         <p className="w-[10%] text-center">Duration</p>
                         <p className="w-[10%] text-center">Price</p>

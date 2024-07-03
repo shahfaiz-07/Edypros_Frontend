@@ -6,10 +6,10 @@ const Dashboard = () => {
   return (
     <div className='min-h-[calc(100vh-3.5rem)] max-w-maxContent flex-grow'>
       <div className='flex h-full'>
-        <div className='w-[20%] h-full'>
+        <div className='md:w-[20%] h-full'>
         <Sidebar />
         </div>
-        <div className='w-[80%]'>
+        <div className='md:w-[80%]'>
           <Outlet/>
         </div>
       </div>
