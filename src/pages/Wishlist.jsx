@@ -35,15 +35,15 @@ const Wishlist = () => {
 			</p>
 		</div>
 	) : (
-		<div className="min-h-[calc(100vh-3.5rem)] w-11/12 mx-auto font-inter py-5">
+		<div className="min-h-[calc(100vh-3.5rem)] max-w-[500px] md:w-11/12 md:max-w-full mx-auto font-inter py-5">
       <p className="text-sm text-richblack-400 border-b border-richblack-600 pb-2">{wishlist.length} courses in wishlist</p>
-			<div className="flex gap-x-3 justify-between">
-				<div className="flex flex-col w-[70%]">
+			<div className="flex flex-col lg:flex-row gap-x-3 justify-between">
+				<div className="flex flex-col lg:w-[70%]">
 					{wishlist.map((course) => (
 						<WishlistItem key={course._id} wishlistData={course} handleRemoveFromWishlist={handleRemoveFromWishlist}/>
 					))}
 				</div>
-        <div className="w-[30%] py-5">
+        <div className="lg:w-[30%] py-5">
             <WishlistTotal wishlist={wishlist}/>
         </div>
 			</div>

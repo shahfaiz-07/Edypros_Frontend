@@ -6,7 +6,7 @@ const BecomeInstructor = () => {
     <div className='mt-16'>
       <div className='flex flex-col md:flex-row gap-20 items-center'>
 
-        <div className='w-[50%]'>
+        <div className='md:w-[50%]'>
             <img
                 src={img}
                 alt=""

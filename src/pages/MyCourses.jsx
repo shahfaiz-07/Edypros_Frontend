@@ -23,7 +23,7 @@ const MyCourses = () => {
 	return loading ? (
 		<Spinner />
 	) : (
-		<div className="mx-auto w-11/12 max-w-[1000px] py-10 h-full flex-col font-inter">
+		<div className="mx-auto lg:w-11/12 py-10 h-full flex-col font-inter">
             <h1 className="text-3xl font-medium text-richblack-5 flex justify-between">
                 <p>My Courses</p>
                 <IconButton text="Add Course" bgColor={"bg-yellow-50"} icon={"ri-add-circle-line"} textColor={"text-black"} action={()=>navigate("/dashboard/add-course")}/>
@@ -39,8 +39,8 @@ const MyCourses = () => {
 					</p>
 				</div>
 			) : (
-				<div className="flex flex-col border-2 border-richblack-600 rounded mt-10">
-                    <div className="flex gap-x-2 p-3 text-richblack-25 uppercase border-b-2 border-richblack-600 font-bold">
+				<div className="flex flex-col items-center border-2 bg-richblack-800 lg:bg-transparent lg:border-richblack-600 rounded-lg mt-10 max-w-[650px] lg:max-w-full mx-auto">
+                    <div className="hidden lg:flex gap-x-2 p-3 text-richblack-25 uppercase border-b-2 border-richblack-600 font-bold w-full">
                         <p className="w-[70%]">Courses</p>
                         <p className="w-[10%] text-center">Duration</p>
                         <p className="w-[10%] text-center">Price</p>

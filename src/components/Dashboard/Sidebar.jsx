@@ -16,7 +16,7 @@ const Sidebar = () => {
   //   console.log(user)
   // }, [])
 	return (
-		<div className="h-full w-full py-10">
+		<div className="h-full w-full py-5 md:py-10 bg-richblack-900 bg-opacity-90 md:bg-transparent">
 			<div className="flex flex-col">
 				{sidebarLinks.map((link) => {
 					if (link.type && user?.accountType !== link.type) return null;

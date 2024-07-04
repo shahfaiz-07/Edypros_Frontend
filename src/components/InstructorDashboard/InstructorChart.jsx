@@ -1,9 +1,9 @@
 import React, { useState } from "react";
 import Chart from "chart.js/auto";
-import { CategoryScale } from "chart.js";
+import { CategoryScale, ArcElement, Tooltip, Legend } from "chart.js";
 import { Doughnut, Pie, Bar, Line } from "react-chartjs-2";
 
-Chart.register(CategoryScale);
+Chart.register(CategoryScale, ArcElement, Tooltip, Legend);
 
 const InstructorChart = ({ courses }) => {
 	const [chartTypeStudent, setChartTypeStudent] = useState(true);
@@ -60,7 +60,7 @@ const InstructorChart = ({ courses }) => {
 	};
 	return (
 		courses && (
-			<div className="text-richblack-5 flex flex-col gap-y-2 p-4">
+			<div className="text-richblack-5 flex flex-col items-center gap-y-2 p-2 md:p-4">
 				<div className="flex gap-x-2 items-center">
 					<p className="font-semibold text-richblack-25">Chart Data :</p>
 					<button

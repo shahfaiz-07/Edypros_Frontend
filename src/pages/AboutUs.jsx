@@ -153,9 +153,6 @@ const AboutUs = () => {
 				<Learning />
 				<ContactForm />
 			</section>
-			<div className="relative mx-auto my-20 flex w-11/12 max-w-maxContent flex-col items-center justify-between gap-8 bg-richblack-900">
-				<ReviewSlider reviews={reviews} />
-			</div>
 		</div>
 	);
 };

@@ -5,7 +5,7 @@ import ReactStars from "react-stars";
 const CourseItem = ({ course }) => {
 	const averageRating = calculateAverageCourseRating(course);
 	return (
-		<div className="w-1/3 flex flex-col gap-y-1 pb-3 overflow-hidden bg-pure-greys-800 rounded mt-2">
+		<div className="md:w-1/3 flex flex-col gap-y-1 pb-3 overflow-hidden bg-richblack-700 rounded-lg mt-2">
 			<img
 				src={course.thumbnail}
 				alt=""
@@ -28,7 +28,7 @@ const CourseItem = ({ course }) => {
 				</span>
 			</div>
 			<p
-				className="w-fit rounded-full text-xs bg-richblack-700 px-2 py-1 mx-3 font-semibold"
+				className="w-fit rounded-full text-xs bg-richblack-600 px-2 py-1 mx-3 font-semibold"
 				style={{ color: `#${course.category.color}` }}
 			>
 				{course.category.title}

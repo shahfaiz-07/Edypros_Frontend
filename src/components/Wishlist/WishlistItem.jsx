@@ -7,17 +7,17 @@ const WishlistItem = ({ wishlistData, handleRemoveFromWishlist }) => {
 	const navigate = useNavigate();
 	const averageRating = calculateAverageCourseRating(wishlistData)
 	return (
-		<div className="flex justify-between gap-x-3 px-3 py-5 border-b border-richblack-500 hover:bg-richblack-800 hover:bg-opacity-50">
+		<div className="flex flex-col md:flex-row justify-between gap-x-3 px-3 py-5 border-b border-richblack-500 hover:bg-richblack-800 hover:bg-opacity-50">
 			<img
 				src={wishlistData.thumbnail}
 				alt=""
-				className="aspect-[5/3] h-36 rounded"
+				className="aspect-[5/3] md:h-36 rounded object-cover"
 			/>
-			<div className="flex w-full justify-between">
-				<div className="flex flex-col justify-between ">
+			<div className="flex flex-col md:flex-row w-full justify-between">
+				<div className="flex flex-col gap-y-1 justify-between ">
 					<div>
 						<h2
-							className="text-white text-ellipsis cursor-pointer hover:underline"
+							className="text-white text-lg mt-1 text-ellipsis cursor-pointer hover:underline"
 							onClick={() => navigate(`/course/${wishlistData._id}`)}
 						>
 							{wishlistData.name}
@@ -52,7 +52,7 @@ const WishlistItem = ({ wishlistData, handleRemoveFromWishlist }) => {
 						</span>
 					</div>
 				</div>
-				<div className="flex flex-col gap-y-2 w-[20%]">
+				<div className="flex flex-col-reverse gap-y-2 md:w-fit">
 					<button
 						className="text-pink-300 py-1 px-2 bg-richblack-800 text-sm rounded border border-richblack-700"
 						onClick={() => handleRemoveFromWishlist(wishlistData._id)}

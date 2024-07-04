@@ -12,7 +12,7 @@ const ReviewCard = ({card}) => {
 						<img
 							src={card.reviewedBy.avatar}
 							alt=""
-							className="aspect-square w-12 h-12 rounded-full"
+							className="aspect-square w-12 h-12 rounded-full object-cover"
 						/>
 						<div className="flex flex-col justify-between">
 							<h3 className="text-richblack-5 font-semibold">

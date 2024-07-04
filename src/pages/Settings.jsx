@@ -99,13 +99,13 @@ const Settings = () => {
 	return (
 		<div>
 			<div className=" flex-1 overflow-auto">
-				<div className="mx-auto w-11/12 max-w-[1000px] py-10">
-					<h1 className="mb-14 text-3xl font-medium text-richblack-5">
+				<div className="mx-auto md:w-11/12 max-w-[1000px] py-10">
+					<h1 className="mb-5 md:mb-14 text-3xl font-medium text-richblack-5">
 						Edit Profile
 					</h1>
 
 					<div className="flex items-center justify-between rounded-md border-[1px] border-richblack-700 bg-richblack-800 md:p-8 md:px-12 px-3 py-3 text-richblack-5">
-						<div className="flex items-center gap-x-4">
+						<div className="flex items-center gap-x-4 p-2">
 							<img
 								className="aspect-square w-[78px] rounded-full object-cover"
 								src={profilePicture}
@@ -144,7 +144,7 @@ const Settings = () => {
 					<form 
           onSubmit={handleProfileUpdate}
           >
-						<div className="my-10 flex flex-col gap-y-6 rounded-md border-[1px] border-richblack-700 bg-richblack-800 p-8 px-12">
+						<div className="my-10 flex flex-col gap-y-6 rounded-md border-[1px] border-richblack-700 bg-richblack-800 p-4 md:p-8 md:px-12">
 							<h2 className="text-lg font-semibold text-richblack-5">
 								Profile Information
 							</h2>

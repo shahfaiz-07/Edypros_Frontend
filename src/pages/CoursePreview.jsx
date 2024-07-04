@@ -55,7 +55,7 @@ const CoursePreview = () => {
 							{courseDetails?.name}
 						</h1>
 						<p className="text-richblack-400">{courseDetails?.description}</p>
-						<div className="flex items-center gap-x-2">
+						<div className="flex items-center gap-x-2 text-sm md:text-base">
 							<span className="text-yellow-50">{calculateAverageCourseRating(courseDetails)}</span>{" "}
 							<ReactStars
 								count={5}

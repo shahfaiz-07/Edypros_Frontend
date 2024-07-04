@@ -10,7 +10,7 @@ const CourseContent = ({course}) => {
     <div className='py-2 md:py-4 space-y-1'>
       <h1 className='text-richblack-5 font-semibold text-3xl'>Course Content</h1>
       <div className='flex flex-col sm:flex-row gap-x-3 px-2 pb-3 text-richblack-25 text-sm'>
-        <p className=''>{course.sections.length} sections(s) {totalLectures} lecture(s)</p>
+        <p className=''>{course.sections.length} sections(s) | {totalLectures} lecture(s)</p>
         {" "}<span className='font-bold hidden sm:block'>|</span>{" "}
         <p className='font-semibold'><i className="ri-time-fill font-light"></i> Course Duration : {formatDuration(totalCourseDuration(course))}</p>
 

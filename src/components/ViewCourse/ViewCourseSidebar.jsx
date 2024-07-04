@@ -26,8 +26,8 @@ const ViewCourseSidebar = () => {
 
 	return (
 		courseData && (
-			<div className="w-full py-5 font-inter">
-				<div className="px-2 flex justify-between">
+			<div className="w-full pt-5 lg:py-5 font-inter">
+				<div className="px-2 pb-2  flex justify-between">
 					<button
 						className="rounded-full aspect-square w-10 text-sm grid place-content-center bg-richblack-700 text-richblack-5"
 						onClick={() => navigate("/dashboard/registered-courses")}
@@ -38,7 +38,7 @@ const ViewCourseSidebar = () => {
 						{ratingAndReview ? <i className="ri-file-edit-line"></i> : <i className="ri-chat-new-line"></i>} {ratingAndReview ? "Edit" : "Add"} Review
 					</button>
 				</div>
-				<div className="my-3">
+				<div className=" lg:my-3">
 					<div className="text-light text-richblack-50 px-2 text-xs">
 						{completedLectures.length} / {totalLectures} | {duration}
 					</div>

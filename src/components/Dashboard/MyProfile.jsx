@@ -7,7 +7,7 @@ const MyProfile = () => {
 	const { user } = useSelector((state) => state.profile);
 	const navigate = useNavigate();
 	return (
-		<div className="text-white mx-auto w-11/12 py-5">
+		<div className="text-white mx-auto md:w-11/12 py-5">
 			<h1 className="text-3xl mb-5">My Profile</h1>
 			<div className="flex items-center justify-between rounded-md border-[1px] border-richblack-700 bg-richblack-800 p-3 md:p-8 md:px-12">
 				<div className="flex items-center gap-x-4 ">
