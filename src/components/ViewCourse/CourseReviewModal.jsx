@@ -7,6 +7,7 @@ import { useParams } from "react-router";
 import toast from "react-hot-toast";
 
 const CourseReviewModal = ({ setModalData }) => {
+	const {token} = useSelector(state => state.auth)
 	const { user } = useSelector((state) => state.profile);
   const { ratingAndReview } = useSelector(state => state.viewCourse)
   const [initialRating, setInitialRating] = useState(0)
@@ -38,10 +39,10 @@ const CourseReviewModal = ({ setModalData }) => {
 	const onSubmit = async () => {
     const currentValues = getValues()
     if(!ratingAndReview) {
-      await addRatingAndReview(dispatch, {rating: currentValues.userRating, review: currentValues.userReview, reviewed: courseId})
+      await addRatingAndReview(dispatch, {rating: currentValues.userRating, review: currentValues.userReview, reviewed: courseId}, token)
       setModalData(false)
     } else if(Number(ratingAndReview.rating) !== Number(currentValues.userRating) || ratingAndReview.review !== currentValues.userReview) {
-      await editRatingAndReview(dispatch, {rating: currentValues.userRating, review: currentValues.userReview, courseId})
+      await editRatingAndReview(dispatch, {rating: currentValues.userRating, review: currentValues.userReview, courseId}, token)
       setModalData(false)
     } else {
       toast.error("No Changes Made !!")
