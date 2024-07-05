@@ -45,6 +45,7 @@ export async function updateAvatar(token, avatar) {
 export async function updateProfile(token, formData) {
 	const toastId = toast.loading("Updating...");
 	try {
+		console.log("LOGGINg TOKEN FOR REQUEST", token)
 		const response = await apiConnector(
 			"PATCH",
 			settingsEndpoints.UPDATE_PROFILE_API,
