@@ -93,7 +93,25 @@ const BuyNowCard = ({ course }) => {
 				alt=""
 				className="rounded aspect-video object-cover"
 			/>
-			{user.accountType === ACCOUNT_TYPE.STUDENT ? (
+			{
+				(!user || !token) && (<>
+				<p className="text-richblack-5 font-semibold text-lg">
+				Rs. {course.price}
+			</p>
+			<button
+				className="bg-yellow-50 rounded w-full py-2 font-semibold"
+				onClick={handleBuyNow}
+			>
+				Buy Now
+			</button>
+			<button
+				className="bg-richblack-800 md:bg-richblack-900 rounded w-full py-2 font-semibold text-richblack-5"
+				onClick={handleToggleWishlist}
+			>
+				{inWishlist ? "Remove From Wishlist" : "Add To Wishlist"}
+			</button></>)
+			}
+			{user && user.accountType === ACCOUNT_TYPE.STUDENT ? (
 				!alreadyBought ? (
 					<>
 						<p className="text-richblack-5 font-semibold text-lg">
