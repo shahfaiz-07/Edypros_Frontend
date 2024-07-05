@@ -16,9 +16,7 @@ export async function updateAvatar(token, avatar) {
 			"PATCH",
 			settingsEndpoints.UPDATE_DISPLAY_PICTURE_API,
 			formData,
-			{
-				Authorization: `Bearer ${token}`,
-			}
+			{ Authorization: `Bearer ${token}` }
 		);
 		console.log(
 			"UPDATE_DISPLAY_PICTURE_API API RESPONSE............",

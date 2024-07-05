@@ -18,10 +18,10 @@ const Settings = () => {
 	const [profilePicture, setprofilePicture] = useState(avatar)
 	const {token}= useSelector(state=>state.auth);
 
-	const handleUpload = (e) => {
+	const handleUpload = async (e) => {
 	  e.preventDefault();
 	  const file = e.target[0].files[0];
-	  updateAvatar(token,file);
+	  await updateAvatar(token,file);
 	}
 
 	// const handleAccountUpgrade = (e) => {
@@ -50,9 +50,9 @@ const Settings = () => {
 	  }))
 	}
 
-	const handleProfileUpdate = (e) => {
+	const handleProfileUpdate = async (e) => {
 	  e.preventDefault()
-	  updateProfile(token,formData);
+	  await updateProfile(token,formData);
 	}
 
 	// //update password
