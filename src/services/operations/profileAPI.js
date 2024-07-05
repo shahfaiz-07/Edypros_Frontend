@@ -17,7 +17,7 @@ export async function updateAvatar(token, avatar) {
 			settingsEndpoints.UPDATE_DISPLAY_PICTURE_API,
 			formData,
 			{
-				Authorisation: `Bearer ${token}`,
+				Authorization: `Bearer ${token}`,
 			}
 		);
 		console.log(
@@ -52,7 +52,7 @@ export async function updateProfile(token, formData) {
 			settingsEndpoints.UPDATE_PROFILE_API,
 			formData,
 			{
-				Authorisation: `Bearer ${token}`,
+				Authorization: `Bearer ${token}`,
 			},
 			null
 		);
@@ -81,7 +81,7 @@ export async function updatePassword(token, password) {
 			"PATCH",
 			settingsEndpoints.CHANGE_PASSWORD_API,
 			password,
-			{ Authorisation: `Bearer ${token}` },
+			{ Authorization: `Bearer ${token}` },
 			null
 		);
 
@@ -105,7 +105,7 @@ export function deleteAccount(token, navigate) {
 				settingsEndpoints.DELETE_PROFILE_API,
 				null,
 				{
-					Authorisation: `Bearer ${token}`,
+					Authorization: `Bearer ${token}`,
 				}
 			);
 
@@ -138,7 +138,7 @@ export function upgradeAccountToInstructor(token, navigate) {
 				settingsEndpoints.UPGRADE_TO_INSTRUCTOR_API,
 				null,
 				{
-					Authorisation: `Bearer ${token}`,
+					Authorization: `Bearer ${token}`,
 				}
 			);
 			console.log("ACCOUNT UPGRADATION RESPONSE .............", response);
