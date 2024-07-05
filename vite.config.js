@@ -6,7 +6,7 @@ export default defineConfig({
   plugins: [react()],
   server: {
     proxy: {
-        '/api': 'https://edypros-backend.onrender.com',
+        '/api/v1': 'https://edypros-backend.onrender.com',
     }
 }
 })
