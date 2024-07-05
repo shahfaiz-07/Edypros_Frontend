@@ -40,7 +40,7 @@ const RegisteredCourses = () => {
         :
         <div className='pt-7'>
 <div className='min-h-[calc(100vh-3.5rem)] lg:w-11/12 mx-auto font-inter'>
-            <div className='rounded w-full border max-w-[500px] mx-auto lg:max-w-maxContent border-richblack-500'>
+            <div className='rounded w-full border mx-auto grid grid-cols-1 md:grid-cols-2 lg:flex lg:flex-col gap-2 lg:gap-0 lg:max-w-maxContent lg:border-richblack-500'>
                 <div className='lg:flex px-2 py-3 bg-[#2C333F] text-richblack-5 uppercase text-sm font-semibold hidden'>
                     <p className='w-[55%]'>Course Name</p>
                     <p className='w-[15%] text-center'>Durations</p>
@@ -49,7 +49,7 @@ const RegisteredCourses = () => {
                 </div>
             {
                 registeredCourses.map( (course) => (
-                    <div key={course._id} className='px-3 py-4 flex border-b border-richblack-500 hover:bg-richblack-700 hover:bg-opacity-40'>
+                    <div key={course._id} className='px-3 py-4 flex lg:border-b border-richblack-500 rounded-lg lg:rounded-none bg-richblack-800 lg:bg-richblack-900 hover:bg-opacity-40'>
                         <div className='lg:w-[55%] flex flex-col lg:flex-row gap-3'>
                         <img src={course.courseId.thumbnail} alt="" className='aspect-[5/3] lg:h-32 w-full lg:w-auto object-cover rounded' />
                         <div className='flex flex-col h-full justify-between'>
@@ -62,7 +62,6 @@ const RegisteredCourses = () => {
                             <p className='text-[#838894] text-xs text-ellipsis'>{course.courseId.description.slice(0, 70)} {course.courseId.description.length > 70 && "..."}</p>
                             <p className='py-1 px-2 bg-richblack-700 rounded-full text-xs w-fit font-semibold hover:underline cursor-pointer' style={{color: `#${course.courseId.category.color}`}} onClick={() => navigate(`/catalog/${course.courseId.category._id}`)}>{course.courseId.category.title}</p>
                             <div className='lg:hidden flex-col justify-center'>
-                            {console.log(course.completedVideos.length)}
                             <p className='text-richblack-5 text-xs my-1'>Progress {Math.round(course.completedVideos.length/totalCourseLectures(course.courseId)*100)}%</p>
                             <ProgressBar completed={course.completedVideos.length} maxCompleted={totalCourseLectures(course.courseId)} height='5px' bgColor='#47A5C5' isLabelVisible={false}/>
                             <div className='lg-:hidden flex justify-between items-center mt-2 '>

@@ -4,13 +4,18 @@ import { useDispatch, useSelector } from "react-redux";
 import { useNavigate, useParams } from "react-router";
 import { buyCourses } from "../../services/operations/paymentAPI";
 import { ACCOUNT_TYPE } from "./../../constants";
-import { addToWishlist, getCurrentUser, removeFromWishlist } from "../../services/operations/profileAPI";
+import {
+	addToWishlist,
+	getCurrentUser,
+	removeFromWishlist,
+} from "../../services/operations/profileAPI";
 import { setUser } from "../../features/auth/profileSlice";
+import { resetViewCourse } from "../../features/registeredCourses/viewCourseSlice";
 
 const BuyNowCard = ({ course }) => {
 	const { token } = useSelector((state) => state.auth);
 	const { user } = useSelector((state) => state.profile);
-	const { totalItems } = useSelector( state => state.wishlist);
+	const { totalItems } = useSelector((state) => state.wishlist);
 	const dispatch = useDispatch();
 	const navigate = useNavigate();
 	const [inWishlist, setInWishlist] = useState(false);
@@ -25,10 +30,22 @@ const BuyNowCard = ({ course }) => {
 				icon: "❗",
 			});
 		} else {
-			if(!inWishlist) {
-				await addToWishlist(totalItems, dispatch, token, course._id, setInWishlist)
+			if (!inWishlist) {
+				await addToWishlist(
+					totalItems,
+					dispatch,
+					token,
+					course._id,
+					setInWishlist
+				);
 			} else {
-				await removeFromWishlist(totalItems, dispatch, token, course._id, setInWishlist)
+				await removeFromWishlist(
+					totalItems,
+					dispatch,
+					token,
+					course._id,
+					setInWishlist
+				);
 			}
 		}
 	};
@@ -63,7 +80,12 @@ const BuyNowCard = ({ course }) => {
 		}
 	};
 
-	const handleViewCourse = () => {};
+	const handleViewCourse = () => {
+		dispatch(resetViewCourse());
+		navigate(
+			`/view-course/${course._id}/${course.sections[0]._id}/${course.sections[0].videos[0]._id}`
+		);
+	};
 	return (
 		<div className=" md:relative md:-translate-y-1/4 md:rounded-lg md:bg-richblack-700 py-4 md:px-4 flex flex-col gap-y-2 mx-auto max-w-[30rem]">
 			<img
@@ -71,44 +93,56 @@ const BuyNowCard = ({ course }) => {
 				alt=""
 				className="rounded aspect-video object-cover"
 			/>
-			{!alreadyBought ? (
-				<>
-					<p className="text-richblack-5 font-semibold text-lg">
-						Rs. {course.price}
-					</p>
-					<button
-						className="bg-yellow-50 rounded w-full py-2 font-semibold"
-						onClick={handleBuyNow}
-					>
-						Buy Now
-					</button>
-					<button
-						className="bg-richblack-800 md:bg-richblack-900 rounded w-full py-2 font-semibold text-richblack-5"
-						onClick={handleToggleWishlist}
-					>
-						{
-							inWishlist ? "Remove From Wishlist" : "Add To Wishlist"
-						}
-					</button>
-				</>
+			{user.accountType === ACCOUNT_TYPE.STUDENT ? (
+				!alreadyBought ? (
+					<>
+						<p className="text-richblack-5 font-semibold text-lg">
+							Rs. {course.price}
+						</p>
+						<button
+							className="bg-yellow-50 rounded w-full py-2 font-semibold"
+							onClick={handleBuyNow}
+						>
+							Buy Now
+						</button>
+						<button
+							className="bg-richblack-800 md:bg-richblack-900 rounded w-full py-2 font-semibold text-richblack-5"
+							onClick={handleToggleWishlist}
+						>
+							{inWishlist ? "Remove From Wishlist" : "Add To Wishlist"}
+						</button>
+					</>
+				) : (
+					<>
+						<p className="text-richblack-5 font-semibold px-2 py-1 bg-caribbeangreen-500 text-xs w-fit rounded-full">
+							Already Purchased{" "}
+							<i className="font-light ri-checkbox-circle-fill"></i>
+						</p>
+						<button
+							className="bg-yellow-50 rounded w-full py-2 font-semibold"
+							onClick={handleViewCourse}
+						>
+							View Course
+						</button>
+					</>
+				)
 			) : (
-				<>
-				<p className="text-richblack-5 font-semibold px-2 py-1 bg-caribbeangreen-500 text-xs w-fit rounded-full">
-					Already Purchased <i className="font-light ri-checkbox-circle-fill"></i>
-				</p>
-				<button
-					className="bg-yellow-50 rounded w-full py-2 font-semibold"
-					onClick={handleViewCourse}
-				>
-					View Course
-				</button>
-				</>
+				alreadyBought && (
+					<p className="text-richblack-5 font-semibold px-2 py-1 bg-pink-400 text-xs w-fit rounded-full">
+						Your Course <i className="font-light ri-checkbox-circle-fill"></i>
+					</p>
+				)
 			)}
 			<div className="text-yellow-50 text-center">
-				<span onClick={ () => {
-				window.navigator.clipboard.writeText(window.location.href)
-				toast.success("Link copied to clipboard")
-			}} className="cursor-pointer"><i className="ri-share-fill"></i> Share</span>
+				<span
+					onClick={() => {
+						window.navigator.clipboard.writeText(window.location.href);
+						toast.success("Link copied to clipboard");
+					}}
+					className="cursor-pointer"
+				>
+					<i className="ri-share-fill"></i> Share
+				</span>
 			</div>
 			<div className="">
 				<h3 className="text-richblack-25 font-semibold text-lg">

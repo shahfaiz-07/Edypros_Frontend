@@ -51,11 +51,11 @@ const CoursePreview = () => {
 			<div className="">
 				<div className="bg-[#161D29]">
 					<div className="w-11/12 mx-auto flex flex-col gap-y-2 p-3 lg:px-6 lg:py-10">
-						<h1 className="text-richblack-5 text-4xl font-semibold">
+						<h1 className="text-richblack-5 text-2xl md:text-3xl lg:text-4xl font-semibold">
 							{courseDetails?.name}
 						</h1>
 						<p className="text-richblack-400">{courseDetails?.description}</p>
-						<div className="flex items-center gap-x-2 text-sm md:text-base">
+						<div className="flex items-center gap-x-2 text-xs md:text-sm lg:text-base">
 							<span className="text-yellow-50">{calculateAverageCourseRating(courseDetails)}</span>{" "}
 							<ReactStars
 								count={5}
@@ -80,8 +80,8 @@ const CoursePreview = () => {
                     {/* course Details Section */}
                     <div className="md:w-[70%]">
                         <div className="border border-richblack-500 rounded py-2 px-4 md:px-6 md:p-4 space-y-2">
-                            <h3 className="text-3xl text-richblack-5 font-semibold">What you'll learn</h3>
-                            <p className="text-richblack-400 text-lg">{courseDetails?.learnings}</p>
+                            <h3 className="text-2xl md:text-3xl text-richblack-5 font-semibold">What you'll learn</h3>
+                            <p className="text-richblack-400 text-md md:text-lg">{courseDetails?.learnings}</p>
                         </div>
                         <CourseContent course={courseDetails}/>
                         {/* Instructor */}

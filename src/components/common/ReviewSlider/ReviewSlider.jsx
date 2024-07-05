@@ -22,7 +22,7 @@ const ReviewSlider = ({ reviews, text }) => {
 	return (
 		reviews.length > 0 && (
 			<div className="w-full">
-				<h1 className="text-4xl text-richblack-5 font-semibold text-semibold text-center mb-5">
+				<h1 className="text-2xl md:text-3xl lg:text-4xl text-richblack-5 font-semibold text-semibold text-center mb-5">
 					{text ? text : "Reviews from other learners"}
 				</h1>
 				<Swiper

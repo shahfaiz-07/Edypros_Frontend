@@ -179,7 +179,7 @@ const VideoSection = () => {
 					)}
 				</div>
 			</div>
-			<h2 className="text-4xl px-3 mt-5">{currentVideo?.title}</h2>
+			<h2 className="text-2xl md:text-3xl lg:text-4xl px-3 mt-5">{currentVideo?.title}</h2>
 			<p className="text-lg px-3  text-richblack-300">
 				{currentVideo?.description}
 			</p>

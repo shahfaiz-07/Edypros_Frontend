@@ -6,7 +6,8 @@ import WishlistItem from "./../components/Wishlist/WishlistItem";
 import WishlistTotal from './../components/Wishlist/WishlistTotal';
 
 const Wishlist = () => {
-	const { token, loading } = useSelector((state) => state.profile);
+	const { loading } = useSelector((state) => state.profile);
+	const { token } = useSelector( state => state.auth )
 	const {totalItems} = useSelector(state => state.wishlist)
 	const [wishlist, setWishlist] = useState([]);
 	const dispatch = useDispatch();

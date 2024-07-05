@@ -17,7 +17,7 @@ const WishlistItem = ({ wishlistData, handleRemoveFromWishlist }) => {
 				<div className="flex flex-col gap-y-1 justify-between ">
 					<div>
 						<h2
-							className="text-white text-lg mt-1 text-ellipsis cursor-pointer hover:underline"
+							className="text-white text-lg md:text-md mt-1 text-ellipsis cursor-pointer hover:underline"
 							onClick={() => navigate(`/course/${wishlistData._id}`)}
 						>
 							{wishlistData.name}
@@ -37,7 +37,7 @@ const WishlistItem = ({ wishlistData, handleRemoveFromWishlist }) => {
 					>
 						{wishlistData.category.title}
 					</div>
-					<div className="text-[#ffd700] text-sm flex gap-x-2">
+					<div className="text-[#ffd700] text-sm md:text-xs flex gap-x-2">
 						<span>{averageRating}</span>{" "}
 						<ReactStars
 							count={5}
