@@ -87,7 +87,7 @@ const Contact = () => {
 					</div>
 				</div>
 				<div className="lg:w-[60%]">
-					<div className="border border-richblack-600 text-richblack-300 rounded-xl p-7 lg:p-14 flex gap-3 flex-col">
+					<div className="border border-richblack-600 text-richblack-300 rounded-xl p-4 md:p-7 lg:p-14 flex gap-3 flex-col">
 						<h1 className="text-4xl leading-10 font-semibold text-richblack-5">
 							Got a Idea? We've got the skills. Let's team up
 						</h1>

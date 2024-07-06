@@ -9,7 +9,7 @@ const PreRequisites = ({name, label, register, errors, setValue}) => {
 	const addPreRequisite = (e) => {
         e.preventDefault()
 		if (currentPreRequisite) {
-			setPreRequisites((prev) => [...prev, currentPreRequisite]);
+			setPreRequisites((prev) => [...prev, currentPreRequisite.trim()]);
 			setCurrentPreRequisite("");
 		}
 	};

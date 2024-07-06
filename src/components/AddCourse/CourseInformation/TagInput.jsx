@@ -8,9 +8,10 @@ const TagInput = ({name, label, placeholder, register, errors, setValue}) => {
 
 
 
-    const addTag = () => {
+    const addTag = (e) => {
+        e.preventDefault()
         if(currentTag) {
-            setTags((prev) => [...prev, currentTag]);
+            setTags((prev) => [...prev, currentTag.trim()]);
             setCurrentTag("")
         }
     }
@@ -46,12 +47,10 @@ const TagInput = ({name, label, placeholder, register, errors, setValue}) => {
 				value={currentTag}
 				onChange={(e) => setCurrentTag(e.target.value)}
 				className="form-style w-full"
-                onKeyUp={(e) => {
-                    if(e.key === "Enter")
-                    return addTag()
-                    else return null
-                }}
 			/>
+            <button className="bg-yellow-50 px-3 py-1 rounded font-semibold self-end" onClick={addTag}>
+				Add
+			</button>
             <div className='flex flex-wrap gap-1'>
             {
                 tags?.map( (tag, index) => (
