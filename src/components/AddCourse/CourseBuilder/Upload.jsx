@@ -15,6 +15,7 @@ export default function Upload({
   video = false,
   viewData = null,
   editData = null,
+  localLoading
 }) {
   const [selectedFile, setSelectedFile] = useState(null)
   const [previewSource, setPreviewSource] = useState(
@@ -87,6 +88,7 @@ export default function Upload({
                   setSelectedFile(null)
                   setValue(name, null)
                 }}
+                disabled={localLoading}
                 className="mt-3 text-richblack-400 underline"
               >
                 Cancel

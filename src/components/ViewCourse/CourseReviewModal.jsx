@@ -9,8 +9,9 @@ import toast from "react-hot-toast";
 const CourseReviewModal = ({ setModalData }) => {
 	const {token} = useSelector(state => state.auth)
 	const { user } = useSelector((state) => state.profile);
-  const { ratingAndReview } = useSelector(state => state.viewCourse)
-  const [initialRating, setInitialRating] = useState(0)
+	const { ratingAndReview } = useSelector(state => state.viewCourse)
+	const [initialRating, setInitialRating] = useState(0)
+	const [localLoading, setLocalLoading] = useState(false)
   const { courseId } = useParams()
   const dispatch = useDispatch()
   const {
@@ -39,10 +40,14 @@ const CourseReviewModal = ({ setModalData }) => {
 	const onSubmit = async () => {
     const currentValues = getValues()
     if(!ratingAndReview) {
-      await addRatingAndReview(dispatch, {rating: currentValues.userRating, review: currentValues.userReview, reviewed: courseId}, token)
+		setLocalLoading(true)
+		await addRatingAndReview(dispatch, {rating: currentValues.userRating, review: currentValues.userReview, reviewed: courseId}, token)
+		setLocalLoading(false)
       setModalData(false)
     } else if(Number(ratingAndReview.rating) !== Number(currentValues.userRating) || ratingAndReview.review !== currentValues.userReview) {
-      await editRatingAndReview(dispatch, {rating: currentValues.userRating, review: currentValues.userReview, courseId}, token)
+		setLocalLoading(true)
+		await editRatingAndReview(dispatch, {rating: currentValues.userRating, review: currentValues.userReview, courseId}, token)
+		setLocalLoading(false)
       setModalData(false)
     } else {
       toast.error("No Changes Made !!")
@@ -53,6 +58,7 @@ const CourseReviewModal = ({ setModalData }) => {
 		<div
 			className="w-[100vw] h-[100vh] bg-richblack-400 bg-opacity-50 fixed z-50 grid place-content-center top-0 left-0"
 			onClick={() => setModalData(false)}
+			disabled={localLoading}
 		>
 			<div
 				className="rounded-lg max-w-[650px] lg:w-[650px] bg-richblack-800 overflow-hidden"
@@ -60,7 +66,7 @@ const CourseReviewModal = ({ setModalData }) => {
 			>
 				<div className="bg-richblack-700 flex items-center justify-between py-2 px-4 text-white">
 					<h1>{ratingAndReview ? "Edit You Review" :"Leave A Review"}</h1>
-					<span onClick={() => setModalData(false)}>
+					<span onClick={() => setModalData(false)} disabled={localLoading}>
 						<i className="ri-close-large-line"></i>
 					</span>
 				</div>
@@ -86,6 +92,7 @@ const CourseReviewModal = ({ setModalData }) => {
 						onChange={ratingChanged}
             value={initialRating}
 						size={24}
+						edit={!localLoading}
 						color2={"#ffd700"}
 					/>
           <input className="hidden" value={getValues().userRating} {...register("userRating", {required: true, validate: value => value > 0})} type="number" disabled/>{errors.userRating && <span className='text-pink-200 text-[11px]'>* Please provide your rating</span>}
@@ -99,6 +106,7 @@ const CourseReviewModal = ({ setModalData }) => {
 						rows="5"
 						className="form-style"
 						placeholder="Share Your Experience..."
+						disabled={localLoading}
             {...register("userReview", {required: true})}
 					></textarea>
           {errors.userReview && <span className='text-pink-200 text-[11px]'>* Please provide a review</span>}
@@ -107,12 +115,14 @@ const CourseReviewModal = ({ setModalData }) => {
 							className="bg-richblack-600 px-4 py-2 rounded"
 							onClick={() => {
                 setModalData(false)}}
+				disabled={localLoading}
 						>
 							Cancel
 						</button>
 						<button
 							className="bg-yellow-50 rounded px-4 py-2"
 							type="submit"
+							disabled={localLoading}
 						>
 							{ratingAndReview ? "Save" : "Post"}
 						</button>

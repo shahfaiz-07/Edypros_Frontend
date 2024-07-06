@@ -16,17 +16,16 @@ const Settings = () => {
 	// //update profile picture
 	const avatar=useSelector(state=>state.profile.user.avatar);
 	const [profilePicture, setprofilePicture] = useState(avatar)
+	const [localLoading, setLocalLoading] = useState(false)
 	const {token}= useSelector(state=>state.auth);
 
 	const handleUpload = async (e) => {
 	  e.preventDefault();
 	  const file = e.target[0].files[0];
+	  setLocalLoading(true)
 	  await updateAvatar(token,file);
+	  setLocalLoading(false)
 	}
-
-	// const handleAccountUpgrade = (e) => {
-	// 	e.preventDefault()
-	// }
 
 	const handleFileChange = (e) => {
 	  const file = e.target.files[0];
@@ -52,7 +51,9 @@ const Settings = () => {
 
 	const handleProfileUpdate = async (e) => {
 	  e.preventDefault()
+	  setLocalLoading(true)
 	  await updateProfile(token,formData);
+	  setLocalLoading(false)
 	}
 
 	// //update password
@@ -76,7 +77,9 @@ const Settings = () => {
 	  e.preventDefault()
 	  const {newPassword, confirmNewPassword } = password;
 	  if (newPassword === confirmNewPassword) {
+		setLocalLoading(true)
 	    await updatePassword(token,password);
+		setLocalLoading(false)
 		setPassword({
 			oldPassword: "",
 	  newPassword: "",
@@ -86,15 +89,6 @@ const Settings = () => {
 	    alert("Password does not match")
 	  }
 	}
-
-	// //delete account
-	// const onDeleteAccount = () => {
-	//   if(window.confirm
-	//     ("Are you sure you want to delete your account?")){
-	//       deleteAccount(token, navigate)
-	//     }
-
-	// }
 
 	return (
 		<div>
@@ -127,11 +121,13 @@ const Settings = () => {
 												onChange={handleFileChange}
 												className="hidden"
 												accept="image/png, image/gif, image/jpeg"
+												disabled={localLoading}
 											/>
 										</label>
 										<button
 											type="submit"
 											className="flex items-center bg-yellow-50 cursor-pointer gap-x-2 rounded-md py-2 px-5 font-semibold text-richblack-900 undefined"
+											disabled={localLoading}
 										>
 											Upload
 										</button>
@@ -161,6 +157,7 @@ const Settings = () => {
 										placeholder="Enter first name"
 										className="form-style"
 										onChange={handleOnChange}
+										disabled={localLoading}
 									/>
 								</div>
 								<div className="flex flex-col gap-2 lg:w-[48%]">
@@ -175,6 +172,7 @@ const Settings = () => {
 										placeholder="Enter first name"
 										className="form-style"
 										onChange={handleOnChange}
+										disabled={localLoading}
 									/>
 								</div>
 							</div>
@@ -190,6 +188,7 @@ const Settings = () => {
 										id="dob"
 										className="form-style"
 										onChange={handleOnChange}
+										disabled={localLoading}
 									/>
 								</div>
 								<div className="flex flex-col gap-2 lg:w-[48%]">
@@ -203,6 +202,7 @@ const Settings = () => {
 										id="gender"
 										className="form-style"
 										onChange={handleOnChange}
+										disabled={localLoading}
 									>
 										<option value="Prefer not to say">Prefer not to say</option>
 										<option value="Male">Male</option>
@@ -224,6 +224,7 @@ const Settings = () => {
 										placeholder="Enter Contact Number"
 										className="form-style"
 										onChange={handleOnChange}
+										disabled={localLoading}
 									/>
 								</div>
 								<div className="flex flex-col gap-2 lg:w-[48%]">
@@ -238,6 +239,7 @@ const Settings = () => {
 										placeholder="Enter Bio Details"
 										className="form-style"
 										onChange={handleOnChange}
+										disabled={localLoading}
 									/>
 								</div>
 							</div>
@@ -246,6 +248,7 @@ const Settings = () => {
 							<button
 								className="flex items-center bg-yellow-50 cursor-pointer gap-x-2 rounded-md py-2 px-5 font-semibold text-richblack-900 undefined"
 								type="submit"
+								disabled={localLoading}
 							>
 								Save
 							</button>
@@ -272,6 +275,7 @@ const Settings = () => {
 											boxShadow: "inset 0px -1px 0px rgba(255, 255, 255, 0.18)",
 										}}
 										className="w-full rounded-[0.5rem] bg-richblack-800 p-[12px] pr-12 text-richblack-5"
+										disabled={localLoading}
 									/>
 								</label>
 								<span
@@ -300,6 +304,7 @@ const Settings = () => {
 										style={{
 											boxShadow: "inset 0px -1px 0px rgba(255, 255, 255, 0.18)",
 										}}
+										disabled={localLoading}
 										className="w-full rounded-[0.5rem] bg-richblack-800 p-[12px] pr-12 text-richblack-5"
 									/>
 								</label>
@@ -329,6 +334,7 @@ const Settings = () => {
 										style={{
 											boxShadow: "inset 0px -1px 0px rgba(255, 255, 255, 0.18)",
 										}}
+										disabled={localLoading}
 										className="w-full rounded-[0.5rem] bg-richblack-800 p-[12px] pr-12 text-richblack-5"
 									/>
 								</label>
@@ -348,6 +354,7 @@ const Settings = () => {
 							<button
 								className="flex items-center bg-yellow-50 cursor-pointer gap-x-2 rounded-md py-2 px-5 font-semibold text-richblack-900 undefined"
 								type="submit"
+								disabled={localLoading}
 							>
 								Save
 							</button>
@@ -374,6 +381,7 @@ const Settings = () => {
 							</div>
 							<button
 								type="button"
+								disabled={localLoading}
 								onClick={ () => setConfirmationModal({
 									text1: "Are You Sure ?",
 									text2: "Your purchased courses will be removed permanently. The profile data along with your password will be retained.",
@@ -426,6 +434,7 @@ const Settings = () => {
 							</div>
 							<button
 								type="button"
+								disabled={localLoading}
 								onClick={ () => setConfirmationModal({
 									text1: "Are You Sure ?",
 									text2: "Your Account and related data along with purchased courses will be deleted permanently",

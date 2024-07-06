@@ -11,10 +11,12 @@ import { getCurrentUser } from "../services/operations/profileAPI";
 import { calculateAverageCourseRating } from "../utils/calculateAverageRating";
 import { getCourseRatings } from "../services/operations/ratingsAndReviewsAPI";
 import ReviewSlider from "../components/common/ReviewSlider/ReviewSlider";
+import VerifyPaymentOverlay from "../components/common/VerifyPayment/VerifyPaymentOverlay";
 
 const CoursePreview = () => {
 	const { loading, user } = useSelector((state) => state.profile);
 	const { token } = useSelector( state => state.auth)
+	const { paymentLoading } = useSelector(state => state.course)
 	const dispatch = useDispatch();
 	const { courseId } = useParams();
 	const [courseDetails, setCourseDetails] = useState(null);
@@ -48,6 +50,7 @@ const CoursePreview = () => {
 		<Spinner/>
 	) : (
 		<div className="font-inter">
+			{paymentLoading && <VerifyPaymentOverlay/>}
 			<div className="">
 				<div className="bg-[#161D29]">
 					<div className="w-11/12 mx-auto flex flex-col gap-y-2 p-3 lg:px-6 lg:py-10">
@@ -69,10 +72,12 @@ const CoursePreview = () => {
 							</span>{" "}<span className="text-richblack-500">|</span>{" "}
                             <p className="text-richblack-500">{courseDetails?.studentsEnrolled?.length} students enrolled</p>
 						</div>
-                        <div className="text-richblack-100 text-sm">
-                        <p className="">Created By {courseDetails?.instructor?.firstName} {courseDetails?.instructor?.lastName}</p>
-                        <p className="">
+                        <div className="text-richblack-100">
+                        <p className="text-md font-semibold">Created By {courseDetails?.instructor?.firstName} {courseDetails?.instructor?.lastName}</p>
+                        <p className="text-xs">
                         < i className="ri-time-line"></i>{" "}Created On {moment(courseDetails?.createdAt).format("MMMM Do YYYY | h:mm A")}</p>
+                        <p className="text-xs">
+                        < i className="ri-time-line"></i>{" "}Last Modified {moment(courseDetails?.updatedAt).format("MMMM Do YYYY | h:mm A")}</p>
                         </div>
 					</div>
 				</div>
@@ -90,8 +95,11 @@ const CoursePreview = () => {
                                 Instructor
                             </h3>
                             <div className="flex gap-x-3 items-center text-lg">
-                                <img src={courseDetails?.instructor?.avatar} alt=""  className="aspect-square w-10"/>
+                                <img src={courseDetails?.instructor?.avatar} alt=""  className="aspect-square w-10 object-cover rounded-full"/>
+								<div className="flex flex-col justify-around">
                                 <p className="text-richblack-100 font-semibold">{courseDetails?.instructor?.firstName} {courseDetails?.instructor?.lastName}</p>
+								<p className="text-xs text-richblack-300">Joined : {moment(courseDetails?.instructor.createdAt).format("MMMM Do YYYY")}</p>
+								</div>
                             </div>
                             {
                                 courseDetails.instructor?.profile?.about && 

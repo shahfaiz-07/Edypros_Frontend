@@ -4,11 +4,13 @@ import { getWishlistData, removeFromWishlist } from "../services/operations/prof
 import Spinner from "../components/common/Spinner";
 import WishlistItem from "./../components/Wishlist/WishlistItem";
 import WishlistTotal from './../components/Wishlist/WishlistTotal';
+import VerifyPaymentOverlay from "../components/common/VerifyPayment/VerifyPaymentOverlay";
 
 const Wishlist = () => {
 	const { loading } = useSelector((state) => state.profile);
 	const { token } = useSelector( state => state.auth )
 	const {totalItems} = useSelector(state => state.wishlist)
+	const {paymentLoading} = useSelector(state => state.course)
 	const [wishlist, setWishlist] = useState([]);
 	const dispatch = useDispatch();
 	const fetchWishlist = async () => {
@@ -26,13 +28,12 @@ const Wishlist = () => {
 	return loading ? (
 		<Spinner />
 	) : wishlist.length === 0 ? (
-		<div className="min-h-[calc(100vh-3.5rem)] grid place-content-center text-center">
+		<div className="min-h-[calc(100vh-3.5rem)] grid place-content-center text-center max-w-[600px] mx-auto">
 			<h1 className="text-white text-3xl font-semibold py-2">
-				No Courses Registered
+				Your Wishlist is Empty
 			</h1>
 			<p className="text-[#AFB2BF] font-semibold">
-				You have no purchased courses yet. Add to wishlist to start your
-				learning jouney now
+				You have not added anything to your wishlist yet. Browse courses from the catalog and add them to your wishlist to purchase later.
 			</p>
 		</div>
 	) : (
@@ -48,7 +49,7 @@ const Wishlist = () => {
             <WishlistTotal wishlist={wishlist}/>
         </div>
 			</div>
-
+			{paymentLoading && <VerifyPaymentOverlay/>}
 		</div>
 	);
 };

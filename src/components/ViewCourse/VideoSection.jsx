@@ -22,6 +22,7 @@ const VideoSection = () => {
 	const location = useLocation();
 	const playerRef = useRef(null);
 	const [reviews, setReviews] = useState([])
+	const [localLoading, setLocalLoading] = useState(false)
 
 	const fetchCourseReviews = async () => {
 		const response = await getCourseRatings(courseId);
@@ -98,7 +99,9 @@ const VideoSection = () => {
 		navigate(`/view-course/${courseData._id}/${sectionID}/${videoID}`);
 	};
 	const handleMarkComplete = async () => {
+		setLocalLoading(true)
 		await markAsComplete(dispatch, {courseId, videoId}, token)
+		setLocalLoading(false)
 	}
 
 	const handleReplay = () => {
@@ -149,6 +152,7 @@ const VideoSection = () => {
 						!completedLectures.includes(currentVideo._id) && <button
 							className="bg-yellow-50 px-3 py-2 rounded  text-black font-semibold text-sm"
 							onClick={handleMarkComplete}
+							disabled={localLoading}
 						>
 							Mark As Complete <i className="ri-checkbox-circle-fill"></i>
 						</button>
