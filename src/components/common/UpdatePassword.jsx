@@ -45,7 +45,7 @@ const UpdatePassword = () => {
 					<p className="text-[#AFB2BF] text-sm my-5">
 						{!resetComplete
 							? "Almost done. Enter your new password and you're all set."
-							: `All done! We have sent an email to m***********@gmail.com to confirm`}
+							: `All done! We have sent an email to confirm`}
 					</p>
 					{!resetComplete ? (
 						<div className="w-full">

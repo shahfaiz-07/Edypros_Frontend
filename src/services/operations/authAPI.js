@@ -100,7 +100,7 @@ export function login(email, password, navigate) {
 			navigate("/dashboard/my-profile");
 		} catch (error) {
 			console.log("LOGIN API ERROR ..........", error);
-			toast.error("Login Error");
+			toast.error(error.response.data.message);
 		}
 		dispatch(setLoading(false));
 	};
@@ -153,6 +153,7 @@ export function getPasswordResetToken(email, setEmailSent) {
 			setEmailSent(true);
 		} catch (error) {
 			console.log("RESET PASSWORD TOKEN ERROR..........");
+			toast.error(error.response.data.message)
 		}
 		dispatch(setLoading(false));
 	};
@@ -182,6 +183,7 @@ export function resetPassword(
 			setResetComplete(true);
 		} catch (error) {
 			console.log("PASSWORD RESET ERROR..............", error.message);
+			toast.error(error.response.data.message)
 		}
 		dispatch(setLoading(false));
 	};
