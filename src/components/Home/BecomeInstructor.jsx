@@ -24,7 +24,7 @@ const BecomeInstructor = () => {
             </p>
 
             <div className='w-fit mt-15'>
-                <Button text={'Start Teaching Today'} isArrow={true} bgColor={'bg-yellow-50'}/>
+                <Button text={'Start Teaching Today'} isArrow={true} bgColor={'bg-yellow-50'} action={"/register"}/>
             </div>
 
 
