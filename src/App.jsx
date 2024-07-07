@@ -155,7 +155,7 @@ function App() {
 					<Route path="/catalog/:categoryId" element={<Catalog />} />
 					<Route path="/course/:courseId" element={<CoursePreview />} />
 				</Routes>
-				{/* <Footer /> */}
+				<Footer />
 			</div>
 		</>
 	);
