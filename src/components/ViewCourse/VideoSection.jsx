@@ -2,11 +2,12 @@ import React, { useEffect, useRef, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useLocation, useNavigate, useParams } from "react-router";
 import { setCurrentVideo } from "../../features/registeredCourses/viewCourseSlice";
-import { Player } from "video-react";
+import moment from "moment";
 import ReactPlayer from "react-player/lazy";
 import { markAsComplete } from "../../services/operations/studentAPI";
 import { getCourseRatings } from "../../services/operations/ratingsAndReviewsAPI";
 import ReviewSlider from "../common/ReviewSlider/ReviewSlider";
+import ReactStars from "react-stars";
 
 const VideoSection = () => {
 	const { currentVideo, completedLectures, courseData } = useSelector(
@@ -22,11 +23,15 @@ const VideoSection = () => {
 	const location = useLocation();
 	const playerRef = useRef(null);
 	const [reviews, setReviews] = useState([])
+	const [averageRating, setAverageRating] = useState(0)
 	const [localLoading, setLocalLoading] = useState(false)
 
 	const fetchCourseReviews = async () => {
 		const response = await getCourseRatings(courseId);
 		setReviews(response)
+		let total = 0
+		total = response.reduce( (acc, review) => acc + Number(review.rating)/response.length, 0);
+		setAverageRating(total)
 	}
 
 	const findCurrentIndices = () => {
@@ -187,6 +192,40 @@ const VideoSection = () => {
 			<p className="text-lg px-3  text-richblack-300">
 				{currentVideo?.description}
 			</p>
+			<div className="flex items-center gap-x-7 px-3 py-5">
+				<div className="flex flex-col items-center">
+				<div className="flex items-center gap-x-1 text-sm font-semibold">
+					{averageRating}{" "}<ReactStars
+								count={5}
+								value={averageRating}
+								size={14}
+								edit={false}
+								color2={"#ffd700"}
+							/> 
+				</div>
+						<p className="text-xs text-richblack-200">{reviews.length} ratings</p>
+				</div>
+				<div className="flex flex-col items-center">
+					<h4 className="text-sm font-semibold text-richblack-5">{courseData.studentsEnrolled.length}</h4>
+					<p className="text-xs text-richblack-200">Students</p>
+				</div>
+			</div>
+			<div className="text-sm text-richblack-50 font-semibold flex gap-x-2 items-center px-3 pb-5"><i class="ri-hourglass-2-fill text-brown-500"></i> Last Updated : {moment(courseData.updatedAt).format("MMMM YYYY")}</div>
+			<h2 className="text-2xl md:text-3xl px-3 mt-10 text-richblack-25 font-semibold pb-2">Instructor</h2>
+			<div className="flex gap-x-3 px-3">
+				<img src={courseData.instructor.avatar} className="w-12 h-12 aspect-square rounded-full object-cover" alt="" />
+				<div className="flex flex-col justify-between">
+					<h3 className="text-richblack-50 font-semibold">{courseData.instructor?.firstName} {courseData.instructor?.lastName}</h3>
+					<p className="text-sm text-richblack-200">Joined : {moment(courseData.instructor?.createdAt).format("MMMM Do YYYY")}</p>
+					{
+						courseData.instructor?.profile?.about && (
+							<div className="text-sm px-3 text-richblack-100 text-justify">
+							{courseData.instructor?.profile?.about}
+							</div>
+						)
+					}
+				</div>
+			</div>
 			<div className="bg-richblack-900 w-full mx-auto">
 				<div className="w-11/12 mx-auto py-10">
 					<ReviewSlider text={"See what others say"} reviews={reviews} />
