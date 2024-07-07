@@ -14,6 +14,7 @@ import {
 	updateCourseThumbnail,
 } from "../../../services/operations/courseAPI";
 import toast from "react-hot-toast";
+import ISO6391 from 'iso-639-1';
 
 const CourseInformationForm = () => {
 	const dispatch = useDispatch();
@@ -21,6 +22,7 @@ const CourseInformationForm = () => {
 	const { course, editCourse } = useSelector((state) => state.course);
 	const [loading, setLoading] = useState(false);
 	const [courseCategories, setCourseCategories] = useState([]);
+	const [languages, setLanguages] = useState([])
 
 	const {
 		register,
@@ -42,11 +44,12 @@ const CourseInformationForm = () => {
 		setLoading(false);
 	};
 	useEffect(() => {
+		setLanguages(ISO6391.getAllNames());
 		fetchCourseCategories();
 		if (editCourse) {
 			setValue("courseTitle", course.name);
 			setValue("courseDescription", course.description);
-			// course.price = 0
+			setValue("courseLanguage", course.language)
 			setValue("coursePrice", Number(course.price));
 			setValue("courseTags", course.tags);
 			setValue("courseLearnings", course.learnings);
@@ -74,7 +77,6 @@ const CourseInformationForm = () => {
 	};
 
 	const onSubmit = async (data) => {
-		// console.log(data)
 		if (editCourse) {
 			if (!isFormUpdated()) {
 				toast.error("No Changes Were Made !!");
@@ -126,6 +128,7 @@ const CourseInformationForm = () => {
 			formData.append("status", COURSE_STATUS.DRAFT);
 			formData.append("tags", JSON.stringify(data.courseTags));
 			formData.append("thumbnail", data.courseThumbnail);
+			formData.append("language", data.courseLanguage)
 			const response = await createCourse(formData, token);
 			if (response) {
 				dispatch(setStep(2));
@@ -139,7 +142,7 @@ const CourseInformationForm = () => {
 	) : (
 		<form
 			onSubmit={handleSubmit(onSubmit)}
-			className="space-y-8 rounded-md border-[1px] border-richblack-700 bg-richblack-800 p-6"
+			className="space-y-8 rounded-md border-[1px] border-richblack-700 bg-richblack-800 p-3 md:p-6"
 		>
 			<div className="flex flex-col space-y-2">
 				<label className="text-sm text-richblack-5" htmlFor="courseTitle">
@@ -223,6 +226,35 @@ const CourseInformationForm = () => {
 				{errors.courseCategory && (
 					<span className="ml-2 text-xs tracking-wide text-pink-200">
 						Course Category is Required
+					</span>
+				)}
+			</div>
+
+			<div className="flex flex-col space-y-2">
+				<label className="text-sm text-richblack-5" htmlFor="courseLanguage">
+					Course Language<sup className="text-pink-200">*</sup>
+				</label>
+				<select
+					disabled={editCourse}
+					className="form-style w-full"
+					id="courseLanguage"
+					defaultValue=""
+					{...register("courseLanguage", { required: true })}
+				>
+					<option value="" disabled>
+						Choose a Language
+					</option>
+
+					{!loading &&
+						languages.map((language, index) => (
+							<option key={index} value={language}>
+								{language}
+							</option>
+						))}
+				</select>
+				{errors.courseLanguage && (
+					<span className="ml-2 text-xs tracking-wide text-pink-200">
+						Course Language is Required
 					</span>
 				)}
 			</div>

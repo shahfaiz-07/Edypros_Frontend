@@ -73,11 +73,12 @@ const CoursePreview = () => {
                             <p className="text-richblack-500">{courseDetails?.studentsEnrolled?.length} students enrolled</p>
 						</div>
                         <div className="text-richblack-100">
+						<p className="text-md"><i className="ri-global-line"></i>{" "}{courseDetails?.language}</p>
                         <p className="text-md font-semibold">Created By {courseDetails?.instructor?.firstName} {courseDetails?.instructor?.lastName}</p>
                         <p className="text-xs">
                         < i className="ri-time-line"></i>{" "}Created On {moment(courseDetails?.createdAt).format("MMMM Do YYYY | h:mm A")}</p>
                         <p className="text-xs">
-                        < i className="ri-time-line"></i>{" "}Last Modified {moment(courseDetails?.updatedAt).format("MMMM Do YYYY | h:mm A")}</p>
+                        <i class="ri-hourglass-2-fill text-brown-500"></i>{" "}Last Modified {moment(courseDetails?.updatedAt).format("MMMM Do YYYY | h:mm A")}</p>
                         </div>
 					</div>
 				</div>

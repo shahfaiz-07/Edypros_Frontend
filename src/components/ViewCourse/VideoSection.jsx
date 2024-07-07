@@ -151,6 +151,9 @@ const VideoSection = () => {
 						{ pip ? <i className="ri-picture-in-picture-exit-line "></i> : <i className="ri-picture-in-picture-2-line"></i>}
 					</button>
 				}
+				{
+					completedLectures.includes(currentVideo._id) && <p className="text-xs bg-caribbeangreen-400 text-richblack-5 absolute top-0 right-0 mt-2 mr-2 md:mt-5 md:mr-5 px-2 py-1 rounded-full font-semibold">Lecture Completed <i className="ri-checkbox-circle-fill font-light"></i></p>
+				}
 				{videoEnded && (
 					<div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 flex flex-col gap-y-2 items-center">
 						{
@@ -210,7 +213,10 @@ const VideoSection = () => {
 					<p className="text-xs text-richblack-200">Students</p>
 				</div>
 			</div>
-			<div className="text-sm text-richblack-50 font-semibold flex gap-x-2 items-center px-3 pb-5"><i class="ri-hourglass-2-fill text-brown-500"></i> Last Updated : {moment(courseData.updatedAt).format("MMMM YYYY")}</div>
+			<div className="text-sm text-richblack-50 font-semibold flex gap-x-2 items-center px-3 pb-2"><i class="ri-hourglass-2-fill text-brown-500"></i> Last Updated : {moment(courseData.updatedAt).format("MMMM YYYY")}</div>
+			<div className="text-md text-richblack-50 font-semibold flex gap-x-2 pb-5 px-3">
+			<i className="ri-global-line"></i>{" "}{courseData?.language}
+			</div>
 			<h2 className="text-2xl md:text-3xl px-3 mt-10 text-richblack-25 font-semibold pb-2">Instructor</h2>
 			<div className="flex gap-x-3 px-3">
 				<img src={courseData.instructor.avatar} className="w-12 h-12 aspect-square rounded-full object-cover" alt="" />
