@@ -9,7 +9,7 @@ export const handleForm = (firstName, lastName, email, contactNumber, message) =
         try {
             const response = await apiConnector("POST", contactusEndpoint.CONTACT_US_API, {firstName, lastName, email, contactNumber, message});
 
-            console.log("CONTACT US RESPONSE ............", response);
+            // console.log("CONTACT US RESPONSE ............", response);
 
 			if (!response.data.success) {
 				throw new Error(response.data.message);
@@ -18,7 +18,7 @@ export const handleForm = (firstName, lastName, email, contactNumber, message) =
 			toast.success("Form submitted successfully");
         } catch (error) {
             toast.error("Unable to submit form");
-			console.log("SEND OTP ERROR ................", error);
+			// console.log("SEND OTP ERROR ................", error);
         }
         dispatch(setLoading(false))
     }

@@ -30,7 +30,7 @@ export const buyCourses = async (courses, token, userDetails, navigate, dispatch
 
         const orderResponse = await apiConnector("POST", paymentEndpoints.CAPTURE_PAYMENT_API, {courses}, {Authorization : `Bearer ${token}`})
 
-        console.log("Order Response ", orderResponse)
+        // console.log("Order Response ", orderResponse)
         if(!orderResponse?.data?.success) {
             throw new Error("Order Reponse Error")
         }
@@ -48,7 +48,7 @@ export const buyCourses = async (courses, token, userDetails, navigate, dispatch
                 email: userDetails.email
             },
             handler: async function(response) {
-                console.log("buyCourse -> response", response)
+                // console.log("buyCourse -> response", response)
                 sendPaymentSuccessEmail(response, orderResponse.data.data.amount, token);
                 verifyPayment({...response, courses}, token, navigate, dispatch)
             }
@@ -58,10 +58,10 @@ export const buyCourses = async (courses, token, userDetails, navigate, dispatch
         paymentObject.open()
         paymentObject.on("payment.failed", function(response) {
             toast.error("Payment Failed")
-            console.log(response.error)
+            // console.log(response.error)
         })
     } catch (error) {
-        console.log("PAYMENT API ERROR ....", error);
+        // console.log("PAYMENT API ERROR ....", error);
         toast.error("Unable to make payment !!")
     }
     toast.dismiss(toastId)
@@ -76,7 +76,7 @@ const sendPaymentSuccessEmail = async (response, amount, token) => {
         amount},
         {Authorization : `Bearer ${token}`});
     } catch (error) {
-        console.log("PAYMENT SUCCESS EMAIL API ERROR .........", error);
+        // console.log("PAYMENT SUCCESS EMAIL API ERROR .........", error);
 
     }
 }
@@ -96,7 +96,7 @@ const verifyPayment = async (bodyData, token, navigate, dispatch) => {
         toast.success("Payment Successfull. You Are Added to the course !!");
         navigate("/dashboard/registered-courses")
     } catch (error) {
-        console.log("PAYMENT VERIFY API ERROR.......", error);
+        // console.log("PAYMENT VERIFY API ERROR.......", error);
         toast.error("Could not verify payment !!")
     }
     toast.dismiss(toastId)

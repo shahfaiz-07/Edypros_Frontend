@@ -9,7 +9,7 @@ import {
 import { setCurrentSection, setCurrentVideo } from "../../features/registeredCourses/viewCourseSlice";
 import CourseReviewModal from "./CourseReviewModal";
 
-const ViewCourseSidebar = () => {
+const ViewCourseSidebar = ({setOpenMenu}) => {
 	const { courseData, completedLectures, totalLectures, ratingAndReview, duration } = useSelector(
 		(state) => state.viewCourse
 	);
@@ -29,11 +29,12 @@ const ViewCourseSidebar = () => {
 			<div className="w-full pt-5 lg:py-5 font-inter">
 				<div className="px-2 pb-2  flex justify-between">
 					<button
-						className="rounded-full aspect-square w-10 text-sm grid place-content-center bg-richblack-700 text-richblack-5"
+						className="hidden rounded-full aspect-square w-10 text-sm lg:grid place-content-center bg-richblack-700 text-richblack-5"
 						onClick={() => navigate("/dashboard/registered-courses")}
 					>
 						<i className="ri-arrow-go-back-line"></i>
 					</button>
+					<button className="lg:hidden rounded-full aspect-square w-10 h-10 text-lg grid place-content-center bg-richblack-700 text-richblack-5" onClick={()=>setOpenMenu(false)}><i className="ri-menu-unfold-2-fill"></i></button>
 					<button className="bg-yellow-50 px-2 py-1 rounded text-sm font-bold" onClick={() => setAddReviewModalData(true)}>
 						{ratingAndReview ? <i className="ri-file-edit-line"></i> : <i className="ri-chat-new-line"></i>} {ratingAndReview ? "Edit" : "Add"} Review
 					</button>

@@ -24,7 +24,7 @@ const RegisteredCourses = () => {
     useEffect(()=> {
         fetchRegisteredCourses();
         dispatch(resetViewCourse())
-        console.log("Registered Courses Array :",registeredCourses)
+        // console.log("Registered Courses Array :",registeredCourses)
     }, [])
   return (
     (loading || !registeredCourses)
@@ -40,6 +40,7 @@ const RegisteredCourses = () => {
         :
         <div className='pt-7'>
 <div className='min-h-[calc(100vh-3.5rem)] lg:w-11/12 mx-auto font-inter'>
+<h1 className="text-3xl mb-5 text-richblack-5">Enrolled Courses</h1>
             <div className='rounded w-full border mx-auto grid grid-cols-1 md:grid-cols-2 lg:flex lg:flex-col gap-2 lg:gap-0 lg:max-w-maxContent lg:border-richblack-500'>
                 <div className='lg:flex px-2 py-3 bg-[#2C333F] text-richblack-5 uppercase text-sm font-semibold hidden'>
                     <p className='w-[55%]'>Course Name</p>
@@ -76,7 +77,7 @@ const RegisteredCourses = () => {
                         {formatDuration(totalCourseDuration(course.courseId))}
                         </div>
                         <div className='hidden lg:flex flex-col justify-center w-[20%]'>
-                            {console.log(course.completedVideos.length)}
+                            {/* {console.log(course.completedVideos.length)} */}
                             <p className='text-richblack-5 text-xs my-1'>Progress {Math.round(course.completedVideos.length/totalCourseLectures(course.courseId)*100)}%</p>
                             <ProgressBar completed={course.completedVideos.length} maxCompleted={totalCourseLectures(course.courseId)} height='5px' bgColor='#47A5C5' isLabelVisible={false}/>
                         </div>

@@ -10,7 +10,7 @@ export async function updateAvatar(token, avatar) {
 	const toastId = toast.loading("Uploading...");
 	try {
 		const formData = new FormData();
-		console.log("avatar", avatar);
+		// console.log("avatar", avatar);
 		formData.append("avatar", avatar);
 		const response = await apiConnector(
 			"PATCH",
@@ -18,10 +18,10 @@ export async function updateAvatar(token, avatar) {
 			formData,
 			{ Authorization: `Bearer ${token}` }
 		);
-		console.log(
-			"UPDATE_DISPLAY_PICTURE_API API RESPONSE............",
-			response.data.data
-		);
+		// console.log(
+		// 	"UPDATE_DISPLAY_PICTURE_API API RESPONSE............",
+		// 	response.data.data
+		// );
 		if (!response.data.success) {
 			throw new Error(response.data.message);
 		}
@@ -34,10 +34,10 @@ export async function updateAvatar(token, avatar) {
 				avatar: newAvatar,
 			})
 		);
-		console.log(JSON.parse(localStorage.getItem("user")).avatar);
+		// console.log(JSON.parse(localStorage.getItem("user")).avatar);
 		location.reload();
 	} catch (error) {
-		console.log("UPDATE_DISPLAY_PICTURE_API API ERROR............", error);
+		// console.log("UPDATE_DISPLAY_PICTURE_API API ERROR............", error);
 		toast.error(error.response.data.message);
 	}
 	toast.dismiss(toastId);
@@ -45,7 +45,7 @@ export async function updateAvatar(token, avatar) {
 export async function updateProfile(token, formData) {
 	const toastId = toast.loading("Updating...");
 	try {
-		console.log("LOGGINg TOKEN FOR REQUEST", token)
+		// console.log("LOGGINg TOKEN FOR REQUEST", token)
 		const response = await apiConnector(
 			"PATCH",
 			settingsEndpoints.UPDATE_PROFILE_API,
@@ -55,19 +55,19 @@ export async function updateProfile(token, formData) {
 			},
 			null
 		);
-		console.log(
-			"UPDATE PROFILE API RESPONSE ..............",
-			response.data.data
-		);
+		// console.log(
+		// 	"UPDATE PROFILE API RESPONSE ..............",
+		// 	response.data.data
+		// );
 		if (!response.data.success) {
 			throw new Error(response.data.message);
 		}
 		toast.success("Profile Data Updated Successfully");
-		console.log(response.data.data);
+		// console.log(response.data.data);
 		localStorage.setItem("user", JSON.stringify(response.data.data));
 		location.reload();
 	} catch (error) {
-		console.log("UPDATE PROFILE API ERROR .............", error);
+		// console.log("UPDATE PROFILE API ERROR .............", error);
 		toast.error(error.response.data.message);
 	}
 	toast.dismiss(toastId);
@@ -84,13 +84,13 @@ export async function updatePassword(token, password) {
 			null
 		);
 
-		console.log("CHANGE PASSWORD API RESPONSE ..............", response);
+		// console.log("CHANGE PASSWORD API RESPONSE ..............", response);
 		if (!response.data.success) {
 			throw new Error(response.data.message);
 		}
 		toast.success("Password Updated Successfully !!");
 	} catch (error) {
-		console.log("CHANGE PASSWORD API ERROR ..............", error);
+		// console.log("CHANGE PASSWORD API ERROR ..............", error);
 	}
 	toast.dismiss(toastId);
 }
@@ -108,7 +108,7 @@ export function deleteAccount(token, navigate) {
 				}
 			);
 
-			console.log("ACCOUNT DELETION API RESPONSE ............", response);
+			// console.log("ACCOUNT DELETION API RESPONSE ............", response);
 			if (!response.data.success) {
 				throw new Error(response.data.message);
 			}
@@ -121,7 +121,7 @@ export function deleteAccount(token, navigate) {
 			navigate("/");
 			toast.success("Account Deletion Succesfull!!");
 		} catch (error) {
-			console.log("ACCOUNT DELETION API ERROR ..............", error);
+			// console.log("ACCOUNT DELETION API ERROR ..............", error);
 			toast.error("Accunt deletion error !!");
 		}
 		dispatch(setLoading(false));
@@ -140,14 +140,14 @@ export function upgradeAccountToInstructor(token, navigate) {
 					Authorization: `Bearer ${token}`,
 				}
 			);
-			console.log("ACCOUNT UPGRADATION RESPONSE .............", response);
+			// console.log("ACCOUNT UPGRADATION RESPONSE .............", response);
 			if (!response.data.success) {
 				throw new Error(response.data.message);
 			}
 			dispatch(logout(token, navigate));
 			toast.success("Account Upgraded to Instructor!!");
 		} catch (error) {
-			console.log("ACCOUNT UPGRADATION API ERROR ..............", error);
+			// console.log("ACCOUNT UPGRADATION API ERROR ..............", error);
 		}
 		dispatch(setLoading(false));
 	};
@@ -164,14 +164,14 @@ export async function getRegisteredCourses(dispatch, token) {
 			{ Authorization: `Bearer ${token}` }
 		);
 
-		console.log("GET REGISTERED COURSES API RESPONSE .............", response);
+		// console.log("GET REGISTERED COURSES API RESPONSE .............", response);
 		if (!response.data.success) {
 			throw new Error(response.data.message);
 		}
 		courses = response.data.data;
-		toast.success("Registered courses fetch successfully!!")
+		// toast.success("Registered courses fetch successfully!!")
 	} catch (error) {
-		console.log("GET REGISTERED COURSES API ERROR.............", error)
+		// console.log("GET REGISTERED COURSES API ERROR.............", error)
 		toast.error("Failed to fetch registered courses!!")
 	}
 	dispatch(setLoading(false));
@@ -189,7 +189,7 @@ export async function getWishlistData(dispatch, token) {
 			{ Authorization: `Bearer ${token}` }
 		);
 
-		console.log("GET REGISTERED COURSES API RESPONSE .............", response.data.data);
+		// console.log("GET REGISTERED COURSES API RESPONSE .............", response.data.data);
 		if (!response.data.success) {
 			throw new Error(response.data.message);
 		}
@@ -197,7 +197,7 @@ export async function getWishlistData(dispatch, token) {
 		dispatch(setTotalItems(wishlist.length))
 		// toast.success("Registered courses fetch successfully!!")
 	} catch (error) {
-		console.log("GET REGISTERED COURSES API ERROR.............", error)
+		// console.log("GET REGISTERED COURSES API ERROR.............", error)
 		// toast.error("Failed to fetch registered courses!!")
 	}
 	dispatch(setLoading(false));
@@ -209,7 +209,7 @@ export const addToWishlist = async (totalItems, dispatch, token, courseId, setIn
 	try {
 		const response = await apiConnector("PATCH", profileEndpoints.USER_WISHLIST, {courseId}, {Authorization : `Bearer ${token}`})
 		
-		console.log("ADD TO WISHLIST API RESPONSE", response)
+		// console.log("ADD TO WISHLIST API RESPONSE", response)
 		if(!response.data.success) {
 			throw new Error("Add to wishlist error")
 		}
@@ -217,7 +217,7 @@ export const addToWishlist = async (totalItems, dispatch, token, courseId, setIn
 		dispatch(setTotalItems(totalItems + 1))
 		toast.success("Item Added To Wishlist")
 	} catch (error) {
-		console.log("ADD TO WISHLIST API ERROR ......", error);
+		// console.log("ADD TO WISHLIST API ERROR ......", error);
 		toast.error("Cannot Add Item to Wishlist")	
 	}
 	toast.dismiss(toastId)
@@ -228,17 +228,17 @@ export const removeFromWishlist = async (totalItems, dispatch, token, courseId, 
 	try {
 		const response = await apiConnector("DELETE", profileEndpoints.USER_WISHLIST, {courseId}, {Authorization : `Bearer ${token}`})
 		
-		console.log("DELETE FROM WISHLIST API RESPONSE", response)
+		// console.log("DELETE FROM WISHLIST API RESPONSE", response)
 		if(!response.data.success) {
 			throw new Error("Delete from wishlist error")
 		}
-		toast.success("Item Remove From Wishlist")
+		toast.success("Item Removed From Wishlist")
 		
 		if(setInWishlist)
 			setInWishlist(false)
 		dispatch(setTotalItems(totalItems - 1))
 	} catch (error) {
-		console.log("REMOVE FROM WISHLIST API ERROR ......", error);
+		// console.log("REMOVE FROM WISHLIST API ERROR ......", error);
 		toast.error("Cannot Remove Item From Wishlist")	
 	}
 	toast.dismiss(toastId)
@@ -248,7 +248,7 @@ export const getCurrentUser = async (dispatch, token) => {
 	try {
 		const response = await apiConnector("GET", profileEndpoints.GET_USER_DETAILS_API, null, {Authorization : `Bearer ${token}`});
 
-		console.log("GET USER API RESPONSE ...........", response);
+		// console.log("GET USER API RESPONSE ...........", response);
 
 		if(!response?.data?.success) {
 			throw new Error("Cannot fetch user details !!");
@@ -257,7 +257,7 @@ export const getCurrentUser = async (dispatch, token) => {
 		dispatch(setUser(response.data.data))
 		dispatch(setTotalItems(response.data.data.wishlist.length))
 	} catch (error) {
-		console.log("GET USER DETAILS API ERROR ......... ", error);
+		// console.log("GET USER DETAILS API ERROR ......... ", error);
 		toast.error("Cannot Fetch User Data!!")
 	}
 }
@@ -268,17 +268,17 @@ export const getInstructorDashboardData = async (dispatch, token) => {
 	try {
 		const response = await apiConnector("GET", profileEndpoints.INSTRUCTOR_DASHBOARD_API, null, { Authorization : `Bearer ${token}`});
 
-		console.log("INSTRUCTOR DASHBOARD API RESPONSE ...........", response)
+		// console.log("INSTRUCTOR DASHBOARD API RESPONSE ...........", response)
 
 		if(!response?.data?.success) {
 			throw new Error("Error fetching dashboard data !!");
 		}
 
 		result = response?.data?.data;
-		toast.success("Data fetched successfully!!")
+		// toast.success("Data fetched successfully!!")
 		
 	} catch (error) {
-		console.log("INSTRUCTOR DASHBOARD API ERROR .............", error)
+		// console.log("INSTRUCTOR DASHBOARD API ERROR .............", error)
 		toast.error(error.message)
 	}
 	dispatch(setLoading(false))

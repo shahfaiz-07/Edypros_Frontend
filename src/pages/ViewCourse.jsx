@@ -1,6 +1,6 @@
 import React, { useEffect, useRef, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux';
-import { useParams } from 'react-router';
+import { useNavigate, useParams } from 'react-router';
 import { getCourseDetails } from '../services/operations/studentAPI';
 import Spinner from './../components/common/Spinner';
 import VideoSection from '../components/ViewCourse/VideoSection';
@@ -16,6 +16,7 @@ const ViewCourse = () => {
   const {loading} = useSelector(state => state.profile)
   const {courseData} = useSelector(state => state.viewCourse)
   const dispatch = useDispatch();
+  const navigate = useNavigate()
   const { courseId, sectionId, videoId } = useParams();
   const [openMenu, setOpenMenu] = useState(false)
   const ref = useRef(null)
@@ -50,12 +51,13 @@ const ViewCourse = () => {
 				toast.success("Link copied to clipboard")
 			}}>Share <i className="ri-share-forward-fill"></i></button>
       </div>
-      <div className='w-11/12 mx-auto py-2 lg:hidden'>
-      <button className='px-2 py-1 rounded bg-yellow-50 font-bold' onClick={ () => setOpenMenu( (prev) => !prev)}>Course Sections</button>
+      <div className='w-11/12 mx-auto py-2 lg:hidden flex justify-between'>
+      <button className='w-10 h-10 grid place-content-center text-lg rounded-full bg-yellow-50 font-bold' onClick={ () => setOpenMenu( (prev) => !prev)}><i className="ri-menu-fold-2-fill"></i></button>
+      <button className='rounded-full aspect-square w-10 text-3xl grid place-content-center bg-richblack-700 text-richblack-5' onClick={() => navigate("/dashboard/registered-courses")}><i className="ri-arrow-left-s-fill"></i></button>
       </div>
     <div className='flex lg:flex-row'>
       <div className={`absolute z-50 lg:static w-[90%] max-w-[600px] lg:max-w-maxContent lg:w-[25%] bg-richblack-800 bg-opacity-95 transition-all duration-300 ${ openMenu ? "" : "-translate-x-[150%] lg:translate-x-0"}`} ref={ref}>
-        <ViewCourseSidebar/>
+        <ViewCourseSidebar setOpenMenu={setOpenMenu}/>
       </div>
       <div className='lg:w-[75%]'>
         <VideoSection/>

@@ -21,9 +21,9 @@ const SwiperCourseItem = ({course}) => {
 					By Prof. {course?.instructor.firstName} {course.instructor.lastName}
 				</p>
 			</div>
-			<p className="text-richblack-300 text-sm relative px-3">
+			<div className="text-richblack-300 text-sm relative px-3">
 			<p className="text-ellipsis text-nowrap overflow-hidden">{course.description}</p> 
-			</p>
+			</div>
 			<div className="text-[#ffd700] text-sm flex items-center gap-x-2 px-3">
 				<span>{averageRating}</span>{" "}
 				<ReactStars

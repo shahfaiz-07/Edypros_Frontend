@@ -372,12 +372,13 @@ const Settings = () => {
 							<h2 className="text-lg font-semibold text-richblack-5">
 								Become an Instructor
 							</h2>
-							<div className="md:w-3/5 text-blue-25">
-								<p>Would you like to delete account?</p>
+							<div className="md:w-3/5 text-blue-25 text-sm md:text-base">
+								<p>Would you like to upgrade your account?</p>
 								<p>
 									This account may contain Paid Courses. Upgrading your account
 									is permanent and will remove all the purchased courses associated with it.
 								</p>
+								<p>We recommend you to create a new account instead.</p>
 							</div>
 							<button
 								type="button"

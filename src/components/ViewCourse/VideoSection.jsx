@@ -213,7 +213,7 @@ const VideoSection = () => {
 					<p className="text-xs text-richblack-200">Students</p>
 				</div>
 			</div>
-			<div className="text-sm text-richblack-50 font-semibold flex gap-x-2 items-center px-3 pb-2"><i class="ri-hourglass-2-fill text-brown-500"></i> Last Updated : {moment(courseData.updatedAt).format("MMMM YYYY")}</div>
+			<div className="text-sm text-richblack-50 font-semibold flex gap-x-2 items-center px-3 pb-2"><i className="ri-hourglass-2-fill text-brown-500"></i> Last Updated : {moment(courseData.updatedAt).format("MMMM YYYY")}</div>
 			<div className="text-md text-richblack-50 font-semibold flex gap-x-2 pb-5 px-3">
 			<i className="ri-global-line"></i>{" "}{courseData?.language}
 			</div>

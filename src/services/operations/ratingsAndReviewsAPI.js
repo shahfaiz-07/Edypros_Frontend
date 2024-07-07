@@ -7,7 +7,7 @@ export const getTopRatings = async () => {
     try {
         const response = await apiConnector("GET", ratingAndReviewEndpoints.GET_TOP_RATINGS_API);
 
-        console.log("GET TOP RATINGS API RESPONSE .......", response);
+        // console.log("GET TOP RATINGS API RESPONSE .......", response);
 
         if(!response.data?.success) {
             throw new Error("Error Fetching Top Review")
@@ -16,7 +16,7 @@ export const getTopRatings = async () => {
         result = response?.data?.data;
 
     } catch (error) {
-        console.log("GET TOP RATINGS API ERROR .........", error);
+        // console.log("GET TOP RATINGS API ERROR .........", error);
         toast.error(error.message)
     }
     return result
@@ -27,7 +27,7 @@ export const getCourseRatings = async (courseId) => {
     try {
         const response = await apiConnector("GET", `${ratingAndReviewEndpoints.GET_COURSE_RATINGS_API}/${courseId}`);
 
-        console.log("GET COURSE RATINGS API RESPONSE .......", response);
+        // console.log("GET COURSE RATINGS API RESPONSE .......", response);
 
         if(!response.data?.success) {
             throw new Error("Error Fetching Top Review")
@@ -36,7 +36,7 @@ export const getCourseRatings = async (courseId) => {
         result = response?.data?.data;
 
     } catch (error) {
-        console.log("GET COURSE RATINGS API ERROR .........", error);
+        // console.log("GET COURSE RATINGS API ERROR .........", error);
         toast.error(error.message)
     }
     return result

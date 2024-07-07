@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { getCoursePreview } from "../services/operations/courseAPI";
-import { useParams } from "react-router";
+import { useNavigate, useParams } from "react-router";
 import Spinner from "./../components/common/Spinner";
 import ReactStars from "react-stars";
 import moment from "moment";
@@ -18,6 +18,7 @@ const CoursePreview = () => {
 	const { token } = useSelector( state => state.auth)
 	const { paymentLoading } = useSelector(state => state.course)
 	const dispatch = useDispatch();
+	const navigate = useNavigate()
 	const { courseId } = useParams();
 	const [courseDetails, setCourseDetails] = useState(null);
 	const [reviews, setReviews] = useState([])
@@ -54,6 +55,7 @@ const CoursePreview = () => {
 			<div className="">
 				<div className="bg-[#161D29]">
 					<div className="w-11/12 mx-auto flex flex-col gap-y-2 p-3 lg:px-6 lg:py-10">
+						<button className="px-2 py-1 text-sm md:text-md lg:text-lg w-fit font-bold bg-yellow-50 rounded " onClick={ () => navigate(`/catalog/${courseDetails?.category._id}`)}><i className="ri-arrow-left-fill"></i>{" "}{courseDetails?.category?.title} Courses</button>
 						<h1 className="text-richblack-5 text-2xl md:text-3xl lg:text-4xl font-semibold">
 							{courseDetails?.name}
 						</h1>
@@ -73,12 +75,15 @@ const CoursePreview = () => {
                             <p className="text-richblack-500">{courseDetails?.studentsEnrolled?.length} students enrolled</p>
 						</div>
                         <div className="text-richblack-100">
+						<div className="flex flex-row-reverse justify-end gap-x-7 pb-3">
 						<p className="text-md"><i className="ri-global-line"></i>{" "}{courseDetails?.language}</p>
+						<p className="text-xs px-2 py-1 rounded-full bg-richblack-700" style={{color: `#${courseDetails?.category.color}`}}>{courseDetails?.category.title}</p>
+						</div>
                         <p className="text-md font-semibold">Created By {courseDetails?.instructor?.firstName} {courseDetails?.instructor?.lastName}</p>
                         <p className="text-xs">
                         < i className="ri-time-line"></i>{" "}Created On {moment(courseDetails?.createdAt).format("MMMM Do YYYY | h:mm A")}</p>
                         <p className="text-xs">
-                        <i class="ri-hourglass-2-fill text-brown-500"></i>{" "}Last Modified {moment(courseDetails?.updatedAt).format("MMMM Do YYYY | h:mm A")}</p>
+                        <i className="ri-hourglass-2-fill text-brown-500"></i>{" "}Last Modified {moment(courseDetails?.updatedAt).format("MMMM Do YYYY | h:mm A")}</p>
                         </div>
 					</div>
 				</div>
@@ -99,7 +104,7 @@ const CoursePreview = () => {
                                 <img src={courseDetails?.instructor?.avatar} alt=""  className="aspect-square w-10 object-cover rounded-full"/>
 								<div className="flex flex-col justify-around">
                                 <p className="text-richblack-100 font-semibold">{courseDetails?.instructor?.firstName} {courseDetails?.instructor?.lastName}</p>
-								<p className="text-xs text-richblack-300">Joined : {moment(courseDetails?.instructor.createdAt).format("MMMM Do YYYY")}</p>
+								<p className="text-xs text-richblack-300 font-semibold">Joined : {moment(courseDetails?.instructor.createdAt).format("MMMM Do YYYY")}</p>
 								</div>
                             </div>
                             {

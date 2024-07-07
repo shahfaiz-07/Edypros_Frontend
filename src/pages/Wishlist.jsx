@@ -38,6 +38,7 @@ const Wishlist = () => {
 		</div>
 	) : (
 		<div className="min-h-[calc(100vh-3.5rem)] max-w-[500px] md:w-11/12 md:max-w-full mx-auto font-inter py-5">
+			<h1 className="text-3xl mb-5 text-richblack-5">Wishlist</h1>
       <p className="text-sm text-richblack-400 border-b border-richblack-600 pb-2">{wishlist.length} courses in wishlist</p>
 			<div className="flex flex-col lg:flex-row gap-x-3 justify-between">
 				<div className="flex flex-col lg:w-[70%]">
