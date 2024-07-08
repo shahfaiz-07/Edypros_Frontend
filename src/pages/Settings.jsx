@@ -211,7 +211,7 @@ const Settings = () => {
 									</select>
 								</div>
 							</div>
-							<div className="flex flex-col gap-5 lg:flex-row">
+							<div className="flex flex-col gap-5">
 								<div className="flex flex-col gap-2 lg:w-[48%]">
 									<label htmlFor="contactNumber" className="text-richblack-50">
 										Contact Number
@@ -227,20 +227,21 @@ const Settings = () => {
 										disabled={localLoading}
 									/>
 								</div>
-								<div className="flex flex-col gap-2 lg:w-[48%]">
+								<div className="flex flex-col gap-2 lg:w-[100%]">
 									<label htmlFor="about" className="text-richblack-50">
 										About
 									</label>
-									<input
+									<textarea
 										defaultValue={user?.profile.about || null}
 										type="text"
 										name="about"
 										id="about"
 										placeholder="Enter Bio Details"
-										className="form-style"
+										className="form-style no-scrollbar"
 										onChange={handleOnChange}
 										disabled={localLoading}
-									/>
+										rows={6}
+									></textarea>
 								</div>
 							</div>
 						</div>

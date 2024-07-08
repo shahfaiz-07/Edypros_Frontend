@@ -31,15 +31,15 @@ const NestedView = ({ handleEditSectionName }) => {
 					<details key={section._id} className="mt-4" open>
 						<summary className="flex cursor-pointer items-center justify-between border-b-2 border-b-richblack-600 py-2">
 							<div className="flex items-center gap-x-3">
-								<i className="ri-menu-2-line text-[25px] text-richblack-50"></i>
-								<p className="font-semibold text-richblack-50">
+								<i className="ri-menu-2-line text-sm md:text-base lg:text-lg text-richblack-50"></i>
+								<p className="font-semibold text-sm md:text-base lg:text-lg text-richblack-50">
 									{section.name}
 								</p>
 							</div>
 							<div className="flex items-center gap-x-3">
 								<button>
 									<i
-										className="ri-pencil-line text-lg text-richblack-50"
+										className="ri-pencil-line md:text-lg text-richblack-50"
 										onClick={() =>
 											handleEditSectionName(section._id, section.name)
 										}
@@ -47,7 +47,7 @@ const NestedView = ({ handleEditSectionName }) => {
 								</button>
 								<button>
 									<i
-										className="ri-delete-bin-line text-lg text-richblack-50"
+										className="ri-delete-bin-line md:text-lg text-richblack-50"
 										onClick={() => {
 											setConfirmationModal({
 												text1: "Delete this Section?",
@@ -62,7 +62,7 @@ const NestedView = ({ handleEditSectionName }) => {
 									></i>
 								</button>
 								<span className="font-medium text-richblack-300">|</span>
-								<i className="ri-arrow-down-s-fill text-lg text-richblack-50"></i>
+								<i className="ri-arrow-down-s-fill text-sm md:text-lg text-richblack-50"></i>
 							</div>
 						</summary>
 						<div className="px-6 pb-4">
@@ -73,21 +73,21 @@ const NestedView = ({ handleEditSectionName }) => {
 									className="flex cursor-pointer items-center justify-between gap-x-3 border-b-2 border-b-richblack-600 py-2 z-0"
 								>
 									<div className="flex items-center gap-x-3" onClick={() => setViewVideo(video)}>
-										<i className="ri-menu-2-line text-[25px] text-richblack-50"></i>
-										<p className="font-semibold text-richblack-50">
+										<i className="ri-menu-2-line md:text-base lg:text-lg text-richblack-50"></i>
+										<p className="font-semibold text-sm md:text-base lg:text-lg text-richblack-50">
 											{video.title}
 										</p>
 									</div>
 									<div className="flex items-center gap-x-3">
 										<button>
 											<i
-												className="ri-pencil-line text-lg text-richblack-50"
+												className="ri-pencil-line md:text-lg text-richblack-50"
 												onClick={() => setEditVideo(video)}
 											></i>
 										</button>
 										<button>
 											<i
-												className="ri-delete-bin-line text-lg text-richblack-50"
+												className="ri-delete-bin-line md:text-lg text-richblack-50"
 												onClick={() => {
 													setConfirmationModal({
 														text1: "Delete this Video?",

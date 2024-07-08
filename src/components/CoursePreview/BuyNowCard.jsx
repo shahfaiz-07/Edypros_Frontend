@@ -178,7 +178,7 @@ const BuyNowCard = ({ course }) => {
 				<h3 className="text-richblack-25 font-semibold text-lg">
 					Associated Tags :
 				</h3>
-				<div className="flex gap-1 py-1">
+				<div className="flex flex-wrap gap-1 py-1">
 					{course.tags.map((tag, index) => (
 						<p
 							key={index}

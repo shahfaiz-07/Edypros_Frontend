@@ -152,7 +152,7 @@ const CourseInformationForm = () => {
 					id="courseTitle"
 					placeholder="Enter Course Title"
 					{...register("courseTitle", { required: true })}
-					className="form-style w-full"
+					className="form-style w-full text-sm"
 				/>
 				{errors.courseTitle && (
 					<span className="ml-2 text-xs tracking-wide text-pink-200">
@@ -169,7 +169,7 @@ const CourseInformationForm = () => {
 					id="courseDescription"
 					placeholder="Enter Description"
 					{...register("courseDescription", { required: true })}
-					className="form-style resize-x-none min-h-[130px] w-full"
+					className="form-style resize-x-none min-h-[130px] w-full no-scrollbar"
 				/>
 				{errors.courseDescription && (
 					<span className="ml-2 text-xs tracking-wide text-pink-200">
@@ -193,7 +193,7 @@ const CourseInformationForm = () => {
 					})}
 					className="form-style w-full !pl-12"
 				/>
-				<i className="ri-money-rupee-circle-line absolute translate-y-[50%] left-2 text-richblack-400 text-[30px]"></i>
+				<i className="ri-money-rupee-circle-line absolute translate-y-[50%] left-2 text-richblack-400 text-[25px] md:text-[30px]"></i>
 				{errors.coursePrice && (
 					<span className="ml-2 text-xs tracking-wide text-pink-200">
 						Course Price is Required**
@@ -285,9 +285,9 @@ const CourseInformationForm = () => {
 				</label>
 				<textarea
 					id="courseLearnings"
-					placeholder="Enter Learnings of the course"
+					placeholder="Enter Learnings of the course no-scrollbar"
 					{...register("courseLearnings", { required: true })}
-					className="form-style resize-x-none min-h-[130px] w-full"
+					className="form-style resize-x-none min-h-[130px] w-full no-scrollbar"
 				/>
 				{errors.courseLearnings && (
 					<span className="ml-2 text-xs tracking-wide text-pink-200">

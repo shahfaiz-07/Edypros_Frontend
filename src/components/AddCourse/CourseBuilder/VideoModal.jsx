@@ -77,7 +77,7 @@ const VideoModal = ({modalData, setModalData, add, view, edit}) => {
   return (
     <div className='fixed inset-0 z-[1000] !mt-0 grid h-screen w-screen place-items-center overflow-auto bg-white bg-opacity-10 backdrop-blur-sm'>
     <div className='my-10 w-11/12 max-w-[700px] rounded-lg border border-richblack-400 bg-richblack-800'>
-        <p className='text-white px-6 py-3 bg-richblack-600 flex justify-between'><span>{view && "Viewing"}{add && "Adding"}{edit && "Editing"} Lecture</span> <span><i className="ri-close-large-line text-richblack-300 hover:text-richblack-5 cursor-pointer" onClick={()=>setModalData(null)} disabled={localLoading}></i></span></p>
+        <p className='text-white px-6 py-3 bg-richblack-600 flex justify-between rounded-t-lg'><span>{view && "Viewing"}{add && "Adding"}{edit && "Editing"} Lecture</span> <span><i className="ri-close-large-line text-richblack-300 hover:text-richblack-5 cursor-pointer" onClick={()=>setModalData(null)} disabled={localLoading}></i></span></p>
       <form className='space-y-8 p-6' onSubmit={handleSubmit(onSubmit)}>
         <Upload 
         name="videoUrl"
@@ -112,7 +112,7 @@ const VideoModal = ({modalData, setModalData, add, view, edit}) => {
                 id='videoDescription'
                 placeholder='Enter Lecture Description'
                 {...register("videoDescription", {required:true})}
-                className='form-style resize-x-none min-h-[130px] w-full'
+                className='form-style resize-x-none min-h-[130px] w-full no-scrollbar'
                 />
             {
                 errors.videoDescription && (<span className='ml-2 text-xs tracking-wide text-pink-200'>

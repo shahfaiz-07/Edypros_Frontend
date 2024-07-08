@@ -24,7 +24,7 @@ const MyCourses = () => {
 		<Spinner />
 	) : (
 		<div className="mx-auto lg:w-11/12 py-10 h-full flex-col font-inter">
-            <h1 className="text-3xl font-medium text-richblack-5 flex justify-between">
+            <h1 className="text-3xl font-medium text-richblack-5 flex flex-col-reverse md:flex-row gap-y-2 justify-between">
                 <p>My Courses</p>
                 <IconButton text="Add Course" bgColor={"bg-yellow-50"} icon={"ri-add-circle-line"} textColor={"text-black"} action={()=>navigate("/dashboard/add-course")}/>
 			</h1>

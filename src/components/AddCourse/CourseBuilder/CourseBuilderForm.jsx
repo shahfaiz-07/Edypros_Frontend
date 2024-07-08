@@ -92,7 +92,7 @@ const CourseBuilderForm = () => {
             dispatch(setEditCourse(true));
             dispatch(setStep(1));
           }}
-          className="flex cursor-pointer items-center gap-x-2 rounded-md bg-richblack-300 py-[8px] px-[20px] font-semibold text-richblack-900"
+          className="flex cursor-pointer items-center gap-x-2 text-sm md:text-base rounded bg-richblack-300 py-1 md:py-2 px-3 md:px-5 font-semibold text-richblack-900"
         >
           Back
         </button>
@@ -110,7 +110,7 @@ const CourseBuilderForm = () => {
               return dispatch(setStep(3))
             }
           }}
-          className="flex items-center bg-yellow-50 cursor-pointer gap-x-2 rounded-md py-2 px-5 font-semibold text-richblack-900 undefined"
+          className="flex items-center bg-yellow-50 cursor-pointer gap-x-2 text-sm md:text-base rounded md:rounded-md py-1 md:py-2 px-3 md:px-5 font-semibold text-richblack-900 undefined"
         >
           <span className="false">Next</span>
           <svg

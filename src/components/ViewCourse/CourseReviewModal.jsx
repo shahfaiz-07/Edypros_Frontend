@@ -104,7 +104,7 @@ const CourseReviewModal = ({ setModalData }) => {
 						id=""
 						cols="30"
 						rows="5"
-						className="form-style"
+						className="form-style no-scrollbar"
 						placeholder="Share Your Experience..."
 						disabled={localLoading}
             {...register("userReview", {required: true})}

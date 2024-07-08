@@ -18,7 +18,7 @@ export const getAllCategorys = async () => {
 export const getCategoryPageDetails = async (dispatch, categoryId) => {
     dispatch(setLoading(true))
     // const toastId = toast.loading("Loading...")
-    let result = []
+    let result = {}
     try {
         const response = await apiConnector("GET", `${categories.GET_CATEGORY_PAGE_API}/${categoryId}`);
 

@@ -149,7 +149,7 @@ const ContactUsForm = () => {
 						cols="30"
 						rows="7"
 						placeholder="Enter your message here"
-						className="form-style"
+						className="form-style no-scrollbar"
 						{...register("message", { required: true })}
 					/>
 					{errors.message && (

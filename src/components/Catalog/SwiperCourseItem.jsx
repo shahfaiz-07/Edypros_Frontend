@@ -16,7 +16,7 @@ const SwiperCourseItem = ({course}) => {
 				className="h-56 aspect-[2/1] object-cover rounded-t-md"
 			/>
 			<div className="px-3 mt-1">
-				<h1 className="text-white text-ellipsis text-nowrap overflow-hidden-lg text-xl font-semibold">{course.name}</h1>
+				<h1 className="text-white text-ellipsis text-nowrap overflow-hidden text-base md:text-lg lg:text-xl font-semibold">{course.name}</h1>
 				<p className="text-xs font-semibold text-richblack-500 leading-none">
 					By Prof. {course?.instructor.firstName} {course.instructor.lastName}
 				</p>

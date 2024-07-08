@@ -172,7 +172,7 @@ export const changeCourseStatus = async(dispatch, formData, token, navigate) => 
         // console.log("COURSE STATUS UPDATE API RESPONSE.......", response);
 
         if (!response?.data?.success) {
-            throw new Error("Could Not Update Lecture");
+            throw new Error("Could Not Update Course Status");
         }
     
         dispatch(setCourse(response.data.data))

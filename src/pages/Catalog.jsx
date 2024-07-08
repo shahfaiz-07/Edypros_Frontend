@@ -43,7 +43,14 @@ const Catalog = () => {
                     </div>
 				</div>
                 <div className="w-11/12 max-w-maxContent flex flex-col mx-auto">
-                    <div className="py-3 md:px-6">
+                    {
+                        courses.length === 0
+                        ?
+                        <div>
+                            <h1 className="text-richblack-5 text-lg">No Courses in this Category yet.</h1>
+                        </div>
+                        :
+                        <div className="py-3 md:px-6">
                         <h2 className="text-white text-xl font-semibold mb-2">Courses to get you started</h2>
                         <div className="border-b border-richblack-500 my-2 flex text-white text-sm text-center">
                             <p onClick={()=>setShowNewCourses(false)} className={`py-2 w-1/2 md:w-40 cursor-pointer ${showNewCourses ? "" : "text-yellow-50 bg-yellow-50 bg-opacity-20"}`}>Most Popular</p>
@@ -51,6 +58,7 @@ const Catalog = () => {
                         </div>
                         <CourseSlider courses={(showNewCourses) ? newCourses : courses} autoplay={false}/>
                     </div>
+                    }
                     <div className="py-3 md:px-6">
                         <h2 className="text-white text-xl font-semibold border-b border-richblack-500 pb-1">Top Courses in {otherCategory}</h2>
                         <CourseSlider courses={otherCategoryCourses} autoplay={false}/>
