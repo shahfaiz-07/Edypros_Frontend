@@ -7,7 +7,7 @@ const WishlistItem = ({ wishlistData, handleRemoveFromWishlist }) => {
 	const navigate = useNavigate();
 	const averageRating = calculateAverageCourseRating(wishlistData)
 	return (
-		<div className="flex flex-col md:flex-row justify-between gap-x-3 px-3 py-5 border-b border-richblack-500 hover:bg-richblack-800 hover:bg-opacity-50">
+		<div className="flex flex-col md:flex-row justify-between gap-x-3 px-3 py-5 border-b border-richblack-500 hover:bg-richblack-800 hover:bg-opacity-50 w-full">
 			<img
 				src={wishlistData.thumbnail}
 				alt=""
@@ -17,7 +17,7 @@ const WishlistItem = ({ wishlistData, handleRemoveFromWishlist }) => {
 				<div className="flex flex-col gap-y-1 justify-between ">
 					<div>
 						<h2
-							className="text-white text-lg md:text-md mt-1 text-ellipsis cursor-pointer hover:underline"
+							className="text-white text-lg md:text-md mt-1 text-ellipsis overflow-hidden whitespace-nowrap cursor-pointer hover:underline"
 							onClick={() => navigate(`/course/${wishlistData._id}`)}
 						>
 							{wishlistData.name}
@@ -27,8 +27,8 @@ const WishlistItem = ({ wishlistData, handleRemoveFromWishlist }) => {
 							{wishlistData.instructor.lastName}
 						</p>
 					</div>
-					<p className="text-ellipsis overflow-hidden text-richblack-400 text-sm">
-						{wishlistData.description.slice(0, 70)} {wishlistData.description.length > 70 && "..."}
+					<p className="text-ellipsis overflow-hidden whitespace-nowrap text-richblack-400 text-sm">
+						{wishlistData.description}
 					</p>
 					<div
 						className="text-xs px-2 py-1 font-semibold w-fit bg-richblack-700 rounded-full cursor-pointer"

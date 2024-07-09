@@ -46,7 +46,7 @@ const ViewCourse = () => {
       <div className='flex gap-x-2 justify-between px-5 py-1 items-center border-b border-richblack-500'>
         <img src={logo} className='h-9 pr-5 border-r border-richblack-500 hidden md:block' alt="" />
       <h1 className=' text-richblack-5 text-xl md:text-2xl py-3 text-center '>{courseData.name}</h1>
-      <button className='px-2 py-1 border text-white text-md' onClick={ () => {
+      <button className='px-2 py-1 border text-white text-md whitespace-nowrap' onClick={ () => {
 				window.navigator.clipboard.writeText(`https://edypros-frontend.vercel.app/course/${courseId}`)
 				toast.success("Link copied to clipboard")
 			}}>Share <i className="ri-share-forward-fill"></i></button>

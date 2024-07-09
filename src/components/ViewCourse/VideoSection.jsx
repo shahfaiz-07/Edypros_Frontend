@@ -15,24 +15,27 @@ const VideoSection = () => {
 	);
 
 	const [videoEnded, setVideoEnded] = useState(false);
-	const [pip, setPip] = useState(false)
+	const [pip, setPip] = useState(false);
 	const { courseId, sectionId, videoId } = useParams();
-	const { token } = useSelector(state => state.auth)
+	const { token } = useSelector((state) => state.auth);
 	const dispatch = useDispatch();
 	const navigate = useNavigate();
 	const location = useLocation();
 	const playerRef = useRef(null);
-	const [reviews, setReviews] = useState([])
-	const [averageRating, setAverageRating] = useState(0)
-	const [localLoading, setLocalLoading] = useState(false)
+	const [reviews, setReviews] = useState([]);
+	const [averageRating, setAverageRating] = useState(0);
+	const [localLoading, setLocalLoading] = useState(false);
 
 	const fetchCourseReviews = async () => {
 		const response = await getCourseRatings(courseId);
-		setReviews(response)
-		let total = 0
-		total = response.reduce( (acc, review) => acc + Number(review.rating)/response.length, 0);
-		setAverageRating(total)
-	}
+		setReviews(response);
+		let total = 0;
+		total = response.reduce(
+			(acc, review) => acc + Number(review.rating) / response.length,
+			0
+		);
+		setAverageRating(total);
+	};
 
 	const findCurrentIndices = () => {
 		const currentSectionIndex = courseData.sections.findIndex(
@@ -104,23 +107,23 @@ const VideoSection = () => {
 		navigate(`/view-course/${courseData._id}/${sectionID}/${videoID}`);
 	};
 	const handleMarkComplete = async () => {
-		setLocalLoading(true)
-		await markAsComplete(dispatch, {courseId, videoId}, token)
-		setLocalLoading(false)
-	}
+		setLocalLoading(true);
+		await markAsComplete(dispatch, { courseId, videoId }, token);
+		setLocalLoading(false);
+	};
 
 	const handleReplay = () => {
-		playerRef.current.seekTo(0, "sections")
-		setVideoEnded(false)
-	}
+		playerRef.current.seekTo(0, "sections");
+		setVideoEnded(false);
+	};
 
 	const togglePip = () => {
-		setPip( (prev) => !prev)
-	}
+		setPip((prev) => !prev);
+	};
 
 	useEffect(() => {
 		setVideoEnded(false);
-	}, [currentVideo])
+	}, [currentVideo]);
 	useEffect(() => {
 		const _section = courseData.sections.filter(
 			(section) => section._id.toString() === sectionId
@@ -130,42 +133,59 @@ const VideoSection = () => {
 		);
 
 		dispatch(setCurrentVideo(_video[0]));
-		fetchCourseReviews()
+		fetchCourseReviews();
 	}, [location.pathname]);
 
 	return (
 		<div className="w-11/12 mx-auto text-richblack-5 space-y-1">
-			<div className="aspect-video w-full relative group">
+			<div className="w-full relative group">
 				<ReactPlayer
 					url={currentVideo.url}
 					ref={playerRef}
 					pip={pip}
-					width="100%"
+					width={"100%"}
 					height={"100%"}
-					className="react-player"
-					onEnded={() => {setVideoEnded(true)}}
+					className="react-player object-fill"
+					onEnded={() => {
+						setVideoEnded(true);
+					}}
 					controls
 				/>
 				{
-					<button className="absolute top-0 left-0 text-richblack-5 w-10 h-10 aspect-square grid place-content-center bg-richblack-800 text-xl" onClick={togglePip}>
-						{ pip ? <i className="ri-picture-in-picture-exit-line "></i> : <i className="ri-picture-in-picture-2-line"></i>}
+					<button
+						className="absolute top-0 left-0 text-richblack-5 w-10 h-10 aspect-square grid place-content-center bg-richblack-800 text-xl"
+						onClick={togglePip}
+					>
+						{pip ? (
+							<i className="ri-picture-in-picture-exit-line "></i>
+						) : (
+							<i className="ri-picture-in-picture-2-line"></i>
+						)}
 					</button>
 				}
-				{
-					completedLectures.includes(currentVideo._id) && <p className="text-xs bg-caribbeangreen-400 text-richblack-5 absolute top-0 right-0 mt-2 mr-2 md:mt-5 md:mr-5 px-2 py-1 rounded-full font-semibold">Lecture Completed <i className="ri-checkbox-circle-fill font-light"></i></p>
-				}
+				{completedLectures.includes(currentVideo._id) && (
+					<p className="text-xs bg-caribbeangreen-400 text-richblack-5 absolute top-0 right-0 mt-2 mr-2 md:mt-5 md:mr-5 px-2 py-1 rounded-full font-semibold">
+						Lecture Completed{" "}
+						<i className="ri-checkbox-circle-fill font-light"></i>
+					</p>
+				)}
 				{videoEnded && (
 					<div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 flex flex-col gap-y-2 items-center">
-						{
-						!completedLectures.includes(currentVideo._id) && <button
-							className="bg-yellow-50 px-3 py-2 rounded  text-black font-semibold text-sm"
-							onClick={handleMarkComplete}
-							disabled={localLoading}
+						{!completedLectures.includes(currentVideo._id) && (
+							<button
+								className="bg-yellow-50 px-3 py-2 rounded  text-black font-semibold text-sm"
+								onClick={handleMarkComplete}
+								disabled={localLoading}
+							>
+								Mark As Complete <i className="ri-checkbox-circle-fill"></i>
+							</button>
+						)}
+						<button
+							className="px-3 py-2 rounded bg-richblack-700 font-semibold text-sm w-fit"
+							onClick={handleReplay}
 						>
-							Mark As Complete <i className="ri-checkbox-circle-fill"></i>
+							<i className="ri-play-reverse-large-fill"></i> Replay
 						</button>
-						}
-						<button className="px-3 py-2 rounded bg-richblack-700 font-semibold text-sm w-fit" onClick={handleReplay}><i className="ri-play-reverse-large-fill"></i> Replay</button>
 					</div>
 				)}
 			</div>
@@ -191,45 +211,67 @@ const VideoSection = () => {
 					)}
 				</div>
 			</div>
-			<h2 className="text-2xl md:text-3xl lg:text-4xl px-3 mt-5">{currentVideo?.title}</h2>
+			<h2 className="text-2xl md:text-3xl lg:text-4xl px-3 mt-5">
+				{currentVideo?.title}
+			</h2>
 			<p className="text-lg px-3  text-richblack-300">
 				{currentVideo?.description}
 			</p>
 			<div className="flex items-center gap-x-7 px-3 py-5">
 				<div className="flex flex-col items-center">
-				<div className="flex items-center gap-x-1 text-sm font-semibold">
-					{averageRating}{" "}<ReactStars
-								count={5}
-								value={averageRating}
-								size={14}
-								edit={false}
-								color2={"#ffd700"}
-							/> 
-				</div>
-						<p className="text-xs text-richblack-200">{reviews.length} ratings</p>
+					<div className="flex items-center gap-x-1 text-sm font-semibold">
+						{averageRating}{" "}
+						<ReactStars
+							count={5}
+							value={averageRating}
+							size={14}
+							edit={false}
+							color2={"#ffd700"}
+						/>
+					</div>
+					<p className="text-xs text-richblack-200">{reviews.length} ratings</p>
 				</div>
 				<div className="flex flex-col items-center">
-					<h4 className="text-sm font-semibold text-richblack-5">{courseData.studentsEnrolled.length}</h4>
+					<h4 className="text-sm font-semibold text-richblack-5">
+						{courseData.studentsEnrolled.length}
+					</h4>
 					<p className="text-xs text-richblack-200">Students</p>
 				</div>
 			</div>
-			<div className="text-sm text-richblack-50 font-semibold flex gap-x-2 items-center px-3 pb-2"><i className="ri-hourglass-2-fill text-brown-500"></i> Last Updated : {moment(courseData.updatedAt).format("MMMM YYYY")}</div>
-			<div className="text-md text-richblack-50 font-semibold flex gap-x-2 pb-5 px-3">
-			<i className="ri-global-line"></i>{" "}{courseData?.language}
+			<div className="text-sm text-richblack-50 font-semibold flex gap-x-2 items-center px-3 pb-2">
+				<i className="ri-hourglass-2-fill text-brown-500"></i> Last Updated :{" "}
+				{moment(courseData.updatedAt).format("MMMM YYYY")}
 			</div>
-			<h2 className="text-2xl md:text-3xl px-3 mt-10 text-richblack-25 font-semibold pb-2">Instructor</h2>
-			<div className="flex gap-x-3 px-3">
-				<img src={courseData.instructor.avatar} className="w-12 h-12 aspect-square rounded-full object-cover" alt="" />
-				<div className="flex flex-col justify-between">
-					<h3 className="text-richblack-50 font-semibold">{courseData.instructor?.firstName} {courseData.instructor?.lastName}</h3>
-					<p className="text-sm text-richblack-200">Joined : {moment(courseData.instructor?.createdAt).format("MMMM Do YYYY")}</p>
-					{
-						courseData.instructor?.profile?.about && (
-							<div className="text-sm px-3 text-richblack-100 text-justify">
+			<div className="text-md text-richblack-50 font-semibold flex gap-x-2 pb-5 px-3">
+				<i className="ri-global-line"></i> {courseData?.language}
+			</div>
+			<h2 className="text-2xl md:text-3xl px-3 mt-10 text-richblack-25 font-semibold pb-2">
+				Instructor
+			</h2>
+			<div className="flex flex-col gap-y-2">
+				<div className="flex gap-x-3 px-3">
+					<img
+						src={courseData.instructor.avatar}
+						className="w-12 h-12 aspect-square rounded-full object-cover"
+						alt=""
+					/>
+					<div className="flex flex-col justify-between">
+						<h3 className="text-richblack-50 font-semibold">
+							{courseData.instructor?.firstName}{" "}
+							{courseData.instructor?.lastName}
+						</h3>
+						<p className="text-sm text-richblack-200">
+							Joined :{" "}
+							{moment(courseData.instructor?.createdAt).format("MMMM Do YYYY")}
+						</p>
+					</div>
+				</div>
+				<div>
+					{courseData.instructor?.profile?.about && (
+						<div className="text-sm px-3 text-richblack-100 text-justify">
 							{courseData.instructor?.profile?.about}
-							</div>
-						)
-					}
+						</div>
+					)}
 				</div>
 			</div>
 			<div className="bg-richblack-900 w-full mx-auto">
