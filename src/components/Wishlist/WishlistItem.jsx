@@ -13,8 +13,8 @@ const WishlistItem = ({ wishlistData, handleRemoveFromWishlist }) => {
 				alt=""
 				className="aspect-[5/3] md:h-36 rounded object-cover"
 			/>
-			<div className="flex flex-col md:flex-row w-full justify-between">
-				<div className="flex flex-col gap-y-1 justify-between ">
+			<div className="flex flex-col md:flex-row w-full justify-between whitespace-nowrap overflow-hidden text-ellipsis">
+				<div className="flex flex-col gap-y-1 justify-between whitespace-nowrap overflow-hidden text-ellipsis">
 					<div>
 						<h2
 							className="text-white text-lg md:text-md mt-1 text-ellipsis overflow-hidden whitespace-nowrap cursor-pointer hover:underline"

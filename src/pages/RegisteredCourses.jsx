@@ -53,14 +53,14 @@ const RegisteredCourses = () => {
                     <div key={course._id} className='px-3 py-4 flex lg:border-b border-richblack-500 rounded-lg lg:rounded-none bg-richblack-800 lg:bg-richblack-900 hover:bg-opacity-40'>
     <div className='lg:w-[55%] flex flex-col lg:flex-row gap-3 w-full'>
         <img src={course.courseId.thumbnail} alt="" className='aspect-[5/3] lg:h-32 w-full lg:w-auto object-cover rounded' />
-        <div className='flex flex-col h-full justify-between'>
+        <div className='flex flex-col h-full justify-between whitespace-nowrap overflow-hidden text-ellipsis'>
             <div className='w-full'>
                 <h2 className='text-richblack-5 whitespace-nowrap overflow-hidden text-ellipsis hover:underline cursor-pointer' onClick={() => navigate(`/view-course/${course.courseId._id}/${course.courseId.sections[0]._id}/${course.courseId.sections[0].videos[0]._id}`)}>
                     {course.courseId.name}
                 </h2>
                 <h4 className='text-xs text-richblack-400'>By Prof. {course.courseId.instructor.firstName} {course.courseId.instructor.lastName}</h4>
             </div>
-            <div className='mt-1 space-y-1 lg:space-y-2'>
+            <div className='mt-1 space-y-1 lg:space-y-2 w-full'>
                 <p className='text-[#838894] text-xs text-ellipsis whitespace-nowrap overflow-hidden'>{course.courseId.description}</p>
                 <p className='py-1 px-2 bg-richblack-700 rounded-full text-xs w-fit font-semibold hover:underline cursor-pointer' style={{color: `#${course.courseId.category.color}`}} onClick={() => navigate(`/catalog/${course.courseId.category._id}`)}>{course.courseId.category.title}</p>
                 <div className='lg:hidden flex-col justify-center'>
