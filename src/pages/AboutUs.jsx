@@ -5,8 +5,6 @@ import BannerImage3 from "../assets/Images/aboutus3.webp";
 import FoundingStory from "../assets/Images/FoundingStory.png";
 import Learning from "./../components/About/Learning";
 import ContactForm from "../components/About/ContactForm";
-import ReviewSlider from "../components/common/ReviewSlider/ReviewSlider";
-import { getTopRatings } from "../services/operations/ratingsAndReviewsAPI";
 
 const AboutUs = () => {
 	const stats = [
@@ -15,14 +13,6 @@ const AboutUs = () => {
 		{ count: "200+", label: "Courses" },
 		{ count: "50+", label: "Awards" },
 	];
-	const [reviews, setReviews] = useState([]);
-	const fetchCourseTopReviews = async () => {
-		const response = await getTopRatings();
-		setReviews(response);
-	};
-	useEffect(() => {
-		fetchCourseTopReviews();
-	}, []);
 	return (
 		<div className="mx-auto text-white">
 			<section className="bg-richblack-700">
